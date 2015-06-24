@@ -1,0 +1,11 @@
+allow mediaserver graphics_device:dir search;
+allow mediaserver device:sock_file write;
+allow mediaserver init_shell:unix_stream_socket connectto;
+allow mediaserver hwcbinder:binder { transfer call };
+allow mediaserver nxserver:unix_stream_socket connectto;
+allow mediaserver nxserver:binder call;
+allow mediaserver nexus_data_file:dir { search read };
+allow mediaserver nexus_data_file:file { read open getattr };
+allow mediaserver readonlyfs:file { read open getattr };
+allow mediaserver readonlyfs:dir search;
+allow mediaserver self:netlink_kobject_uevent_socket { create bind read };

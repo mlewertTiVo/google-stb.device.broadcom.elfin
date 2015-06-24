@@ -1,0 +1,6 @@
+allow system_app device:sock_file write;
+allow system_app nxserver:binder call;
+allow system_app nxserver:unix_stream_socket connectto;
+allow system_app cache_file:dir { write add_name create remove_name };
+allow system_app cache_file:file { create write open };
+

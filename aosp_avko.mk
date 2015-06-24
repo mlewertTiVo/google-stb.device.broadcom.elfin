@@ -1,32 +1,21 @@
-# copyright 2015 - broadcom canada ltd.
 #
-# warning: auto-generated module, edit at your own risks...
+# Copyright 2015 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 
-# this configuration is for device avko
-
-# start of refsw gathered configuration
-
-
-export NEXUS_PLATFORM=97439
-export BCHP_VER=B0
-export NEXUS_USE_7439_SFF=y
-export PLATFORM=97439
-
-# end of refsw gathered config...
-
-include device/broadcom/custom/97439B0SFF/root/pre_settings.mk
-include device/broadcom/custom/97439B0SFF/SFFE/pre_settings.mk
-
-# setup inheritance policy.
 export LOCAL_RUN_TARGET := aosp
-
-include device/broadcom/bcm_platform/bcm_platform.mk
-include device/broadcom/custom/97439B0SFF/root/settings.mk
-
-# SPOOF setting tweaks...
-export LOCAL_DEVICE_KERNEL_CMDLINE := mem=768M@0x00000000 mem=512M@0x80000000 vmalloc=560M
-export ANDROID_PRODUCT_OUT := avko
+include device/google/avko/device.mk
 
 PRODUCT_NAME := aosp_avko
 PRODUCT_DEVICE := avko
