@@ -205,6 +205,7 @@ PRODUCT_PACKAGES += \
 ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
 PRODUCT_PACKAGES += \
     audio.primary.bcm_platform \
+    audio.usb.default \
     audio.r_submix.default \
     libaudiopolicymanagerdefault \
     libaudiopolicymanager \
