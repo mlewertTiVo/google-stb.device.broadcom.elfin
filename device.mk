@@ -6,6 +6,7 @@ ifneq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
 endif
 
 ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE), true)
+export B_NEXUS_API_BUILD_COMPLETED := y
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/google/avko-kernel/vmlinuz-7439b0-android
 else
@@ -14,6 +15,7 @@ endif
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
+
 endif
 
 # standard target - based on the standard google atv device if present,
@@ -64,7 +66,18 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.nx.boot.mode=dynheap
 
 TARGET_CPU_SMP := true
-BCM_USE_LINUXFB := false
+
+ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE), true)
+PRODUCT_COPY_FILES += \
+    device/google/avko-kernel/drivers/nexus.ko:system/vendor/drivers/nexus.ko \
+    device/google/avko-kernel/drivers/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
+    device/google/avko-kernel/drivers/wakeup_drv.ko:system/vendor/drivers/wakeup_drv.ko
+else
+PRODUCT_COPY_FILES += \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko:system/vendor/drivers/nexus.ko \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/wakeup_drv.ko:system/vendor/drivers/wakeup_drv.ko
+endif
 
 PRODUCT_COPY_FILES += \
     device/google/avko/init.blockdev.rc:root/init.blockdev.rc \
@@ -84,9 +97,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.software.live_tv.xml:system/etc/permissions/android.software.live_tv.xml \
     frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko:system/vendor/drivers/nexus.ko \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/wakeup_drv.ko:system/vendor/drivers/wakeup_drv.ko \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libpower/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
