@@ -1,4 +1,4 @@
-KERNEL_SRC_DIR ?= kernel/private/97xxx-bcm/linux
+KERNEL_SRC_DIR ?= kernel/private/bcm-97xxx/linux
 ifneq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
   ifeq ($(TARGET_PREBUILT_KERNEL),)
     TARGET_KERNEL_BUILT_FROM_SOURCE := true
