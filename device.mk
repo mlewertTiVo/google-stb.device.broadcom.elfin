@@ -219,6 +219,7 @@ PRODUCT_PACKAGES += \
     audio.primary.bcm_platform \
     audio.usb.default \
     audio.r_submix.default \
+    audio.atvr.default \
     libaudiopolicymanagerdefault \
     libaudiopolicymanager \
     BcmAdjustScreenOffset \
