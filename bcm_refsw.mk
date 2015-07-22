@@ -163,27 +163,21 @@ endif
 
 BRCM_GADGET_PATH   := ${BRCM_NEXUS_INSTALL_PATH}/brcm_gadget
 
-LIBS_BUILT_IN_ANDROID :=  \
+NEXUS_DEPS := \
 	${PRODUCT_OUT}/obj/lib/libcutils.so \
 	${PRODUCT_OUT}/obj/lib/crtbegin_dynamic.o \
-	${PRODUCT_OUT}/obj/lib/crtend_android.o
+	${PRODUCT_OUT}/obj/lib/crtend_android.o \
+	mkbootimg
 
 V3D_ANDROID_DEFINES := -I$(ANDROID_TOP)/${BCM_VENDOR_STB_ROOT}/drivers/nx_ashmem
 V3D_ANDROID_DEFINES += $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
 V3D_ANDROID_DEFINES += $(addprefix -D,$(NEXUS_APP_DEFINES))
 V3D_ANDROID_DEFINES += -I${NEXUS_TOP}/nxclient/include
 
-.PHONY: refsw android_nexus nexus_build build_kernel build_bolt build_android_bsu
-.PHONY: brcm_dhd_driver v3d_driver gpumon_hook clean_gpumon_hook
-.PHONY: clean_brcm_dhd_driver clean_nexus clean_nexuseglclient clean_v3d_driver clean_kernel clean_bolt clean_android_bsu
-
-refsw: android_nexus build_android_bsu
-
-nexus_deps: build_kernel \
-	$(LIBS_BUILT_IN_ANDROID) \
-	mkbootimg
-
-nexus_build: nexus_deps
+.PHONY: nexus_build
+# also invoke: build_android_bsu
+nexus_build: build_kernel $(NEXUS_DEPS) build_android_bsu
+	@echo "'$@' started"
 	@if [ ! -d "${NEXUS_BIN_DIR}" ]; then \
 		mkdir -p ${NEXUS_BIN_DIR}; \
 	fi
@@ -200,8 +194,11 @@ ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/build install_sage
 endif
 	cp -rfp ${NEXUS_BIN_DIR} ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus
+	@echo "'$@' completed"
 
+.PHONY: brcm_dhd_driver
 brcm_dhd_driver: build_kernel
+	@echo "'$@' started"
 ifeq ($(ANDROID_ENABLE_DHD), y)
 ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	@if [ ${BROADCOM_WIFI_CHIPSET} = "43242a1" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43569a0" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43569a2" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43570a0" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43570a2" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43602a1" ]; then \
@@ -264,11 +261,11 @@ endif
 else
 	@echo "ANDROID_ENABLE_DHD is not defined"
 endif
+	@echo "'$@' completed"
 
-nexuseglclient: nexus_build
-	@$(MAKE) libnexuseglclient
-
-gpumon_hook: nexuseglclient
+.PHONY: gpumon_hook
+gpumon_hook: libnexuseglclient
+	@echo "'$@' started"
 	@if [ -e $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/gpumon_hook/gpumon_hook.cpp ]; then \
 		$(MAKE) $(MAKE_OPTIONS) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/gpumon_hook -f Android.make \
 		ROOT=$(ANDROID_TOP) \
@@ -283,8 +280,12 @@ gpumon_hook: nexuseglclient
 		mkdir -p ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin && \
 		cp -fp $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM)/libgpumon_hook.so ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin; \
 	fi
+	@echo "'$@' completed"
 
-v3d_driver: nexuseglclient gpumon_hook
+.PHONY: v3d_driver
+# also invoke: gpumon_hook
+v3d_driver: libnexuseglclient gpumon_hook
+	@echo "'$@' started"
 	$(MAKE) $(MAKE_OPTIONS) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/driver -f GLES_nexus.mk \
 		ANDROID_ICS=$(ANDROID_ICS) \
 		GRALLOC=${BRCM_NEXUS_INSTALL_PATH}/libgralloc \
@@ -296,12 +297,16 @@ v3d_driver: nexuseglclient gpumon_hook
 		V3D_EXTRA_CFLAGS='$(V3D_ANDROID_DEFINES)'
 	mkdir -p ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
 	cp -fp $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM)/libGLES_nexus.so ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
+	@echo "'$@' completed"
 
+# the target which invokes the "v3d_driver" rule
+${BCM_VENDOR_STB_ROOT}/bcm_platform/libGLES_nexus/bin/libGLES_nexus.so: v3d_driver
+	@echo "'v3d_driver' target: $@"
 
-android_nexus: v3d_driver brcm_dhd_driver
-
+.PHONY: clean_drivers
 clean_drivers: clean_brcm_dhd_driver
 
+.PHONY: clean_kernel
 clean_kernel: clean_drivers
 ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) -C $(KERNEL_DIR) distclean
@@ -309,9 +314,11 @@ ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 endif
 	rm -f $(PRODUCT_OUT_FROM_TOP)/kernel
 
+.PHONY: build_kernel
 AUTOCONF := $(LINUX)/include/generated/autoconf.h
 build_kernel:
 ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
+	@echo "'$@' started"
 	@if [ ! -f "$(LINUX)/patch/android.patch" ]; then \
 		mkdir -p "$(LINUX)/patch" && touch "$(LINUX)/patch/android.patch"; \
 	fi
@@ -327,28 +334,38 @@ ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 		rm -f $(AUTOCONF)_refsw; \
 	fi
 	cp -pv $(KERNEL_DIR)/images/vmlinuz-$(BCHP_CHIP)$(BCHP_VER_LOWER_LINUX_OVERRIDE)-android $(PRODUCT_OUT_FROM_TOP)/kernel
+	@echo "'$@' completed"
 else
 	@echo "Using prebuilt kernel image..."
 endif
 
+.PHONY: clean_bolt
 clean_bolt: clean_android_bsu
 	$(MAKE) -C $(BOLT_DIR) distclean
 	rm -f $(PRODUCT_OUT_FROM_TOP)/bolt-ba.bin
 	rm -f $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin
 
+.PHONY: build_bolt
 build_bolt:
+	@echo "'$@' started"
 	-$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER)
 	cp -pv $(BOLT_DIR)/objs/$(BCHP_CHIP)$(BCHP_VER_LOWER)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba.bin || :
 	cp -pv $(BOLT_DIR)/objs/$(BCHP_CHIP)$(BCHP_VER_LOWER)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin || :
+	@echo "'$@' completed"
 
+.PHONY: clean_android_bsu
 clean_android_bsu:
 	$(MAKE) -C $(ANDROID_BSU_DIR) distclean
 	rm -f $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf
 
+.PHONY: build_android_bsu
 build_android_bsu: build_bolt
+	@echo "'$@' started"
 	-$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER)
 	cp -pv $(ANDROID_BSU_DIR)/objs/$(BCHP_CHIP)$(BCHP_VER_LOWER)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
+	@echo "'$@' completed"
 
+.PHONY: clean_brcm_dhd_driver
 clean_brcm_dhd_driver:
 ifeq ($(ANDROID_ENABLE_DHD), y)
 ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
@@ -378,6 +395,7 @@ else
 	@echo "no clean on bcmdhd as ANDROID_ENABLE_DHD is not defined"
 endif
 
+.PHONY: clean_nexus
 clean_nexus:
 ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
@@ -389,9 +407,7 @@ else
 	rm -rf ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus/bin
 endif
 
-clean_nexuseglclient:
-	@$(MAKE) clean-libnexuseglclient
-
+.PHONY: clean_gpumon_hook
 clean_gpumon_hook:
 	@if [ -e $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/gpumon_hook/gpumon_hook.cpp ]; then \
 		$(MAKE) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/gpumon_hook -f Android.make \
@@ -402,7 +418,9 @@ clean_gpumon_hook:
 		rm -f ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin/libgpumon_hook.so; \
 	fi
 
-clean_v3d_driver: clean_nexuseglclient clean_gpumon_hook
+.PHONY: clean_v3d_driver
+#also invoke: clean_gpumon_hook
+clean_v3d_driver: clean_gpumon_hook
 	@echo "================ CLEAN V3D"
 	$(MAKE) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/driver -f GLES_nexus.mk \
 		OBJDIR=$(B_REFSW_OBJ_ROOT)/v3d_obj_$(NEXUS_PLATFORM) \
@@ -412,7 +430,8 @@ clean_v3d_driver: clean_nexuseglclient clean_gpumon_hook
 	rmdir $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM) || :
 	rm -rf ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
 
-clean_refsw: clean_nexus clean_v3d_driver clean_gpumon_hook clean_kernel clean_bolt
+.PHONY: clean_refsw
+clean_refsw: clean_nexus clean_v3d_driver clean_kernel clean_bolt
 	@echo "================ MAKE CLEAN"
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/refsw/
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
@@ -426,21 +445,13 @@ REFSW_BUILD_TARGETS += \
 	${PRODUCT_OUT}/kernel \
 	${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko
 
-ifneq ($(MAKECMDGOALS),libnexuseglclient)
-.PHONY: refsw_build
-refsw_build : $(LIBS_BUILT_IN_ANDROID)
-	@echo "'refsw_build' started"
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/root/system/*
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/root/sbin/nxmini
-	$(MAKE) refsw
-	@echo "'refsw_build' completed"
+$(REFSW_BUILD_TARGETS) : nexus_build
+	@echo "'nexus_build' target: $@"
 
-$(REFSW_BUILD_TARGETS) : refsw_build
-	@echo "'refsw_build' target: $@"
-else
-$(REFSW_BUILD_TARGETS) :
-	@echo "MISSING prerequisite target: $@" && false
-endif
+# for backwards compatibilty only!
+.PHONY: refsw refsw_build
+refsw: v3d_driver brcm_dhd_driver
+refsw_build: v3d_driver brcm_dhd_driver
 
 # standalone rules to clean/build the security libs from source, this assumes you have
 # an environment allowing you to do that, otherwise do not bother.
@@ -464,6 +475,7 @@ clean_security_user :
 # build all the needed libs and 'install' them in the ndk-like environment for android pick up.
 #
 security_user :
+	@echo "'$@' started"
 	$(MAKE) $(MAKE_OPTIONS) -C $(REFSW_BASE_DIR)/secsrcs/common_drm all
 	cp -p $(REFSW_BASE_DIR)/secsrcs/common_drm/libcmndrm.so $(ANDROID_LINKER_SYSROOT)/usr/lib/libcmndrm.so
 	$(MAKE) $(MAKE_OPTIONS) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source all
@@ -473,4 +485,4 @@ security_user :
 #	cp -p $(BSEAV_TOP)/lib/playready/2.5/bin/arm/lib/libplayreadypk.so $(ANDROID_LINKER_SYSROOT)/usr/lib/libplayreadypk.so
 	$(MAKE) $(MAKE_OPTIONS) -C $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto
 	cp -p $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto/liboemcrypto.a $(ANDROID_LINKER_SYSROOT)/usr/lib/liboemcrypto.a
-
+	@echo "'$@' completed"
