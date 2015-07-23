@@ -6,7 +6,6 @@ ifneq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
 endif
 
 ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE), true)
-export B_NEXUS_API_BUILD_COMPLETED := y
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/google/avko-kernel/vmlinuz-7439b0-android
 else
