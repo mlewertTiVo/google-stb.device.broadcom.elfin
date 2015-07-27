@@ -87,6 +87,7 @@ PRODUCT_COPY_FILES += \
     device/google/avko/init.recovery.nx.default.rc:root/init.recovery.nx.default.rc \
     device/google/avko/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/google/avko/media_codecs.xml:system/etc/media_codecs.xml \
+    device/google/avko/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/google/avko/webview-command-line:/data/local/tmp/webview-command-line \
@@ -99,7 +100,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/libpower/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.bcm_platform \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/gps.conf:system/etc/gps.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.rc:root/init.bcm_platform.rc \
