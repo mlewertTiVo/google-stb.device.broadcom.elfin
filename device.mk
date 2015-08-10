@@ -16,6 +16,7 @@ endif
 ifeq ($(LOCAL_RUN_TARGET),aosp)
 PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
 PRODUCT_MODEL := BCM7XXX_TEST_SETTOP
 endif
 
