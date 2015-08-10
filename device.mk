@@ -1,3 +1,24 @@
+# standard target - based on the standard google atv device if present,
+#                   otherwise fallback (note pdk device is not atv based in
+#                   particular since device/google/atv is not part of pdk).
+ifeq (,$(LOCAL_RUN_TARGET))
+ifneq ($(wildcard $(TOPDIR)device/google/atv/tv_core_hardware.xml),)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
+$(call inherit-product-if-exists, $(TOPDIR)device/google/atv/products/atv_base.mk)
+else
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
+endif
+$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
+PRODUCT_MODEL := BCM7XXX_TEST_SETTOP
+endif
+# aosp - inherit from AOSP-BASE, not ATV.
+ifeq ($(LOCAL_RUN_TARGET),aosp)
+PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+PRODUCT_MODEL := BCM7XXX_TEST_SETTOP
+endif
+
 KERNEL_SRC_DIR ?= kernel/private/bcm-97xxx/linux
 ifneq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
   ifeq ($(TARGET_PREBUILT_KERNEL),)
@@ -16,26 +37,6 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-endif
-
-# standard target - based on the standard google atv device if present,
-#                   otherwise fallback (note pdk device is not atv based in
-#                   particular since device/google/atv is not part of pdk).
-ifeq (,$(LOCAL_RUN_TARGET))
-ifneq ($(wildcard device/google/atv/tv_core_hardware.xml),)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
-$(call inherit-product, device/google/atv/products/atv_base.mk)
-else
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-PRODUCT_COPY_FILES += device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
-endif
-$(call inherit-product-if-exists, vendor/google/products/gms.mk)
-PRODUCT_MODEL := BCM7XXX_TEST_SETTOP
-endif
-# aosp - inherit from AOSP-BASE, not ATV.
-ifeq ($(LOCAL_RUN_TARGET),aosp)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
-PRODUCT_MODEL := BCM7XXX_TEST_SETTOP
 endif
 
 include device/google/avko/settings.mk
