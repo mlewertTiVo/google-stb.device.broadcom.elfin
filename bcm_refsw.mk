@@ -285,8 +285,8 @@ gpumon_hook: libnexuseglclient
 .PHONY: v3d_driver
 # also invoke: gpumon_hook
 v3d_driver: libnexuseglclient gpumon_hook
-	@echo "'$@' started"
-	$(MAKE) $(MAKE_OPTIONS) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/driver -f GLES_nexus.mk \
+	@echo "'$@' started (with -j1)"
+	$(MAKE) -j1 $(MAKE_OPTIONS) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/driver -f GLES_nexus.mk \
 		ANDROID_ICS=$(ANDROID_ICS) \
 		GRALLOC=${BRCM_NEXUS_INSTALL_PATH}/libgralloc \
 		PLATFORM_DIR=$(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/platform \
