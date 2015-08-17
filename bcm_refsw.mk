@@ -89,11 +89,6 @@ ifneq ($(DISABLE_REFSW_PARALLELISM),)
 MAKE_OPTIONS := -j1
 endif
 
-KERNEL_DIR := $(shell [ -e $(ANDROID_TOP)/kernel/private/bcm-97xxx/uclinux-rootfs ] && echo "$(ANDROID_TOP)/kernel/private/bcm-97xxx/uclinux-rootfs")
-ifeq ($(KERNEL_DIR),)
-KERNEL_DIR := $(ANDROID_TOP)/kernel/private/bcm-97xxx/rootfs
-endif
-
 BOLT_DIR := ${BRCMSTB_ANDROID_VENDOR_PATH}/bolt
 ANDROID_BSU_DIR := ${BRCMSTB_ANDROID_VENDOR_PATH}/bolt/android
 
@@ -107,17 +102,21 @@ else
     V3D_DEBUG = y
 endif
 
+ifeq ($(BCHP_VER_LOWER),)
 BCHP_VER_LOWER := $(shell echo ${BCHP_VER} | tr [:upper:] [:lower:])
 ifeq ($(BCHP_VER_LOWER_LINUX_OVERRIDE),)
 BCHP_VER_LOWER_LINUX_OVERRIDE := $(BCHP_VER_LOWER)
 endif
+endif
 
+ifeq ($(BCHP_CHIP),)
 ifneq ($(CALLED_FROM_SETUP),true)
 # Include Nexus platform application Makefile include
 # platform_app.inc modifies the PWD variable used by android.  Save it and restore afterward.
 PWD_BEFORE_PLATFORM_APP := $(PWD)
 include ${NEXUS_TOP}/platforms/$(PLATFORM)/build/platform_app.inc
 PWD := $(PWD_BEFORE_PLATFORM_APP)
+endif
 
 # filter out flags clashing with Android build system
 FILTER_OUT_NEXUS_CFLAGS := -march=armv7-a -Wstrict-prototypes
@@ -303,45 +302,6 @@ v3d_driver: libnexuseglclient gpumon_hook
 ${BCM_VENDOR_STB_ROOT}/bcm_platform/libGLES_nexus/bin/libGLES_nexus.so: v3d_driver
 	@echo "'v3d_driver' target: $@"
 
-.PHONY: clean_drivers
-clean_drivers: clean_brcm_dhd_driver
-
-.PHONY: clean_kernel
-clean_kernel: clean_drivers
-ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
-	$(MAKE) -C $(KERNEL_DIR) distclean
-	rm -f $(KERNEL_DIR)/images/vmlinuz-$(BCHP_CHIP)$(BCHP_VER_LOWER_LINUX_OVERRIDE)-android
-endif
-	rm -f $(PRODUCT_OUT_FROM_TOP)/kernel
-
-.PHONY: build_kernel
-AUTOCONF := $(LINUX)/include/generated/autoconf.h
-build_kernel:
-ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
-	@echo "'$@' started"
-	@if [ ! -f "$(LINUX)/patch/android.patch" ]; then \
-		mkdir -p "$(LINUX)/patch" && touch "$(LINUX)/patch/android.patch"; \
-	fi
-	-@if [ -f $(AUTOCONF) ]; then \
-		cp -pv $(AUTOCONF) $(AUTOCONF)_refsw; \
-	fi
-	$(MAKE) -C $(KERNEL_DIR) vmlinuz-$(BCHP_CHIP)$(BCHP_VER_LOWER_LINUX_OVERRIDE)-android
-	-@if [ -f $(AUTOCONF)_refsw ]; then \
-		if [ `diff -q $(AUTOCONF)_refsw $(AUTOCONF) | wc -l` -eq 0 ]; then \
-			echo "'generated/autoconf.h' is unchanged"; \
-			cp -pv $(AUTOCONF)_refsw $(AUTOCONF); \
-		fi; \
-		rm -f $(AUTOCONF)_refsw; \
-	fi
-	cp -pv $(KERNEL_DIR)/images/vmlinuz-$(BCHP_CHIP)$(BCHP_VER_LOWER_LINUX_OVERRIDE)-android $(PRODUCT_OUT_FROM_TOP)/kernel
-	@echo "'$@' completed"
-else
-	@echo "Using prebuilt kernel image..."
-endif
-
-$(PRODUCT_OUT)/kernel: build_kernel
-	@echo "'build_kernel' target: $@"
-
 .PHONY: clean_bolt
 clean_bolt: clean_android_bsu
 	$(MAKE) -C $(BOLT_DIR) distclean
@@ -434,7 +394,7 @@ clean_v3d_driver: clean_gpumon_hook
 	rm -rf ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
 
 .PHONY: clean_refsw
-clean_refsw: clean_nexus clean_v3d_driver clean_kernel clean_bolt
+clean_refsw: clean_nexus clean_v3d_driver clean_bolt
 	@echo "================ MAKE CLEAN"
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/refsw/
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
