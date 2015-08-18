@@ -86,7 +86,6 @@ BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 3
 endif
 
 ADDITIONAL_BUILD_PROPERTIES += \
-    persist.hd_output_format=1080p \
     ro.graphics_resolution.width=1920 \
     ro.graphics_resolution.height=1080 \
     ro.sf.lcd_density=320
