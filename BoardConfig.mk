@@ -61,7 +61,6 @@ endif
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Wifi related defines
-
 BOARD_WLAN_DEVICE                      := bcmdhd
 BOARD_WLAN_DEVICE_REV                  := bcm4334_b1
 WPA_SUPPLICANT_VERSION                 := VER_0_8_X
@@ -71,19 +70,11 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB       := lib_driver_cmd_bcmdhd
 #BOARD_HOSTAPD_PRIVATE_LIB             := lib_driver_cmd_bcmdhd
 
 # BTUSB
-ifeq ($(ANDROID_ENABLE_BTUSB),y)
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/google/avko/bluetooth
-else
-# Disable the Bluetooth Manager service if BTUSB is not built in to Android
-ADDITIONAL_BUILD_PROPERTIES += \
-    config.disable_bluetooth=true
-endif
 
-ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 3
-endif
 
 ADDITIONAL_BUILD_PROPERTIES += \
     ro.graphics_resolution.width=1920 \

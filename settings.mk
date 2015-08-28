@@ -12,10 +12,10 @@
 
 export BCM_VENDOR_STB_ROOT ?= vendor/broadcom/stb
 
-export NEXUS_PLATFORM=97439
-export BCHP_VER=B0
-export NEXUS_USE_7439_SFF=y
-export PLATFORM=97439
+export NEXUS_PLATFORM := 97439
+export BCHP_VER := B0
+export NEXUS_USE_7439_SFF := y
+export PLATFORM := 97439
 
 export ANDROID := $(shell pwd)
 export ANDROID_TOP := ${ANDROID}
@@ -30,20 +30,14 @@ export V3D_DEBUG ?= n
 export BRCM_ANDROID_VERSION := l
 
 export ANDROID_BUILD := y
-export ANDROID_ENABLE_BTUSB ?= y
-export ANDROID_ENABLE_HDMI_HDCP ?= n
-export ANDROID_ENABLE_DHD ?= y
-export ANDROID_SUPPORTS_DTVKIT := n
 export BROADCOM_WIFI_CHIPSET := 43570a2
 export BRCM_DHD_NVRAM_NAME := bcm43570_7252SSFFG.nvm
 export BROADCOM_DHD_SOURCE_PATH := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmdhd
 export BCM_GPT_CONFIG_FILE := device/google/avko/makegpt.conf
 export HLS_PROTOCOL_SUPPORT := y
-
 export LINUXVER := 3.14.13
 export LINUX := ${ANDROID_TOP}/kernel/private/bcm-97xxx/linux
 export BCHP_VER_LOWER_LINUX_OVERRIDE :=
-
 export NEXUS_ANDROID_SUPPORT := y
 export NEXUS_MODE := proxy
 export NEXUS_LOGGER_EXTERNAL := y
@@ -60,27 +54,15 @@ export SHELL := /bin/bash
 export SMP := y
 export SSL_SUPPORT := y
 export LIVEMEDIA_SUPPORT := n
+export SAGE_SUPPORT=y
+export NEXUS_SECURITY_SUPPORT=y
+export KEYLADDER_SUPPORT=y
+export NEXUS_COMMON_CRYPTO_SUPPORT=y
+export NEXUS_HDCP_SUPPORT=y
 
-export ANDROID_SUPPORTS_WIDEVINE := y
-export ANDROID_SUPPORTS_PLAYREADY := y
-export ANDROID_ENABLE_HDMI_HDCP := y
-
-ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP),y),)
-    export SAGE_SUPPORT=y
-    export NEXUS_SECURITY_SUPPORT=y
-    export KEYLADDER_SUPPORT=y
-    export NEXUS_COMMON_CRYPTO_SUPPORT=y
-
-    ifeq ($(ANDROID_ENABLE_HDMI_HDCP), y)
-        export NEXUS_HDCP_SUPPORT=y
-    endif
-
-    ifneq ($(wildcard ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/playreadydrmplugin),)
-        ifeq ($(ANDROID_SUPPORTS_PLAYREADY), y)
-            export MSDRM_PRDY_SUPPORT=y
-            export MSDRM_PRDY_SDK_VERSION=2.5
-        endif
-    endif
+ifneq ($(wildcard ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/playreadydrmplugin),)
+    export MSDRM_PRDY_SUPPORT=y
+    export MSDRM_PRDY_SDK_VERSION=2.5
 endif
 
 export USE_CCACHE := 1

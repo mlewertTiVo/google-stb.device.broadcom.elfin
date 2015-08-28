@@ -55,7 +55,6 @@ KERNEL_VER := vmlinuz-7439b0-android
 .PHONY: build_kernel
 AUTOCONF := $(LINUX)/include/generated/autoconf.h
 build_kernel:
-ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	@echo "'$@' started"
 	-@if [ -f $(AUTOCONF) ]; then \
 		cp -pv $(AUTOCONF) $(AUTOCONF)_refsw; \
@@ -70,9 +69,6 @@ ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	fi
 	cp -pv $(KERNEL_DIR)/images/$(KERNEL_VER) $(KERNEL_OUT_DIR_ABS)/kernel
 	@echo "'$@' completed"
-else
-	@echo "Using prebuilt kernel image..."
-endif
 
 $(KERNEL_OUT_DIR)/kernel: build_kernel
 	@echo "'build_kernel' target: $@"
@@ -82,8 +78,6 @@ clean_drivers: clean_brcm_dhd_driver
 
 .PHONY: clean_kernel
 clean_kernel: clean_drivers
-ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) -C $(KERNEL_DIR) distclean
 	rm -f $(KERNEL_DIR)/images/$(KERNEL_VER)
-endif
 	rm -f $(KERNEL_OUT_DIR_ABS)/kernel
