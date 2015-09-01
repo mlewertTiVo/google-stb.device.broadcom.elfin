@@ -173,9 +173,7 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmAdjustScreenOffset \
       BcmCoverFlow \
       BcmTVInput \
-      BcmUriPlayer \
       BcmOtaUpdater \
-      Bouncer \
       camera.bcm_platform \
       Galaxy4 \
       gralloc.bcm_platform \
@@ -183,7 +181,6 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       HoloSpiralWallpaper \
       hwcbinder \
       hwcomposer.bcm_platform \
-      libbcmsideband \
       libhwcbinder \
       libhwcconv \
       libjni_adjustScreenOffset \
