@@ -151,6 +151,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     dhcpcd.conf \
     network \
+    ethtool \
     busybox \
     e2fsck \
     nxserver \
