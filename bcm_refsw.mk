@@ -133,12 +133,6 @@ endif
 BRCMSTB_MODEL_NAME := bcm$(BCHP_CHIP)_$(BCHP_VER_LOWER)_$(MODEL_NAME)_$(HARDWARE_REV)
 export BRCMSTB_MODEL_NAME
 
-# Brcm DHD related defines
-BRCM_DHD_PATH      := ${BRCM_NEXUS_INSTALL_PATH}/brcm_dhd
-BRCM_DHD_KO_NAME   := bcmdhd.ko
-BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive-wfds.bin
-BRCM_DHD_NVRAM_NAME ?= bcm43570.nvm
-
 BRCM_GADGET_PATH   := ${BRCM_NEXUS_INSTALL_PATH}/brcm_gadget
 
 NEXUS_DEPS := \
@@ -168,54 +162,6 @@ nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_android_bsu
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
 	@echo "================ Copy NEXUS output"
 	cp -rfp ${NEXUS_BIN_DIR} ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus
-	@echo "'$@' completed"
-
-.PHONY: brcm_dhd_driver
-brcm_dhd_driver: build_kernel
-	@echo "'$@' started"
-	if [ ! -e ${BRCM_DHD_PATH}/tools/dhd ]; then \
-		rm -f ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME}; \
-	fi && \
-	if [ ! -e ${BRCM_DHD_PATH}/tools/wl ]; then \
-		rm -f ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME}; \
-	fi
-	+@if [ ! -e ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME} ]; then \
-		if [ -d ${BROADCOM_DHD_SOURCE_PATH} ]; then \
-			cd ${BROADCOM_DHD_SOURCE_PATH} && \
-			if [ "${BRCM_DHD_KO_NAME}" == "wl.ko" ]; then \
-				source ./setenv-arm.sh ${BROADCOM_WIFI_CHIPSET} && \
-				./build-clean.sh && \
-				./build-drv-nic-p2p-mchan-cfg80211.sh; \
-			else \
-				source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && \
-				./bfd-clean.sh && \
-				./bfd-app-dhd.sh clean && \
-				./bfd-drv-cfg80211.sh && \
-				./bfd-app-dhd.sh && \
-				./bfd-app-wl.sh && \
-				if [ -e ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/wl ]; then \
-					cp -fp ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/wl ${BRCM_DHD_PATH}/tools; \
-				fi && \
-				if [ -e ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/dhd ]; then \
-					cp -fp ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/dhd ${BRCM_DHD_PATH}/tools; \
-				fi && \
-				cp -p ${BROADCOM_DHD_SOURCE_PATH}/firmware/${BROADCOM_WIFI_CHIPSET}-roml/${BRCM_DHD_FW_NAME} ${BRCM_DHD_PATH}/firmware/fw.bin.trx; \
-				if [ "${BRCM_DHD_NVRAM_NAME}" != "" ] ; then \
-					cp -p ${BROADCOM_DHD_SOURCE_PATH}/nvrams/${BRCM_DHD_NVRAM_NAME} ${BRCM_DHD_PATH}/nvrams/nvm.txt; \
-				fi; \
-			fi && \
-			if find ${BROADCOM_DHD_SOURCE_PATH} -name ${BRCM_DHD_KO_NAME} ; then \
-				mkdir -p ${BRCM_DHD_PATH}/driver && \
-				cp -np `find ${BROADCOM_DHD_SOURCE_PATH} -name ${BRCM_DHD_KO_NAME}` ${BRCM_DHD_PATH}/driver; \
-			else \
-				echo "Error: wifi driver failed to build." ; exit -1; \
-			fi \
-		else \
-			echo Error: ${BROADCOM_DHD_SOURCE_PATH} " does not exist" ; exit -1; \
-		fi \
-	else \
-		echo "Found prebuilt wifi driver, using it!"; \
-	fi
 	@echo "'$@' completed"
 
 .PHONY: gpumon_hook
@@ -283,30 +229,6 @@ build_android_bsu: build_bolt
 	$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER)
 	cp -pv $(ANDROID_BSU_DIR)/objs/$(BCHP_CHIP)$(BCHP_VER_LOWER)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
 	@echo "'$@' completed"
-
-.PHONY: clean_brcm_dhd_driver
-clean_brcm_dhd_driver:
-	@if [ "${BRCM_DHD_PATH}" = "" ];		then echo "( 'BRCM_DHD_PATH' is not defined... )"; fi
-	@if [ "${BRCM_DHD_KO_NAME}" = "" ];		then echo "( 'BRCM_DHD_KO_NAME' is not defined... )"; fi
-	@if [ "${BROADCOM_DHD_SOURCE_PATH}" = "" ];	then echo "( 'BROADCOM_DHD_SOURCE_PATH' is not defined... )"; fi
-
-	-+@if [ "${BRCM_DHD_KO_NAME}" == "wl.ko" ]; then \
-		cd ${BROADCOM_DHD_SOURCE_PATH} && ./build-clean.sh; \
-	else \
-		cd ${BROADCOM_DHD_SOURCE_PATH} && \
-			./bfd-clean.sh; \
-		cd ${BROADCOM_DHD_SOURCE_PATH} && \
-			source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && \
-			./bfd-app-dhd.sh clean; \
-		cd ${BROADCOM_DHD_SOURCE_PATH} && \
-			source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && \
-			./bfd-app-wl.sh clean; \
-	fi
-	rm -fv ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME}
-	rm -fv ${BRCM_DHD_PATH}/firmware/fw.bin.trx
-	rm -fv ${BRCM_DHD_PATH}/nvrams/nvm.txt
-	rm -fv ${BRCM_DHD_PATH}/tools/wl
-	rm -fv ${BRCM_DHD_PATH}/tools/dhd
 
 .PHONY: clean_nexus
 clean_nexus:
@@ -400,3 +322,5 @@ security_user :
 	$(MAKE) $(MAKE_OPTIONS) -C $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto
 	cp -p $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto/liboemcrypto.a $(ANDROID_LINKER_SYSROOT)/usr/lib/liboemcrypto.a
 	@echo "'$@' completed"
+
+include device/google/avko/bcmdhd.mk
