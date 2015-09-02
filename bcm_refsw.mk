@@ -154,7 +154,7 @@ V3D_ANDROID_DEFINES += -I${NEXUS_TOP}/nxclient/include
 
 .PHONY: nexus_build
 export NXCLIENT_SOCKET_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/nexus/nxclient/server/nxclient_socket.c
-nexus_build: build_kernel $(NEXUS_DEPS) build_android_bsu
+nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_android_bsu
 	@echo "'$@' started"
 	@if [ ! -d "${NEXUS_BIN_DIR}" ]; then \
 		mkdir -p ${NEXUS_BIN_DIR}; \
@@ -358,8 +358,8 @@ $(REFSW_BUILD_TARGETS) : nexus_build
 
 # for backwards compatibilty only!
 .PHONY: refsw refsw_build
-refsw: v3d_driver brcm_dhd_driver
-refsw_build: v3d_driver brcm_dhd_driver
+refsw: clean_recovery_ramdisk v3d_driver brcm_dhd_driver
+refsw_build: clean_recovery_ramdisk v3d_driver brcm_dhd_driver
 
 # standalone rules to clean/build the security libs from source, this assumes you have
 # an environment allowing you to do that, otherwise do not bother.
@@ -369,6 +369,12 @@ refsw_build: v3d_driver brcm_dhd_driver
 #
 # note: the order of the build components is important.
 #
+
+clean_recovery_ramdisk :
+	@echo "'$@' started"
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/root/system/*
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/root/sbin/nxmini
+	@echo "'$@' completed"
 
 export URSR_TOP := ${REFSW_BASE_DIR}
 export PLAYREADY_ROOT := $(REFSW_BASE_DIR)/prsrcs/2.5/
