@@ -36,3 +36,4 @@ allow nxserver nexus_data_file:file { open create read write setattr getattr };
 allow nxserver self:netlink_kobject_uevent_socket { create bind read };
 allow nxserver readonlyfs:file { read open getattr};
 allow nxserver readonlyfs:dir search;
+allow nxserver hdmi_hpd_device:chr_file { read write open getattr ioctl };
