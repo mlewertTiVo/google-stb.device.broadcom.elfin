@@ -73,7 +73,6 @@ TARGET_CPU_SMP := true
 PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko:system/vendor/drivers/nexus.ko \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/wakeup_drv.ko:system/vendor/drivers/wakeup_drv.ko \
     device/google/avko/init.blockdev.rc:root/init.blockdev.rc \
     device/google/avko/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/google/avko/init.eth.rc:root/init.eth.rc \
@@ -100,7 +99,8 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.bcm_platform.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ws_home.html:root/ws_home.html
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ws_home.html:root/ws_home.html \
+    ${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko:system/vendor/drivers/droid_pm.ko
 
 ifneq ($(wildcard device/google/atv/tv_core_hardware.xml),)
   PRODUCT_COPY_FILES += \
