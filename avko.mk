@@ -66,8 +66,7 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.hardware=bcm_platform \
-    ro.product.board=bcm_platform \
-    ro.nx.boot.mode=dynheap
+    ro.product.board=bcm_platform
 
 TARGET_CPU_SMP := true
 
@@ -79,7 +78,6 @@ PRODUCT_COPY_FILES += \
     device/google/avko/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/google/avko/init.eth.rc:root/init.eth.rc \
     device/google/avko/init.recovery.bcm_platform.rc:root/init.recovery.bcm_platform.rc \
-    device/google/avko/init.recovery.nx.default.rc:root/init.recovery.nx.default.rc \
     device/google/avko/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/google/avko/media_codecs.xml:system/etc/media_codecs.xml \
     device/google/avko/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
@@ -100,7 +98,6 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/gps.conf:system/etc/gps.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.nonxsock.rc:root/init.bcm_platform.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.default.rc:root/init.nx.default.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.bcm_platform.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ws_home.html:root/ws_home.html
