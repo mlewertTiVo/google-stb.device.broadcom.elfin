@@ -132,6 +132,7 @@ BOARD_SEPOLICY_UNION += \
     init_shell.te \
     mediaserver.te \
     netd.te \
+    nxdispfmt.te \
     nxmini.te \
     nxserver.te \
     platform_app.te \
