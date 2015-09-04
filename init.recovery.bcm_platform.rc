@@ -1,5 +1,5 @@
 import /init.recovery.blockdev.rc
-import /init.recovery.nx.${ro.nx.boot.mode}.rc
+import /init.recovery.nx.dynheap.rc
 
 on early-init
     export LD_LIBRARY_PATH /system/lib
