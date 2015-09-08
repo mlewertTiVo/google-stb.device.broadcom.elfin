@@ -32,14 +32,12 @@ ifeq (,$(LOCAL_RUN_TARGET))
     PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   endif
   $(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
-  PRODUCT_MODEL := BCM7XXX_TEST_SETTOP
 endif
 # aosp - inherit from AOSP-BASE, not ATV.
 ifeq ($(LOCAL_RUN_TARGET),aosp)
   PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
   $(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
-  PRODUCT_MODEL := BCM7XXX_TEST_SETTOP
 endif
 
 include device/google/avko/settings.mk
@@ -223,6 +221,7 @@ $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-ven
 
 PRODUCT_NAME := avko
 PRODUCT_DEVICE := avko
+PRODUCT_MODEL := avko
 PRODUCT_CHARACTERISTICS := tv
 PRODUCT_MANUFACTURER := Google
 PRODUCT_BRAND := Google
