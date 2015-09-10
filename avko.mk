@@ -132,7 +132,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.heap.grow=8m \
     ro.nx.heap.shrink=2m \
     ro.nx.heap.gfx=48m \
-    ro.nx.odv=1 \
+    ro.nx.odv=0 \
     ro.nx.odv.use.alt=150m \
     ro.nx.odv.a1.use=50
 
