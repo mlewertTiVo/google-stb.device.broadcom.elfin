@@ -148,7 +148,7 @@ PRODUCT_PACKAGES += \
     nxdispfmt \
     nxserver \
     nxlogger \
-    makegpt \
+    gptbin \
     makehwcfg
 
 # only for full image.
