@@ -59,6 +59,8 @@ export NEXUS_SECURITY_SUPPORT=y
 export KEYLADDER_SUPPORT=y
 export NEXUS_COMMON_CRYPTO_SUPPORT=y
 export NEXUS_HDCP_SUPPORT=y
+export BMRC_ALLOW_XPT_TO_ACCESS_KERNEL := y
+export SAGE_SECURE_MODE := 5
 
 ifneq ($(wildcard ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/playreadydrmplugin),)
     export MSDRM_PRDY_SUPPORT=y
