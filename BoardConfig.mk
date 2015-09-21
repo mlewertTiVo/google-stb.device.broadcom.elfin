@@ -130,6 +130,7 @@ BOARD_SEPOLICY_UNION += \
     hwcbinder.te \
     init.te \
     init_shell.te \
+    kernel.te \
     mediaserver.te \
     netd.te \
     nxdispfmt.te \
@@ -147,9 +148,6 @@ BOARD_SEPOLICY_UNION += \
     system_app.te \
     system_server.te \
     untrusted_app.te
-
-# se-linux override to AOSP policy, needs further study.
-BOARD_SEPOLICY_REPLACE += kernel.te
 
 # using legacy audio policy.
 USE_LEGACY_AUDIO_POLICY := 0
