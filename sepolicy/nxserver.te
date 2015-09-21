@@ -26,7 +26,7 @@ allow nxserver gpu_device:chr_file ioctl;
 allow nxserver input_device:dir search;
 allow nxserver system_data_file:dir remove_name;
 allow nxserver system_data_file:file unlink;
-allow nxserver default_android_service:service_manager add;
+allow nxserver system_server_service:service_manager add;
 allow nxserver system_server:binder call;
 allow nxserver system_server:binder transfer;
 allow nxserver dumpstate:fd use;
