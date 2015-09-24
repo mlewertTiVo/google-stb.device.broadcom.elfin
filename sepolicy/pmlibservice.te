@@ -16,3 +16,10 @@ allow pmlibservice system_server_service:service_manager add;
 
 allow pmlibservice dumpstate:fd use;
 allow pmlibservice dumpstate:unix_stream_socket { read write };
+
+allow pmlibservice shell_exec:file { read open execute execute_no_trans };
+allow pmlibservice system_file:file execute_no_trans;
+
+allow pmlibservice sysfs:file write;
+allow pmlibservice sysfs_devices_system_cpu:file write;
+

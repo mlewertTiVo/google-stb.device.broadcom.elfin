@@ -3,12 +3,14 @@ allow system_server nxserver:unix_stream_socket connectto;
 allow system_server nxserver:binder transfer;
 allow system_server device:sock_file write;
 allow system_server fuse:dir search;
-allow system_server init:binder { transfer };
-allow system_server init_shell:unix_stream_socket connectto;
 allow system_server nexus_data_file:dir { search read };
 allow system_server nexus_data_file:file { read open getattr };
 allow system_server gpu_device:chr_file r_file_perms;
+allow system_server pmlibservice:binder call;
 allow system_server uhid_device:chr_file { write ioctl open };
 allow system_server shell_exec:file { read open execute execute_no_trans };
 allow system_server zygote_exec:file { execute execute_no_trans };
+allow system_server nxserver_socket:sock_file write;
 
+# those rules violate android default policy...
+#allow system_server init:binder { transfer };

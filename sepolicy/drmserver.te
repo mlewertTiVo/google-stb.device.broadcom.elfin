@@ -7,3 +7,4 @@ allow drmserver nexus_data_file:file { open create read write setattr getattr };
 allow drmserver readonlyfs:dir r_dir_perms;
 allow drmserver readonlyfs:file r_file_perms;
 allow drmserver self:netlink_kobject_uevent_socket { create bind read };
+allow drmserver nxserver_socket:sock_file write;

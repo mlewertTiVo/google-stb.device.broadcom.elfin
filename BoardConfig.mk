@@ -129,7 +129,6 @@ BOARD_SEPOLICY_UNION += \
     genfs_contexts \
     hwcbinder.te \
     init.te \
-    init_shell.te \
     kernel.te \
     mediaserver.te \
     netd.te \
@@ -141,6 +140,7 @@ BOARD_SEPOLICY_UNION += \
     property.te \
     property_contexts \
     recovery.te \
+    service.te \
     service_contexts \
     servicemanager.te \
     shell.te \
