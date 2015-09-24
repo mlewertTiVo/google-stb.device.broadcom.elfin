@@ -1,2 +1,0 @@
-allow init_shell zygote_exec:file execute_no_trans;
-
