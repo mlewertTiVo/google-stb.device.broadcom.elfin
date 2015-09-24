@@ -70,3 +70,4 @@ endif
 export USE_CCACHE := 1
 export ANDROID_PRODUCT_OUT := avko
 export NEXUS_USE_3461_FRONTEND_DAUGHTER_CARD := y
+export ANDROID_USES_BORINGSSL := y
