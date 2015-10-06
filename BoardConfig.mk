@@ -121,6 +121,7 @@ TARGET_IS_AOSP := false
 BOARD_SEPOLICY_DIRS += device/google/avko/sepolicy
 BOARD_SEPOLICY_UNION += \
     adbd.te \
+    bcmstb_app.te \
     bluetooth.te \
     bootanim.te \
     device.te \
@@ -132,6 +133,8 @@ BOARD_SEPOLICY_UNION += \
     hwcbinder.te \
     init.te \
     kernel.te \
+    keys.conf \
+    mac_permissions.xml \
     mediaserver.te \
     netd.te \
     nxdispfmt.te \
@@ -142,6 +145,7 @@ BOARD_SEPOLICY_UNION += \
     property.te \
     property_contexts \
     recovery.te \
+    seapp_contexts \
     service.te \
     service_contexts \
     servicemanager.te \
