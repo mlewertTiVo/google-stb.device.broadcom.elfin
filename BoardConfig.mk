@@ -106,6 +106,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 
 BOARD_KERNEL_CMDLINE := androidboot.hardware=bcm_platform
 BOARD_KERNEL_CMDLINE += mem=768m@0m mem=768m@2048m bmem=336m@432m bmem=224m@2048m brcm_cma=544m@2272m
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
