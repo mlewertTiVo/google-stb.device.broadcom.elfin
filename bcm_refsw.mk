@@ -147,7 +147,7 @@ V3D_ANDROID_DEFINES += $(addprefix -D,$(NEXUS_APP_DEFINES))
 V3D_ANDROID_DEFINES += -I${NEXUS_TOP}/nxclient/include
 
 .PHONY: nexus_build
-export NXCLIENT_SOCKET_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/nexus/nxclient/server/nxclient_socket.c
+export NXCLIENT_SOCKET_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxsocket/nxclient_android_socket.c
 nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_android_bsu
 	@echo "'$@' started"
 	@if [ ! -d "${NEXUS_BIN_DIR}" ]; then \

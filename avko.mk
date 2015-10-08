@@ -102,7 +102,7 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.bcm_platform \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/gps.conf:system/etc/gps.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.nonxsock.rc:root/init.bcm_platform.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.rc:root/init.bcm_platform.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.bcm_platform.rc \
