@@ -138,7 +138,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.heap.gfx=48m \
     ro.nx.odv=0 \
     ro.nx.odv.use.alt=150m \
-    ro.nx.odv.a1.use=50
+    ro.nx.odv.a1.use=50 \
+    ro.nx.capable.cb=1
 
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
