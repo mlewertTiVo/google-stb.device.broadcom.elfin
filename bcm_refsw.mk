@@ -160,6 +160,7 @@ nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_android_bsu
 	$(MAKE) -C $(KERNEL_DIR)/linux M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm modules
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
+	$(MAKE) -C $(KERNEL_DIR)/linux M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver modules
 	@echo "================ Copy NEXUS output"
 	cp -rfp ${NEXUS_BIN_DIR} ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus
 	@echo "'$@' completed"
@@ -235,6 +236,7 @@ clean_nexus:
 	$(MAKE) -C $(KERNEL_DIR)/linux M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean
+	$(MAKE) -C $(KERNEL_DIR)/linux M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver clean
 	$(MAKE) -C $(NEXUS_TOP)/nxclient/server clean
 
 .PHONY: clean_gpumon_hook
@@ -273,7 +275,8 @@ REFSW_PREFIX := $(patsubst $(ANDROID_TOP)/%,%,${BRCM_NEXUS_INSTALL_PATH})
 REFSW_BUILD_TARGETS := $(addprefix $(REFSW_PREFIX)/,$(REFSW_TARGET_LIST))
 REFSW_BUILD_TARGETS += \
 	${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko \
-	${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko
+	${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko \
+	${BCM_VENDOR_STB_ROOT}/drivers/gator/driver/gator.ko
 
 $(REFSW_BUILD_TARGETS) : nexus_build
 	@echo "'nexus_build' target: $@"

@@ -2,3 +2,11 @@ allow init self:capability {
     sys_module
 };
 
+
+allow init node:tcp_socket node_bind;
+allow init node:udp_socket node_bind;
+allow init port:tcp_socket name_bind;
+allow init port:udp_socket name_bind;
+allow init self:tcp_socket { bind create setopt listen };
+allow init self:udp_socket { bind setopt };
+
