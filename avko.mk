@@ -145,17 +145,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_PACKAGES += \
-    wpa_supplicant \
-    dhcpcd.conf \
-    network \
-    ethtool \
     busybox \
+    dhcpcd.conf \
+    ethtool \
     e2fsck \
+    gatord \
+    gptbin \
+    makehwcfg \
+    network \
     nxdispfmt \
     nxserver \
     nxlogger \
-    gptbin \
-    makehwcfg
+    wpa_supplicant
 
 # only for full image.
 ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
