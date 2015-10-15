@@ -121,7 +121,7 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bq.gpu_to_cpu_unsupported=1 \
     ro.zygote.disable_gl_preload=true \
-    sys.display-size=3840x2160
+    sys.display-size=1920x1080
 
 # GMS package integration.
 PRODUCT_PROPERTY_OVERRIDES += \
