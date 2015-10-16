@@ -4,3 +4,6 @@ allow untrusted_app nxserver:unix_stream_socket connectto;
 allow untrusted_app proc_sysrq:file getattr;
 allow untrusted_app hwcbinder:binder { transfer call };
 allow untrusted_app nxserver_socket:sock_file write;
+
+dontaudit untrusted_app nexus_data_file:dir search;
+
