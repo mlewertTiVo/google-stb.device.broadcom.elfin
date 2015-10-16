@@ -1,2 +1,0 @@
-on init
-   symlink /dev/block/platform/rdb.4/f03e0200.sdhci/by-name /dev/block/by-name

@@ -79,9 +79,9 @@ TARGET_CPU_SMP := true
 PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko:system/vendor/drivers/nexus.ko \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.blockdev.rc:root/init.blockdev.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/google/avko/bootanimation.zip:system/media/bootanimation.zip \
-    device/google/avko/init.blockdev.rc:root/init.blockdev.rc \
-    device/google/avko/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/google/avko/init.eth.rc:root/init.eth.rc \
     device/google/avko/init.recovery.bcm_platform.rc:root/init.recovery.bcm_platform.rc \
     device/google/avko/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
