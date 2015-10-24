@@ -11,6 +11,5 @@ allow system_server uhid_device:chr_file { write ioctl open };
 allow system_server shell_exec:file { read open execute execute_no_trans };
 allow system_server zygote_exec:file { execute execute_no_trans };
 allow system_server nxserver_socket:sock_file write;
-
-# those rules violate android default policy...
-#allow system_server init:binder { transfer };
+allow system_server nexus_debug_file:dir { search read };
+allow system_server nexus_debug_file:file { open create read write setattr getattr };
