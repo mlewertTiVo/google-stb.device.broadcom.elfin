@@ -42,7 +42,9 @@ USE_OPENGL_RENDERER := true
 ADDITIONAL_BUILD_PROPERTIES += \
    ro.ir_remote.mode=CirNec \
    ro.ir_remote.map=broadcom_silver \
-   ro.ir_remote.mask=0
+   ro.ir_remote.mask=0 \
+   ro.ir_remote.initial_timeout=55 \
+   ro.ir_remote.timeout=115
 
 ADDITIONAL_BUILD_PROPERTIES += \
    net.http.threads=25 \
