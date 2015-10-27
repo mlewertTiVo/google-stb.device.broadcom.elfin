@@ -23,6 +23,7 @@
 #include <cutils/properties.h>
 #include <sys/mman.h>
 #include "edify/expr.h"
+#include <errno.h>
 
 #define FORCE_RW_OPT            "0"
 #define EMMC_BOOT_SIZE          0x400000
