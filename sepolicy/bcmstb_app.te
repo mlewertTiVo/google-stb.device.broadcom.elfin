@@ -21,7 +21,6 @@ allow bcmstb_app media_rw_data_file:file create_file_perms;
 allow bcmstb_app cache_file:dir create_dir_perms;
 allow bcmstb_app cache_file:file create_file_perms;
 allow bcmstb_app device:sock_file write;
-allow bcmstb_app init_shell:unix_stream_socket connectto;
 allow bcmstb_app nxserver:binder call;
 allow bcmstb_app nxserver:unix_stream_socket connectto;
 allow bcmstb_app nexus_data_file:dir { search read };
