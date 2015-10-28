@@ -29,7 +29,7 @@ endif
 #                   otherwise fallback (note pdk device is not atv based in
 #                   particular since device/google/atv is not part of pdk).
 ifeq (,$(LOCAL_RUN_TARGET))
-  ifneq ($(wildcard $(TOPDIR)device/google/atv/tv_core_hardware.xml),)
+  ifneq ($(wildcard $(TOPDIR)device/google/atv/permissions/tv_core_hardware.xml),)
     $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
     $(call inherit-product, $(TOPDIR)device/google/atv/products/atv_base.mk)
   else
@@ -58,7 +58,7 @@ else
   export B_REFSW_DEBUG_LEVEL := msg
 endif
 
-ifneq ($(wildcard device/google/atv/tv_core_hardware.xml),)
+ifneq ($(wildcard device/google/atv/permissions/tv_core_hardware.xml),)
   # purposefully swap overlay layout to override some settings from
   # the ATV setup.
   DEVICE_PACKAGE_OVERLAYS := device/google/avko/overlay
