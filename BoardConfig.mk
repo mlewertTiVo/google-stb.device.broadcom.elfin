@@ -28,7 +28,7 @@ endif
 
 HAVE_HTC_AUDIO_DRIVER := true
 BOARD_USES_GENERIC_AUDIO := false
-TARGET_BOARD_PLATFORM := bcm_platform
+export TARGET_BOARD_PLATFORM := avko
 HTTP_STACK := chrome
 JAVASCRIPT_ENGINE := v8
 JS_ENGINE := v8
@@ -106,8 +106,7 @@ BOARD_FLASH_BLOCK_SIZE := 512
 BOARD_KERNEL_BASE := 0x00008000
 BOARD_KERNEL_PAGESIZE := 4096
 
-BOARD_KERNEL_CMDLINE := androidboot.hardware=bcm_platform
-BOARD_KERNEL_CMDLINE += mem=1024m@0m mem=1024m@2048m bmem=336m@688m bmem=256m@2048m brcm_cma=768m@2304m
+BOARD_KERNEL_CMDLINE := mem=1024m@0m mem=1024m@2048m bmem=336m@688m bmem=256m@2048m brcm_cma=768m@2304m
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
