@@ -3,6 +3,7 @@ type nxserver_exec, exec_type, file_type;
 
 # started by init
 init_daemon_domain(nxserver)
+wakelock_use(nxserver)
 
 allow nxserver self:capability { sys_module };
 allow nxserver shell_exec:file { read open execute };
