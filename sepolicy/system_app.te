@@ -5,3 +5,5 @@ allow system_app cache_file:dir { write add_name create remove_name };
 allow system_app cache_file:file { create write open };
 allow system_app nxserver_socket:sock_file write;
 
+dontaudit system_app nexus_data_file:dir search;
+
