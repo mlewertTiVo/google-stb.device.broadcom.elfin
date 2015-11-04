@@ -81,7 +81,8 @@ BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 3
 ADDITIONAL_BUILD_PROPERTIES += \
     ro.graphics_resolution.width=1920 \
     ro.graphics_resolution.height=1080 \
-    ro.sf.lcd_density=320
+    ro.sf.lcd_density=320 \
+    ro.v3d.fence.expose=true
 
 ifneq ($(TARGET_BUILD_PDK),true)
    ifeq ($(LOCAL_RUN_TARGET),)
