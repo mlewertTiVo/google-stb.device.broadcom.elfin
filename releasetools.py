@@ -32,7 +32,7 @@ def IncrementalOTA_InstallEnd(info):
       source_bolt_img = None
       source_bsu_img = None
 
-    if (target_bolt_img == source_bolt_img and target_bsu_img == target_bsu_img):
+    if (target_bolt_img == source_bolt_img and target_bsu_img == source_bsu_img):
       print "bolt and bsu unchanged; skipping"
     else:
       WriteBoltBsu(info, target_bolt_img, target_bsu_img)
