@@ -144,7 +144,6 @@ BOARD_SEPOLICY_UNION += \
     nxmini.te \
     nxserver.te \
     platform_app.te \
-    pmlibservice.te \
     property.te \
     property_contexts \
     recovery.te \
