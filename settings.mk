@@ -24,6 +24,10 @@ export B_REFSW_CROSS_COMPILE_PATH := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/
 export B_REFSW_CROSS_COMPILE := ${B_REFSW_CROSS_COMPILE_PATH}/arm-linux-androideabi-
 export B_REFSW_KERNEL_CROSS_COMPILE := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH := arm-linux
+
+export B_REFSW_CCACHE := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
+export USE_CCACHE := 1
+
 export V3D_DEBUG ?= n
 
 # TODO - remove need for this.
@@ -67,7 +71,6 @@ ifneq ($(wildcard ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/playreadydrmpl
     export MSDRM_PRDY_SDK_VERSION=2.5
 endif
 
-export USE_CCACHE := 1
 export ANDROID_PRODUCT_OUT := avko
 export NEXUS_USE_3461_FRONTEND_DAUGHTER_CARD := y
 export V3D_VARIANT := vc5
