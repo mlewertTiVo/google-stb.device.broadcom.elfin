@@ -30,9 +30,6 @@ export USE_CCACHE := 1
 
 export V3D_DEBUG ?= n
 
-# TODO - remove need for this.
-export BRCM_ANDROID_VERSION := l
-
 export ANDROID_BUILD := y
 export BROADCOM_WIFI_CHIPSET := 43570a2
 export BRCM_DHD_NVRAM_NAME := bcm43570_7252SSFFG.nvm
