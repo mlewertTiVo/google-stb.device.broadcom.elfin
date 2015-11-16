@@ -1,4 +1,3 @@
-allow shell device:sock_file write;
 allow shell nxserver:binder call;
 allow shell nxserver:unix_stream_socket connectto;
 allow shell nxserver_socket:sock_file write;
