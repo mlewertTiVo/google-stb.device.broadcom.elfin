@@ -18,6 +18,7 @@ allow hwcbinder untrusted_app:binder call;
 allow hwcbinder untrusted_app:binder transfer;
 
 allow hwcbinder system_server_service:service_manager add;
+allow hwcbinder nexus_service:service_manager add;
 
 allow hwcbinder dumpstate:fd use;
 allow hwcbinder dumpstate:unix_stream_socket { read write };
