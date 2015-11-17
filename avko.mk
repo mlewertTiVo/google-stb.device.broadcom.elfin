@@ -116,7 +116,7 @@ ifeq ($(SAGE_SUPPORT),y)
       ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl.bin:system/bin/sage_bl.bin \
       ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
       ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app.bin:system/bin/sage_os_app.bin \
-      ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/sage/7439B0/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
+      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
