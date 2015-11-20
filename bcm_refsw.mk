@@ -114,6 +114,10 @@ BCHP_VER_LOWER_LINUX_OVERRIDE := $(BCHP_VER_LOWER)
 endif
 endif
 
+ifeq ($(BOLT_IMG_TO_USE_OVERRIDE),)
+BOLT_IMG_TO_USE_OVERRIDE := bolt-bb.bin
+endif
+
 ifeq ($(BCHP_CHIP),)
 ifneq ($(CALLED_FROM_SETUP),true)
 # Include Nexus platform application Makefile include
@@ -149,7 +153,7 @@ V3D_ANDROID_DEFINES += -I${NEXUS_TOP}/nxclient/include
 .PHONY: nexus_build
 export NXCLIENT_SOCKET_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxsocket/nxclient_android_socket.c
 export NEXUS_PLATFORM_PROXY_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxproxyif/nexus_platform_proxy_intf.c
-nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_android_bsu
+nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_bootloaderimg
 	@echo "'$@' started"
 	@if [ ! -d "${NEXUS_BIN_DIR}" ]; then \
 		mkdir -p ${NEXUS_BIN_DIR}; \
@@ -232,6 +236,16 @@ build_android_bsu: build_bolt
 	cp -pv $(ANDROID_BSU_DIR)/objs/$(BCHP_CHIP)$(BCHP_VER_LOWER)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
 	@echo "'$@' completed"
 
+.PHONY: build_bootloaderimg
+build_bootloaderimg: build_android_bsu
+	@echo "'$@' started"
+	$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.img
+	@echo "'$@' completed"
+
+.PHONY: clean_bootloaderimg
+clean_bootloaderimg:
+	rm -f $(PRODUCT_OUT_FROM_TOP)/bootloader.img
+
 .PHONY: clean_nexus
 clean_nexus:
 	$(MAKE) -C $(KERNEL_DIR)/linux M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
@@ -264,7 +278,7 @@ clean_v3d_driver: clean_gpumon_hook
 	rm -rf ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
 
 .PHONY: clean_refsw
-clean_refsw: clean_nexus clean_v3d_driver clean_bolt
+clean_refsw: clean_nexus clean_v3d_driver clean_bolt clean_bootloaderimg
 	@echo "================ MAKE CLEAN"
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
