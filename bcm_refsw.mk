@@ -86,6 +86,7 @@ NEXUS_TOP       := ${REFSW_BASE_DIR}/nexus
 ROCKFORD_TOP    := ${REFSW_BASE_DIR}/rockford
 BSEAV_TOP       := ${REFSW_BASE_DIR}/BSEAV
 B_REFSW_OBJ_ROOT := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/obj.$(NEXUS_PLATFORM)
+B_BOLT_OBJ_ROOT  := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/bolt
 
 export NEXUS_TOP ROCKFORD_TOP BSEAV_TOP B_REFSW_OBJ_ROOT
 
@@ -219,9 +220,11 @@ clean_bolt: clean_android_bsu
 .PHONY: build_bolt
 build_bolt:
 	@echo "'$@' started"
-	$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER)
-	cp -pv $(BOLT_DIR)/objs/$(BCHP_CHIP)$(BCHP_VER_LOWER)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba.bin || :
-	cp -pv $(BOLT_DIR)/objs/$(BCHP_CHIP)$(BCHP_VER_LOWER)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin || :
+	@if [ ! -d "${B_BOLT_OBJ_ROOT}" ]; then \
+		mkdir -p ${B_BOLT_OBJ_ROOT}; \
+	fi
+	$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT)
+	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin || :
 	@echo "'$@' completed"
 
 .PHONY: clean_android_bsu
@@ -232,8 +235,8 @@ clean_android_bsu:
 .PHONY: build_android_bsu
 build_android_bsu: build_bolt
 	@echo "'$@' started"
-	$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER)
-	cp -pv $(ANDROID_BSU_DIR)/objs/$(BCHP_CHIP)$(BCHP_VER_LOWER)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
+	$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT)
+	cp -pv $(B_BOLT_OBJ_ROOT)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
 	@echo "'$@' completed"
 
 .PHONY: build_bootloaderimg
