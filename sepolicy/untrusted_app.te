@@ -6,3 +6,5 @@ allow untrusted_app nxserver_socket:sock_file write;
 allow untrusted_app nexus_service:service_manager find;
 
 dontaudit untrusted_app nexus_data_file:dir search;
+dontaudit untrusted_app nexus_data_file:file { read getattr open };
+
