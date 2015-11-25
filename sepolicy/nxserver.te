@@ -1,4 +1,4 @@
-type nxserver, domain;
+type nxserver, domain, mlstrustedsubject;
 type nxserver_exec, exec_type, file_type;
 
 # started by init
