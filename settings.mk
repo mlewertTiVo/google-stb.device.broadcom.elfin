@@ -29,6 +29,7 @@ export B_REFSW_CCACHE := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
 export USE_CCACHE := 1
 
 export V3D_DEBUG ?= n
+export BDSP_MS10_SUPPORT ?= n
 
 export ANDROID_BUILD := y
 export BROADCOM_WIFI_CHIPSET := 43570a2
