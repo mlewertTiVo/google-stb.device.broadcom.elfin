@@ -26,7 +26,7 @@
 #include <errno.h>
 
 #define FORCE_RW_OPT            "0"
-#define EMMC_BOOT_SIZE          0x400000
+#define EMMC_SIZE               0x400000
 #define FILE_PATH_SIZE          64
 
 static int force_rw(char *name) {
@@ -49,14 +49,75 @@ static int force_rw(char *name) {
     return 0;
 }
 
+static int write_raw_image(void *data, unsigned size, char *partition) {
+
+    int fd = 0;
+    char *ptr;
+
+    fd = open(partition, O_RDWR);
+
+    if (fd < 0) {
+        fprintf(stderr, "write_bolt_emmc: faile to open %s\n", partition);
+        goto err_partition;
+    }
+
+    ptr = (char *)mmap(NULL, EMMC_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+    if (ptr == MAP_FAILED) {
+        fprintf(stderr, "write_bolt_emmc: mmap failed on %s with error: %s\n", partition, strerror(errno));
+        goto err_partition;
+    }
+
+    if (data != NULL) {
+        memcpy(ptr, data, size);
+    } else {
+        fprintf(stderr, "write_bolt_emmc: no data given.\n");
+        goto err_partition_copy;
+    }
+
+    munmap(ptr, EMMC_SIZE);
+    close(fd);
+
+    return 0;
+
+err_partition_copy:
+    munmap(ptr, EMMC_SIZE);
+
+err_partition:
+    close(fd);
+
+    return -1;
+}
+
+static int write_gpt_emmc(void *data, unsigned size) {
+
+    int emmc_index;
+    bool found_gpt = false;
+    char gpt_partition[FILE_PATH_SIZE] ;
+
+    for (emmc_index = 0; emmc_index < 2; emmc_index++) {
+
+        snprintf(gpt_partition, FILE_PATH_SIZE, "/dev/block/mmcblk%d", (1-emmc_index));
+
+        if ( access( gpt_partition, F_OK ) != -1) {
+            found_gpt = true;
+            break;
+        }
+    }
+
+    if (!found_gpt) {
+        fprintf(stderr, "write_gpt_emmc: did not find gpt partition\n");
+        return -1;
+    }
+
+    return write_raw_image(data, size, gpt_partition);
+}
+
 static int write_bolt_emmc(void *data, unsigned size) {
 
-    int boot_fd = 0;
     int emmc_index;
     bool found_boot = false;
     char boot_partition[FILE_PATH_SIZE] ;
     char boot_partition_force_ro[FILE_PATH_SIZE];
-    char *ptr;
 
     for (emmc_index = 0; emmc_index < 2; emmc_index++) {
 
@@ -76,38 +137,7 @@ static int write_bolt_emmc(void *data, unsigned size) {
         return -1;
     }
 
-    boot_fd = open(boot_partition, O_RDWR);
-
-    if (boot_fd < 0) {
-        fprintf(stderr, "write_bolt_emmc: faile to open %s\n", boot_partition);
-        goto err_boot;
-    }
-
-    ptr = (char *)mmap(NULL, EMMC_BOOT_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, boot_fd, 0);
-    if (ptr == MAP_FAILED) {
-        fprintf(stderr, "write_bolt_emmc: mmap failed on %s with error: %s\n", boot_partition, strerror(errno));
-        goto err_boot;
-    }
-
-    if (data != NULL) {
-        memcpy(ptr, data, size);
-    } else {
-        fprintf(stderr, "write_bolt_emmc: no data given.\n");
-        goto err_boot_copy;
-    }
-
-    munmap(ptr, EMMC_BOOT_SIZE);
-    close(boot_fd);
-
-    return 0;
-
-err_boot_copy:
-    munmap(ptr, EMMC_BOOT_SIZE);
-
-err_boot:
-    close(boot_fd);
-
-    return -1;
+    return write_raw_image(data, size, boot_partition);
 }
 
 Value* FlashBoltAvkoFn(const char *name, State *state, int argc, Expr * argv[]) {
@@ -169,9 +199,69 @@ done:
     return ret;
 }
 
+Value* FlashGPTAvkoFn(const char *name, State *state, int argc, Expr * argv[]) {
+
+    Value *ret = NULL;
+    char *filename = NULL;
+    unsigned char *buffer = NULL;
+    int gpt_size;
+    FILE *f = NULL;
+
+    if (argc != 1) {
+        ErrorAbort(state, "%s() expected 1 arg, got %d", name, argc);
+        return NULL;
+    }
+
+    if (ReadArgs(state, argv, 1, &filename) < 0) {
+        ErrorAbort(state, "%s() invalid args ", name);
+        return NULL;
+    }
+
+    if (filename == NULL || strlen(filename) == 0) {
+        ErrorAbort(state, "filename argument to %s can't be empty", name);
+        goto done;
+    }
+
+    if ((f = fopen(filename, "rb")) == NULL) {
+        ErrorAbort(state, "Unable to open file %s: %s ", filename, strerror(errno));
+        goto done;
+    }
+
+    fseek(f, 0, SEEK_END);
+    gpt_size = ftell(f);
+    if (gpt_size < 0) {
+        ErrorAbort(state, "Unable to get gpt_size");
+        goto done;
+    }
+    fseek(f, 0, SEEK_SET);
+
+    if ((buffer = malloc(gpt_size)) == NULL) {
+        ErrorAbort(state, "Unable to alloc gpt flash buffer of size %d", gpt_size);
+        goto done;
+    }
+    fread(buffer, gpt_size, 1, f);
+    fclose(f);
+
+    if (write_gpt_emmc(buffer, gpt_size) != 0 ) {
+        ErrorAbort(state, "Unable to flash gpt in emmc");
+        free(buffer);
+        goto done;
+    }
+
+    free(buffer);
+    ret = StringValue(strdup(""));
+
+done:
+    if (filename)
+        free(filename);
+
+    return ret;
+}
+
 void Register_librecovery_updater_avko() {
 
     fprintf(stderr, "installing avko updater extensions\n");
 
     RegisterFunction("avko.flash_bolt", FlashBoltAvkoFn);
+    RegisterFunction("avko.flash_gpt", FlashGPTAvkoFn);
 }
