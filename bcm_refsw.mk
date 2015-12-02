@@ -85,8 +85,10 @@ ANDROID_ICS		   := n
 NEXUS_TOP       := ${REFSW_BASE_DIR}/nexus
 ROCKFORD_TOP    := ${REFSW_BASE_DIR}/rockford
 BSEAV_TOP       := ${REFSW_BASE_DIR}/BSEAV
+B_REFSW_TOOLCHAINS_INSTALL := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/toolchains/
 B_REFSW_OBJ_ROOT := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/obj.$(NEXUS_PLATFORM)
 B_BOLT_OBJ_ROOT  := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/bolt
+export B_REFSW_CROSS_COMPILE := ${B_REFSW_TOOLCHAINS_INSTALL}
 
 export NEXUS_TOP ROCKFORD_TOP BSEAV_TOP B_REFSW_OBJ_ROOT
 
@@ -150,11 +152,34 @@ V3D_ANDROID_DEFINES := -I$(ANDROID_TOP)/${BCM_VENDOR_STB_ROOT}/drivers/nx_ashmem
 V3D_ANDROID_DEFINES += $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
 V3D_ANDROID_DEFINES += $(addprefix -D,$(NEXUS_APP_DEFINES))
 V3D_ANDROID_DEFINES += -I${NEXUS_TOP}/nxclient/include
+V3D_ANDROID_LD :=
+
+ifeq ($(B_REFSW_USES_CLANG),y)
+V3D_ANDROID_DEFINES += -target arm-linux-androideabi -B${B_REFSW_CROSS_COMPILE_PATH}
+V3D_ANDROID_LD := -target arm-linux-androideabi -B${B_REFSW_CROSS_COMPILE_PATH}
+endif
+
+.PHONY: setup_nexus_toolchains
+setup_nexus_toolchains:
+	@if [ -d "${B_REFSW_TOOLCHAINS_INSTALL}" ]; then \
+		rm -rf ${B_REFSW_TOOLCHAINS_INSTALL}; \
+	fi
+	@mkdir -p ${B_REFSW_TOOLCHAINS_INSTALL};
+	@if [ "${B_REFSW_USES_CLANG}" == "y" ] ; then \
+		ln -s ${P_REFSW_CC_CLANG}/clang ${B_REFSW_TOOLCHAINS_INSTALL}gcc; \
+		ln -s ${P_REFSW_CC_CLANG}/clang++ ${B_REFSW_TOOLCHAINS_INSTALL}c++; \
+		ln -s ${P_REFSW_CC_CLANG}/clang++ ${B_REFSW_TOOLCHAINS_INSTALL}g++; \
+	else \
+		ln -s ${P_REFSW_CC}gcc ${B_REFSW_TOOLCHAINS_INSTALL}gcc; \
+		ln -s ${P_REFSW_CC}c++ ${B_REFSW_TOOLCHAINS_INSTALL}c++; \
+		ln -s ${P_REFSW_CC}c++ ${B_REFSW_TOOLCHAINS_INSTALL}g++; \
+	fi
+	@ln -s ${P_REFSW_CC}ar ${B_REFSW_TOOLCHAINS_INSTALL}ar;
 
 .PHONY: nexus_build
 export NXCLIENT_SOCKET_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxsocket/nxclient_android_socket.c
 export NEXUS_PLATFORM_PROXY_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxproxyif/nexus_platform_proxy_intf.c
-nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_bootloaderimg
+nexus_build: setup_nexus_toolchains clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_bootloaderimg
 	@echo "'$@' started"
 	@if [ ! -d "${NEXUS_BIN_DIR}" ]; then \
 		mkdir -p ${NEXUS_BIN_DIR}; \
@@ -184,7 +209,8 @@ gpumon_hook: libnexuseglclient
 		LIBDIR=$(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM) \
 		V3D_DEBUG=$(V3D_DEBUG) \
 		ANDROID_LIBDIR_LINK=${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/system/lib \
-		V3D_EXTRA_CFLAGS='$(V3D_ANDROID_DEFINES)' && \
+		V3D_EXTRA_CFLAGS='$(V3D_ANDROID_DEFINES)' \
+		V3D_EXTRA_LDFLAGS='$(V3D_ANDROID_LD)' && \
 		mkdir -p ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin && \
 		cp -fp $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM)/libgpumon_hook.so ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin; \
 	fi
@@ -202,7 +228,8 @@ v3d_driver: libnexuseglclient gpumon_hook
 		OBJDIR=$(B_REFSW_OBJ_ROOT)/v3d_obj_$(NEXUS_PLATFORM) \
 		LIBDIR=$(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM) \
 		V3D_DEBUG=$(V3D_DEBUG) \
-		V3D_EXTRA_CFLAGS='$(V3D_ANDROID_DEFINES)'
+		V3D_EXTRA_CFLAGS='$(V3D_ANDROID_DEFINES)' \
+		V3D_EXTRA_LDFLAGS='$(V3D_ANDROID_LD)'
 	mkdir -p ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
 	cp -fp $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM)/libGLES_nexus.so ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
 	@echo "'$@' completed"
@@ -250,7 +277,7 @@ clean_bootloaderimg:
 	rm -f $(PRODUCT_OUT_FROM_TOP)/bootloader.img
 
 .PHONY: clean_nexus
-clean_nexus:
+clean_nexus: setup_nexus_toolchains
 	$(MAKE) -C $(KERNEL_DIR)/linux M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean
