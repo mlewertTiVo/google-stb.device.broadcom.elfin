@@ -10,4 +10,5 @@ allow init port:udp_socket name_bind;
 allow init self:tcp_socket { bind create setopt listen };
 allow init self:udp_socket { bind setopt };
 allow init tmpfs:lnk_file create;
+allow init cache_file:dir mounton;
 
