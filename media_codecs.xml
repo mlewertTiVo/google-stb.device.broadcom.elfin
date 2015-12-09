@@ -151,20 +151,18 @@ Only the three quirks included above are recognized at this point:
         </MediaCodec>
 
         <!-- Broadcom audio decoder -->
-        <MediaCodec name="OMX.broadcom.audio_decoder.mp3" type="audio/mpeg">
-            <Limit name="channel-count" max="2" />
-            <Limit name="sample-rate" ranges="8000,11025,12000,16000,22050,24000,32000,44100,48000" />
+        <MediaCodec name="OMX.broadcom.audio_decoder.mp3" >
+            <Type name="audio/mpeg" >
+                <Limit name="channel-count" max="2" />
+                <Limit name="sample-rate" ranges="8000,11025,12000,16000,22050,24000,32000,44100,48000" />
+            </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
-        <MediaCodec name="OMX.broadcom.audio_decoder.ac3" type="audio/ac3">
-            <Limit name="channel-count" max="6" />
-            <Limit name="sample-rate" ranges="8000,11025,12000,16000,22050,24000,32000,44100,48000" />
-            <Quirk name="requires-allocate-on-input-ports" />
-        </MediaCodec>
-        <MediaCodec name="OMX.broadcom.audio_decoder.aac" type="audio/mp4a-latm">
-            <Limit name="channel-count" max="6" />
-            <Limit name="sample-rate" ranges="8000,11025,12000,16000,22050,24000,32000,44100,48000" />
-            <Limit name="bitrate" range="8000-960000" />
+        <MediaCodec name="OMX.broadcom.audio_decoder.ac3" >
+            <Type name="audio/ac3" >
+                <Limit name="channel-count" max="6" />
+                <Limit name="sample-rate" ranges="8000,11025,12000,16000,22050,24000,32000,44100,48000" />
+            </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
     </Decoders>
