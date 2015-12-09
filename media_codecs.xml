@@ -191,4 +191,5 @@ Only the three quirks included above are recognized at this point:
     <!-- Standard google codecs -->
     <Include href="media_codecs_google_audio.xml" />
     <Include href="media_codecs_google_video.xml" />
+    <Include href="media_codecs_google_tv.xml" />
 </MediaCodecs>
