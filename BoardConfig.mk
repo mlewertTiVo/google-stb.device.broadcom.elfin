@@ -107,7 +107,7 @@ BOARD_FLASH_BLOCK_SIZE := 512
 BOARD_KERNEL_BASE := 0x00008000
 BOARD_KERNEL_PAGESIZE := 4096
 
-BOARD_KERNEL_CMDLINE := mem=1024m@0m mem=1016m@2048m bmem=336m@688m bmem=256m@2048m brcm_cma=760m@2304m ramoops.mem_address=0xBF800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
+BOARD_KERNEL_CMDLINE := mem=1016m@0m mem=1024m@2048m bmem=336m@672m bmem=256m@2048m brcm_cma=768m@2304m ramoops.mem_address=0x3F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
