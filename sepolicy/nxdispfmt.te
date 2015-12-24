@@ -7,3 +7,9 @@ init_daemon_domain(nxdispfmt)
 allow nxdispfmt nexus_data_file:dir { search read };
 allow nxdispfmt nexus_data_file:file { read open getattr };
 
+allow nxdispfmt nxserver_socket:sock_file write;
+allow nxdispfmt nxserver:unix_stream_socket connectto;
+allow nxdispfmt gpu_device:chr_file rw_file_perms;
+allow nxdispfmt property_socket:sock_file write;
+allow nxdispfmt init:unix_stream_socket connectto;
+allow nxdispfmt nexus_prop:property_service set;
