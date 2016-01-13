@@ -128,7 +128,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # GMS package integration.
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=android-acme
+    ro.com.google.clientidbase=android-avko
 
 # nx configuration.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -146,6 +146,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.odv.a1.use=50 \
     ro.nx.capable.cb=1 \
     ro.v3d.fence.expose=true
+
+# This provides the build id of the reference platform that the current build
+# is based on. Do not remove this line.
+$(call inherit-product, device/google/avko/reference_build.mk)
 
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
