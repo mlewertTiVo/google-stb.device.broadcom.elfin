@@ -239,8 +239,8 @@ PRODUCT_NAME := avko
 PRODUCT_DEVICE := avko
 PRODUCT_MODEL := avko
 PRODUCT_CHARACTERISTICS := tv
-PRODUCT_MANUFACTURER := Google
-PRODUCT_BRAND := Google
+PRODUCT_MANUFACTURER := google
+PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
 export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.4/bin:${PATH}
