@@ -1,3 +1,3 @@
 require board=avko
-require version-bootloader=v1.09-86-g968a30b
+require version-bootloader=v1.10-92-g34a2f28
 
