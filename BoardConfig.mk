@@ -118,43 +118,8 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
 TARGET_IS_AOSP := false
 
-# se-linux configuration for avko
-#
 BOARD_SEPOLICY_DIRS += device/google/avko/sepolicy
-BOARD_SEPOLICY_UNION += \
-    adbd.te \
-    bcmstb_app.te \
-    bluetooth.te \
-    bootanim.te \
-    device.te \
-    drmserver.te \
-    dumpstate.te \
-    file.te \
-    file_contexts \
-    genfs_contexts \
-    hwcbinder.te \
-    init.te \
-    kernel.te \
-    keys.conf \
-    mac_permissions.xml \
-    mediaserver.te \
-    netd.te \
-    nxdispfmt.te \
-    nxmini.te \
-    nxserver.te \
-    platform_app.te \
-    property.te \
-    property_contexts \
-    recovery.te \
-    seapp_contexts \
-    service.te \
-    service_contexts \
-    servicemanager.te \
-    shell.te \
-    surfaceflinger.te \
-    system_app.te \
-    system_server.te \
-    untrusted_app.te
+BOARD_SEPOLICY_DIRS += device/google/avko/sepolicy-block
 
 # using legacy audio policy.
 USE_LEGACY_AUDIO_POLICY := 0

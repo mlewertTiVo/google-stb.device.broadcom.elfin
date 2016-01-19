@@ -9,6 +9,7 @@ allow init port:tcp_socket name_bind;
 allow init port:udp_socket name_bind;
 allow init self:tcp_socket { bind create setopt listen };
 allow init self:udp_socket { bind setopt };
-allow init tmpfs:lnk_file create;
+allow init tmpfs:lnk_file create_file_perms;
 allow init cache_file:dir mounton;
+allow init storage_file:dir mounton;
 

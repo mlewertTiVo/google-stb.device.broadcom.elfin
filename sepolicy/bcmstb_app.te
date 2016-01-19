@@ -43,6 +43,7 @@ allow bcmstb_app assetatlas_service:service_manager find;
 allow bcmstb_app graphicsstats_service:service_manager find;
 allow bcmstb_app input_method_service:service_manager find;
 allow bcmstb_app audio_service:service_manager find;
+allow bcmstb_app tv_input_service:service_manager find;
 
 neverallow bcmstb_app domain:netlink_kobject_uevent_socket *;
 neverallow bcmstb_app domain:netlink_socket *;

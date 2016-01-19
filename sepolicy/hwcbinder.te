@@ -16,6 +16,8 @@ allow hwcbinder mediaserver:binder call;
 allow hwcbinder mediaserver:binder transfer;
 allow hwcbinder untrusted_app:binder call;
 allow hwcbinder untrusted_app:binder transfer;
+allow hwcbinder bcmstb_app:binder call;
+allow hwcbinder bcmstb_app:binder transfer;
 
 allow hwcbinder system_server_service:service_manager add;
 allow hwcbinder nexus_service:service_manager add;
