@@ -72,8 +72,6 @@ PRODUCT_OUT_FROM_TOP := ${PRODUCT_OUT}
 export ANDROID_OUT_DIR := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))
 endif
 
-KERNEL_DIR := $(ANDROID_TOP)/kernel/private/bcm-97xxx/linux
-
 BRCM_NEXUS_INSTALL_PATH		:= ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform
 
 # Android version checks
@@ -109,9 +107,6 @@ endif
 
 ifeq ($(BCHP_VER_LOWER),)
 BCHP_VER_LOWER := $(shell echo ${BCHP_VER} | tr [:upper:] [:lower:])
-ifeq ($(BCHP_VER_LOWER_LINUX_OVERRIDE),)
-BCHP_VER_LOWER_LINUX_OVERRIDE := $(BCHP_VER_LOWER)
-endif
 endif
 
 ifeq ($(BOLT_IMG_TO_USE_OVERRIDE),)
@@ -185,10 +180,10 @@ nexus_build: setup_nexus_toolchains clean_recovery_ramdisk build_kernel $(NEXUS_
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/server
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/build
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/lib/os
-	$(MAKE) -C $(KERNEL_DIR) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm modules
+	$(MAKE) -C $(LINUX) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm modules
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
-	$(MAKE) -C $(KERNEL_DIR) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver modules
+	$(MAKE) -C $(LINUX) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver modules
 	@echo "================ Copy NEXUS output"
 	cp -rfp ${NEXUS_BIN_DIR} ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus
 	@echo "'$@' completed"
@@ -275,10 +270,10 @@ clean_bootloaderimg:
 
 .PHONY: clean_nexus
 clean_nexus: setup_nexus_toolchains
-	$(MAKE) -C $(KERNEL_DIR) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
+	$(MAKE) -C $(LINUX) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean
-	$(MAKE) -C $(KERNEL_DIR) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver clean
+	$(MAKE) -C $(LINUX) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver clean
 	$(MAKE) -C $(NEXUS_TOP)/nxclient/server clean
 
 .PHONY: clean_gpumon_hook
