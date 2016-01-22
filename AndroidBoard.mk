@@ -22,3 +22,4 @@ include $(LOCAL_PATH)/AndroidKernel.mk
 $(call add-radio-file, $(PRODUCT_OUT)/bolt-bb.bin)
 $(call add-radio-file, $(PRODUCT_OUT)/android_bsu.elf)
 $(call add-radio-file, $(PRODUCT_OUT)/gpt.bin)
+$(call add-radio-file, $(PRODUCT_OUT)/bootloader.img)
