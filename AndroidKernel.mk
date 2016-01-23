@@ -60,7 +60,7 @@ build_kernel:
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT)/config_fragment
 	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX_OUT)/config_fragment
 	echo "CONFIG_BCM7439B0=y" >> $(LINUX_OUT)/config_fragment
-	cd $(LINUX) && scripts/kconfig/merge_config.sh -O $(LINUX_OUT) arch/arm/configs/brcmstb_defconfig config_fragment
+	cd $(LINUX) && scripts/kconfig/merge_config.sh -O $(LINUX_OUT) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT)/config_fragment
 	rm -f $(LINUX_OUT)/config_fragment
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF)_refsw ]; then \
