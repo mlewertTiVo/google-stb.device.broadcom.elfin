@@ -48,20 +48,21 @@ endif
 KERNEL_IMG := zImage
 
 .PHONY: build_kernel
-AUTOCONF := $(LINUX)/include/generated/autoconf.h
+AUTOCONF := $(LINUX_OUT)/include/generated/autoconf.h
 build_kernel:
 	@echo "'$@' started"
 	-@if [ -f $(AUTOCONF) ]; then \
 		cp -pv $(AUTOCONF) $(AUTOCONF)_refsw; \
 	fi
-	rm -f $(LINUX)/config_fragment
-	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX)/config_fragment
-	echo "# CONFIG_BCM7145 is not set" >> $(LINUX)/config_fragment
-	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX)/config_fragment
-	echo "CONFIG_BCM7439B0=y" >> $(LINUX)/config_fragment
-	cd $(LINUX) && scripts/kconfig/merge_config.sh arch/arm/configs/brcmstb_defconfig config_fragment
-	rm -f $(LINUX)/config_fragment
-	$(MAKE) -C $(LINUX) $(KERNEL_IMG)
+	mkdir -p ${LINUX_OUT}
+	rm -f $(LINUX_OUT)/config_fragment
+	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT)/config_fragment
+	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT)/config_fragment
+	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX_OUT)/config_fragment
+	echo "CONFIG_BCM7439B0=y" >> $(LINUX_OUT)/config_fragment
+	cd $(LINUX) && scripts/kconfig/merge_config.sh -O $(LINUX_OUT) arch/arm/configs/brcmstb_defconfig config_fragment
+	rm -f $(LINUX_OUT)/config_fragment
+	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF)_refsw $(AUTOCONF) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -69,7 +70,7 @@ build_kernel:
 		fi; \
 		rm -f $(AUTOCONF)_refsw; \
 	fi
-	cp -pv $(LINUX)/arch/arm/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
+	cp -pv $(LINUX_OUT)/arch/arm/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
 	@echo "'$@' completed"
 
 $(KERNEL_OUT_DIR)/kernel: build_kernel
@@ -80,5 +81,7 @@ clean_drivers: clean_brcm_dhd_driver
 
 .PHONY: clean_kernel
 clean_kernel: clean_drivers
-	$(MAKE) -C $(LINUX) distclean
+	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT) $(MAKE) distclean
 	rm -f $(KERNEL_OUT_DIR_ABS)/kernel
+	rm -rf $(LINUX_OUT)
+

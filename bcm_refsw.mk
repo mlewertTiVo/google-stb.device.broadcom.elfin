@@ -71,6 +71,7 @@ else
 PRODUCT_OUT_FROM_TOP := ${PRODUCT_OUT}
 export ANDROID_OUT_DIR := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))
 endif
+export LINUX_OUT := ${ANDROID_OUT_DIR}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/kernel
 
 BRCM_NEXUS_INSTALL_PATH		:= ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform
 
@@ -180,10 +181,10 @@ nexus_build: setup_nexus_toolchains clean_recovery_ramdisk build_kernel $(NEXUS_
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/server
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/build
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/lib/os
-	$(MAKE) -C $(LINUX) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm modules
+	$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm modules
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
-	$(MAKE) -C $(LINUX) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver modules
+	$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver modules
 	@echo "================ Copy NEXUS output"
 	cp -rfp ${NEXUS_BIN_DIR} ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus
 	@echo "'$@' completed"
@@ -270,10 +271,10 @@ clean_bootloaderimg:
 
 .PHONY: clean_nexus
 clean_nexus: setup_nexus_toolchains
-	$(MAKE) -C $(LINUX) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
+	$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean
-	$(MAKE) -C $(LINUX) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver clean
+	$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver clean
 	$(MAKE) -C $(NEXUS_TOP)/nxclient/server clean
 
 .PHONY: clean_gpumon_hook
