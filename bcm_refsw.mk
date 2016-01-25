@@ -271,11 +271,13 @@ clean_bootloaderimg:
 
 .PHONY: clean_nexus
 clean_nexus: setup_nexus_toolchains
-	$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
-	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
-	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean
-	$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver clean
-	$(MAKE) -C $(NEXUS_TOP)/nxclient/server clean
+	@if [ -d ${LINUX_OUT} ]; then \
+		$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean; \
+		$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean; \
+		$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean; \
+		$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver clean; \
+		$(MAKE) -C $(NEXUS_TOP)/nxclient/server clean; \
+	fi
 
 .PHONY: clean_gpumon_hook
 clean_gpumon_hook:
