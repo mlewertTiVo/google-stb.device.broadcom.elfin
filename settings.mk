@@ -10,7 +10,7 @@
 #
 #export OUT_DIR_COMMON_BASE=
 
-export BCM_VENDOR_STB_ROOT ?= vendor/broadcom/stb
+export BCM_VENDOR_STB_ROOT ?= vendor/broadcom
 
 export NEXUS_PLATFORM := 97439
 export BCHP_VER := B0
