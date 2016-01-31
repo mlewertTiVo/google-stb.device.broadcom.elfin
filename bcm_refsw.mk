@@ -75,9 +75,6 @@ export LINUX_OUT := ${ANDROID_OUT_DIR}/target/product/${ANDROID_PRODUCT_OUT}/obj
 
 BRCM_NEXUS_INSTALL_PATH		:= ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform
 
-# Android version checks
-ANDROID_ICS		   := n
-
 NEXUS_TOP       := ${REFSW_BASE_DIR}/nexus
 ROCKFORD_TOP    := ${REFSW_BASE_DIR}/rockford
 BSEAV_TOP       := ${REFSW_BASE_DIR}/BSEAV
@@ -85,8 +82,9 @@ B_REFSW_TOOLCHAINS_INSTALL := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDRO
 B_REFSW_OBJ_ROOT := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/obj.$(NEXUS_PLATFORM)
 B_BOLT_OBJ_ROOT  := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/bolt
 export B_REFSW_CROSS_COMPILE := ${B_REFSW_TOOLCHAINS_INSTALL}
+NEXUS_BIN_DIR   := $(B_REFSW_OBJ_ROOT)/nexus/bin
 
-export NEXUS_TOP ROCKFORD_TOP BSEAV_TOP B_REFSW_OBJ_ROOT
+export NEXUS_TOP ROCKFORD_TOP BSEAV_TOP B_REFSW_OBJ_ROOT NEXUS_BIN_DIR
 
 export MULTI_BUILD=y
 ifneq ($(DISABLE_REFSW_PARALLELISM),)
@@ -114,21 +112,17 @@ ifeq ($(BOLT_IMG_TO_USE_OVERRIDE),)
 BOLT_IMG_TO_USE_OVERRIDE := bolt-bb.bin
 endif
 
-ifeq ($(BCHP_CHIP),)
-ifneq ($(CALLED_FROM_SETUP),true)
 # Include Nexus platform application Makefile include
 # platform_app.inc modifies the PWD variable used by android.  Save it and restore afterward.
 PWD_BEFORE_PLATFORM_APP := $(PWD)
 include ${NEXUS_TOP}/platforms/$(PLATFORM)/build/platform_app.inc
 PWD := $(PWD_BEFORE_PLATFORM_APP)
-endif
 
 # filter out flags clashing with Android build system
 FILTER_OUT_NEXUS_CFLAGS := -march=armv7-a -Wstrict-prototypes
 NEXUS_CFLAGS := $(filter-out $(FILTER_OUT_NEXUS_CFLAGS), $(NEXUS_CFLAGS))
 
 export BCHP_CHIP
-endif
 
 BRCMSTB_MODEL_NAME := bcm$(BCHP_CHIP)_$(BCHP_VER_LOWER)_$(MODEL_NAME)_$(HARDWARE_REV)
 export BRCMSTB_MODEL_NAME
@@ -141,9 +135,13 @@ NEXUS_DEPS := \
 	${PRODUCT_OUT}/obj/lib/crtend_android.o \
 	mkbootimg
 
+NEXUS_APP_CFLAGS := $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
+NEXUS_APP_CFLAGS += $(addprefix -D,$(NEXUS_APP_DEFINES))
+NEXUS_APP_CFLAGS += -DBSTD_CPU_ENDIAN=BSTD_ENDIAN_LITTLE
+export NEXUS_APP_CFLAGS
+
 V3D_ANDROID_DEFINES := -I$(ANDROID_TOP)/${BCM_VENDOR_STB_ROOT}/drivers/nx_ashmem
-V3D_ANDROID_DEFINES += $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
-V3D_ANDROID_DEFINES += $(addprefix -D,$(NEXUS_APP_DEFINES))
+V3D_ANDROID_DEFINES += $(NEXUS_APP_CFLAGS)
 V3D_ANDROID_DEFINES += -I${NEXUS_TOP}/nxclient/include
 V3D_ANDROID_LD :=
 
@@ -214,7 +212,7 @@ gpumon_hook: libnexuseglclient
 v3d_driver: libnexuseglclient gpumon_hook
 	@echo "'$@' started (with -j1)"
 	$(MAKE) -j1 $(MAKE_OPTIONS) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/driver -f GLES_nexus.mk \
-		ANDROID_ICS=$(ANDROID_ICS) \
+		ANDROID_ICS=n \
 		GRALLOC=${BRCM_NEXUS_INSTALL_PATH}/libgralloc \
 		PLATFORM_DIR=$(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/platform \
 		PLATFORM_APP_INC=${NEXUS_TOP}/platforms/$(PLATFORM)/build/platform_app.inc \
