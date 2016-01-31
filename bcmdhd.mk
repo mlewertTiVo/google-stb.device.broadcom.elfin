@@ -8,23 +8,11 @@ BRCM_DHD_NVRAM_NAME ?= bcm43570.nvm
 .PHONY: brcm_dhd_driver
 brcm_dhd_driver: build_kernel
 	@echo "'$@' started"
-	+@if [ -d ${BROADCOM_DHD_SOURCE_PATH} ]; then \
-		cd ${BROADCOM_DHD_SOURCE_PATH} && \
-		source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && \
-		./bfd-drv-cfg80211.sh; \
-		cp -p ${BROADCOM_DHD_SOURCE_PATH}/firmware/${BROADCOM_WIFI_CHIPSET}-roml/${BRCM_DHD_FW_NAME} ${BRCM_DHD_PATH}/firmware/fw.bin.trx; \
-		if [ "${BRCM_DHD_NVRAM_NAME}" != "" ] ; then \
-			cp -p ${BRCM_DHD_NVRAM_DIR}/${BRCM_DHD_NVRAM_NAME} ${BRCM_DHD_PATH}/nvrams/nvm.txt; \
-		fi && \
-		if [ -f ${BROADCOM_DHD_SOURCE_PATH}/driver/${BRCM_DHD_KO_NAME} ]; then \
-			mkdir -p ${BRCM_DHD_PATH}/driver && \
-			cp -p ${BROADCOM_DHD_SOURCE_PATH}/driver/${BRCM_DHD_KO_NAME} ${BRCM_DHD_PATH}/driver; \
-		else \
-			echo "Error: wifi driver failed to build." ; exit -1; \
-		fi \
-	else \
-		echo Error: ${BROADCOM_DHD_SOURCE_PATH} " does not exist" ; exit -1; \
-	fi
+	cd ${BROADCOM_DHD_SOURCE_PATH} && source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && ./bfd-drv-cfg80211.sh;
+	cp -p ${BROADCOM_DHD_SOURCE_PATH}/firmware/${BROADCOM_WIFI_CHIPSET}-roml/${BRCM_DHD_FW_NAME} ${BRCM_DHD_PATH}/firmware/fw.bin.trx;
+	cp -p ${BRCM_DHD_NVRAM_DIR}/${BRCM_DHD_NVRAM_NAME} ${BRCM_DHD_PATH}/nvrams/nvm.txt;
+	mkdir -p ${BRCM_DHD_PATH}/driver;
+	cp -p ${BROADCOM_DHD_SOURCE_PATH}/driver/${BRCM_DHD_KO_NAME} ${BRCM_DHD_PATH}/driver;
 	@echo "'$@' completed"
 
 
