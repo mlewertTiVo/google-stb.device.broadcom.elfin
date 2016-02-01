@@ -40,7 +40,7 @@ export BCM_GPT_CONFIG_FILE := device/google/avko/makegpt.conf
 export HLS_PROTOCOL_SUPPORT := y
 
 export LINUXVER := 3.14.13
-export LINUX := ${ANDROID_TOP}/kernel/private/97xxx-bcm/linux
+export LINUX := ${ANDROID_TOP}/kernel/private/bcm-97xxx/linux
 export BCHP_VER_LOWER_LINUX_OVERRIDE :=
 
 export NEXUS_ANDROID_SUPPORT := y

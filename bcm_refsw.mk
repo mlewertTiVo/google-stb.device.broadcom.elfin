@@ -89,9 +89,9 @@ ifneq ($(DISABLE_REFSW_PARALLELISM),)
 MAKE_OPTIONS := -j1
 endif
 
-KERNEL_DIR := $(shell [ -e $(ANDROID_TOP)/kernel/private/97xxx-bcm/uclinux-rootfs ] && echo "$(ANDROID_TOP)/kernel/private/97xxx-bcm/uclinux-rootfs")
+KERNEL_DIR := $(shell [ -e $(ANDROID_TOP)/kernel/private/bcm-97xxx/uclinux-rootfs ] && echo "$(ANDROID_TOP)/kernel/private/bcm-97xxx/uclinux-rootfs")
 ifeq ($(KERNEL_DIR),)
-KERNEL_DIR := $(ANDROID_TOP)/kernel/private/97xxx-bcm/rootfs
+KERNEL_DIR := $(ANDROID_TOP)/kernel/private/bcm-97xxx/rootfs
 endif
 
 BOLT_DIR := ${BRCMSTB_ANDROID_VENDOR_PATH}/bolt
