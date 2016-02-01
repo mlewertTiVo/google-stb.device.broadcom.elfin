@@ -34,3 +34,5 @@ allow nxserver dumpstate:unix_stream_socket { read write };
 allow nxserver nexus_data_file:dir { search setattr write add_name };
 allow nxserver nexus_data_file:file { open create read write setattr getattr };
 allow nxserver self:netlink_kobject_uevent_socket { create bind read };
+allow nxserver readonlyfs:file { read open getattr};
+allow nxserver readonlyfs:dir search;
