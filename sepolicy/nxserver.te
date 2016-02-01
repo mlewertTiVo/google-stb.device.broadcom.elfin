@@ -1,13 +1,13 @@
-type nxserver, domain;
+type nxserver, domain, mlstrustedsubject;
 type nxserver_exec, exec_type, file_type;
 
 # started by init
 init_daemon_domain(nxserver)
+wakelock_use(nxserver)
 
 allow nxserver self:capability { sys_module };
 allow nxserver shell_exec:file { read open execute };
 allow nxserver device:dir { write add_name };
-allow nxserver device:sock_file { write create setattr };
 allow nxserver gpu_device:chr_file { read write ioctl open getattr };
 allow nxserver init:unix_stream_socket connectto;
 allow nxserver input_device:chr_file { read open };
@@ -15,18 +15,15 @@ allow nxserver proc:file write;
 allow nxserver property_socket:sock_file write;
 allow nxserver self:capability dac_override;
 allow nxserver servicemanager:binder { transfer call };
+allow nxserver surfaceflinger:binder call;
 allow nxserver shell_exec:file execute_no_trans;
 allow nxserver sysfs:file write;
-allow nxserver system_data_file:dir { write add_name };
-allow nxserver system_data_file:file { write create open };
+allow nxserver sysfs_devices_system_cpu:file write;
 allow nxserver system_file:file execute_no_trans;
 allow nxserver system_prop:property_service set;
 allow nxserver uhid_device:chr_file { write ioctl open };
 allow nxserver gpu_device:chr_file ioctl;
 allow nxserver input_device:dir search;
-allow nxserver system_data_file:dir remove_name;
-allow nxserver system_data_file:file unlink;
-allow nxserver system_server_service:service_manager add;
 allow nxserver system_server:binder call;
 allow nxserver system_server:binder transfer;
 allow nxserver dumpstate:fd use;
@@ -37,3 +34,15 @@ allow nxserver self:netlink_kobject_uevent_socket { create bind read };
 allow nxserver readonlyfs:file { read open getattr};
 allow nxserver readonlyfs:dir search;
 allow nxserver hdmi_hpd_device:chr_file { read write open getattr ioctl };
+allow nxserver watchdog_device:chr_file rw_file_perms;
+allow nxserver self:udp_socket { create ioctl };
+allow nxserver self:capability { net_raw net_admin };
+
+allow nxserver nexus_service:service_manager add;
+allow nxserver watchdog_device:chr_file rw_file_perms;
+
+type_transition nxserver system_data_file:file nexus_log_file "nexus.log";
+allow nxserver nexus_log_file:file { open create read write setattr getattr unlink };
+allow nxserver system_data_file:dir { search setattr write add_name remove_name };
+allow nxserver self:udp_socket { write create setattr ioctl };
+allow nxserver self:capability { net_raw net_admin };

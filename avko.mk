@@ -29,7 +29,7 @@ endif
 #                   otherwise fallback (note pdk device is not atv based in
 #                   particular since device/google/atv is not part of pdk).
 ifeq (,$(LOCAL_RUN_TARGET))
-  ifneq ($(wildcard $(TOPDIR)device/google/atv/tv_core_hardware.xml),)
+  ifneq ($(wildcard $(TOPDIR)device/google/atv/permissions/tv_core_hardware.xml),)
     $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
     $(call inherit-product, $(TOPDIR)device/google/atv/products/atv_base.mk)
   else
@@ -58,7 +58,7 @@ else
   export B_REFSW_DEBUG_LEVEL := msg
 endif
 
-ifneq ($(wildcard device/google/atv/tv_core_hardware.xml),)
+ifneq ($(wildcard device/google/atv/permissions/tv_core_hardware.xml),)
   # purposefully swap overlay layout to override some settings from
   # the ATV setup.
   DEVICE_PACKAGE_OVERLAYS := device/google/avko/overlay
@@ -71,24 +71,26 @@ PRODUCT_AAPT_CONFIG := normal large xlarge tvdpi hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.hardware=bcm_platform \
-    ro.product.board=bcm_platform
+    ro.hardware=avko \
+    ro.product.board=avko
 
 TARGET_CPU_SMP := true
 
 PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko:system/vendor/drivers/nexus.ko \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
+    device/google/avko/bootanimation.zip:system/media/bootanimation.zip \
     device/google/avko/init.blockdev.rc:root/init.blockdev.rc \
     device/google/avko/init.blockdev.rc:root/init.recovery.blockdev.rc \
     device/google/avko/init.eth.rc:root/init.eth.rc \
-    device/google/avko/init.recovery.bcm_platform.rc:root/init.recovery.bcm_platform.rc \
+    device/google/avko/init.recovery.bcm_platform.rc:root/init.recovery.avko.rc \
     device/google/avko/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/google/avko/media_codecs.xml:system/etc/media_codecs.xml \
     device/google/avko/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
     device/google/avko/audio_policy_btusb.conf:system/etc/audio_policy.conf \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml \
     device/google/avko/webview-command-line:/data/local/tmp/webview-command-line \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.hdmi.cec.xml:system/etc/permissions/android.hardware.hdmi.cec.xml \
@@ -100,34 +102,33 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.bcm_platform \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.avko \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/gps.conf:system/etc/gps.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.nonxsock.rc:root/init.bcm_platform.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.rc:root/init.avko.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.bcm_platform.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.avko.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ws_home.html:root/ws_home.html \
-    ${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko:system/vendor/drivers/droid_pm.ko
-
-ifneq ($(wildcard device/google/atv/tv_core_hardware.xml),)
-  PRODUCT_COPY_FILES += \
-      device/google/avko/bootanimation.zip:system/media/bootanimation.zip
-endif
+    ${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
+    ${BCM_VENDOR_STB_ROOT}/drivers/gator/driver/gator.ko:system/vendor/drivers/gator.ko
 
 ifeq ($(SAGE_SUPPORT),y)
   PRODUCT_COPY_FILES += \
       ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl.bin:system/bin/sage_bl.bin \
       ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
       ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app.bin:system/bin/sage_os_app.bin \
-      ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/sage/7439B0/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
+      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bq.gpu_to_cpu_unsupported=1 \
-    ro.zygote.disable_gl_preload=true
+    ro.zygote.disable_gl_preload=true \
+    sys.display-size=1920x1080 \
+    persist.sys.hdmi.keep_awake=false
 
 # GMS package integration.
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=android-acme
+    ro.com.google.clientidbase=android-avko
 
 # nx configuration.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -139,30 +140,37 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.mma=1 \
     ro.nx.heap.grow=8m \
     ro.nx.heap.shrink=2m \
-    ro.nx.heap.gfx=48m \
+    ro.nx.heap.gfx=72m \
     ro.nx.odv=0 \
     ro.nx.odv.use.alt=150m \
-    ro.nx.odv.a1.use=50
+    ro.nx.odv.a1.use=50 \
+    ro.nx.capable.cb=1 \
+    ro.v3d.fence.expose=true
+
+# This provides the build id of the reference platform that the current build
+# is based on. Do not remove this line.
+$(call inherit-product, device/google/avko/reference_build.mk)
 
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_PACKAGES += \
-    wpa_supplicant \
-    dhcpcd.conf \
-    network \
-    ethtool \
     busybox \
+    dhcpcd.conf \
+    ethtool \
     e2fsck \
+    gatord \
+    gptbin \
+    makehwcfg \
+    network \
     nxdispfmt \
     nxserver \
     nxlogger \
-    gptbin \
-    makehwcfg
+    wpa_supplicant
 
 # only for full image.
 ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
   PRODUCT_PACKAGES += \
-      audio.primary.bcm_platform \
+      audio.primary.avko \
       audio.usb.default \
       audio.r_submix.default \
       audio.atvr.default \
@@ -172,13 +180,13 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmCoverFlow \
       BcmTVInput \
       BcmOtaUpdater \
-      camera.bcm_platform \
+      camera.avko \
       Galaxy4 \
-      gralloc.bcm_platform \
-      hdmi_cec.bcm_platform \
+      gralloc.avko \
+      hdmi_cec.avko \
       HoloSpiralWallpaper \
       hwcbinder \
-      hwcomposer.bcm_platform \
+      hwcomposer.avko \
       libhwcbinder \
       libhwcconv \
       libjni_adjustScreenOffset \
@@ -203,11 +211,11 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libplayreadypk_host \
       LiveWallpapers \
       LiveWallpapersPicker \
-      memtrack.bcm_platform \
-      power.bcm_platform \
+      memtrack.avko \
+      power.avko \
       pmlibserver \
       send_cec \
-      tv_input.bcm_platform \
+      tv_input.avko \
       TV \
       MagicSmokeWallpapers \
       NoiseField \
@@ -231,11 +239,11 @@ PRODUCT_NAME := avko
 PRODUCT_DEVICE := avko
 PRODUCT_MODEL := avko
 PRODUCT_CHARACTERISTICS := tv
-PRODUCT_MANUFACTURER := Google
-PRODUCT_BRAND := Google
+PRODUCT_MANUFACTURER := google
+PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.3/bin:${PATH}
+export PATH := ${ANDROID}/vendor/broadcom/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.4/bin:${PATH}
 
 # This makefile copies the prebuilt BT kernel module and corresponding firmware and configuration files
 
@@ -277,7 +285,8 @@ PRODUCT_PACKAGES += \
     wpa_supplicant
 
 PRODUCT_PROPERTY_OVERRIDES += \
-   wifi.interface=wlan0
+   wifi.interface=wlan0 \
+   ro.nrdp.modelgroup=AVKO
 
 $(BRCM_DHD_DRIVER_TARGETS): brcm_dhd_driver
 	@echo "'brcm_dhd_driver' target: $@"

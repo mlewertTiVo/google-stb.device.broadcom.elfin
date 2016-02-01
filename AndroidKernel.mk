@@ -37,11 +37,6 @@
 #
 #############################################################################
 
-KERNEL_DIR := $(shell [ -e $(ANDROID_TOP)/kernel/private/bcm-97xxx/uclinux-rootfs ] && echo "$(ANDROID_TOP)/kernel/private/bcm-97xxx/uclinux-rootfs")
-ifeq ($(KERNEL_DIR),)
-KERNEL_DIR := $(ANDROID_TOP)/kernel/private/bcm-97xxx/rootfs
-endif
-
 ifeq ($(OUT_DIR_COMMON_BASE),)
 KERNEL_OUT_DIR := out/target/product/${ANDROID_PRODUCT_OUT}
 KERNEL_OUT_DIR_ABS := ${ANDROID_TOP}/${KERNEL_OUT_DIR}
@@ -50,16 +45,24 @@ KERNEL_OUT_DIR := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))/target/product/${ANDRO
 KERNEL_OUT_DIR_ABS := ${KERNEL_OUT_DIR}
 endif
 
-KERNEL_VER := vmlinuz-7439b0-android
+KERNEL_IMG := zImage
 
 .PHONY: build_kernel
-AUTOCONF := $(LINUX)/include/generated/autoconf.h
+AUTOCONF := $(LINUX_OUT)/include/generated/autoconf.h
 build_kernel:
 	@echo "'$@' started"
 	-@if [ -f $(AUTOCONF) ]; then \
 		cp -pv $(AUTOCONF) $(AUTOCONF)_refsw; \
 	fi
-	$(MAKE) -C $(KERNEL_DIR) $(KERNEL_VER)
+	mkdir -p ${LINUX_OUT}
+	rm -f $(LINUX_OUT)/config_fragment
+	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT)/config_fragment
+	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT)/config_fragment
+	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX_OUT)/config_fragment
+	echo "CONFIG_BCM7439B0=y" >> $(LINUX_OUT)/config_fragment
+	cd $(LINUX) && scripts/kconfig/merge_config.sh -O $(LINUX_OUT) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT)/config_fragment
+	rm -f $(LINUX_OUT)/config_fragment
+	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF)_refsw $(AUTOCONF) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -67,7 +70,7 @@ build_kernel:
 		fi; \
 		rm -f $(AUTOCONF)_refsw; \
 	fi
-	cp -pv $(KERNEL_DIR)/images/$(KERNEL_VER) $(KERNEL_OUT_DIR_ABS)/kernel
+	cp -pv $(LINUX_OUT)/arch/arm/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
 	@echo "'$@' completed"
 
 $(KERNEL_OUT_DIR)/kernel: build_kernel
@@ -78,6 +81,7 @@ clean_drivers: clean_brcm_dhd_driver
 
 .PHONY: clean_kernel
 clean_kernel: clean_drivers
-	$(MAKE) -C $(KERNEL_DIR) distclean
-	rm -f $(KERNEL_DIR)/images/$(KERNEL_VER)
+	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT) $(MAKE) distclean
 	rm -f $(KERNEL_OUT_DIR_ABS)/kernel
+	rm -rf $(LINUX_OUT)
+

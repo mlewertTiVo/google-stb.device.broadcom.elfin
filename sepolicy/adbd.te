@@ -1,4 +1,3 @@
-allow adbd device:sock_file write;
 allow adbd nxserver:binder call;
 allow adbd nxserver:unix_stream_socket connectto;
-
+allow adbd nxserver_socket:sock_file write;
