@@ -115,7 +115,7 @@ else
 TARGET_RECOVERY_FSTAB := device/broadcom/avko/recovery/fstab-default/recovery.fstab
 endif
 TARGET_RECOVERY_UI_LIB := librecovery_ui_avko
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_avko
+#TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_avko
 TARGET_RELEASETOOLS_EXTENSIONS := device/broadcom/avko
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
@@ -133,7 +133,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_BOARD_KERNEL_HEADERS := device/broadcom/avko/kernel-headers
 
 # set to 'true' for clang integration.
-USE_CLANG_PLATFORM_BUILD := false
+USE_CLANG_PLATFORM_BUILD := true
 
 include device/broadcom/avko/bcm_refsw.mk
 

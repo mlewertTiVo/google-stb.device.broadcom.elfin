@@ -3,11 +3,6 @@ app_domain(bcmstb_app)
 net_domain(bcmstb_app)
 bluetooth_domain(bcmstb_app)
 
-allow bcmstb_app app_data_file:file { rx_file_perms execmod };
-
-allow bcmstb_app asec_apk_file:file r_file_perms;
-allow bcmstb_app asec_public_file:file { execute execmod };
-
 create_pty(bcmstb_app)
 
 allow bcmstb_app shell_data_file:file r_file_perms;
@@ -51,6 +46,3 @@ allow bcmstb_app content_service:service_manager find;
 neverallow bcmstb_app domain:netlink_kobject_uevent_socket *;
 neverallow bcmstb_app domain:netlink_socket *;
 neverallow bcmstb_app debugfs:file read;
-
-allow bcmstb_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
-allow bcmstb_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
