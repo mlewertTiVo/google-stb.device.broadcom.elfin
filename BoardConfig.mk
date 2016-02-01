@@ -140,6 +140,7 @@ BOARD_SEPOLICY_UNION += \
     property.te \
     property_contexts \
     recovery.te \
+    service_contexts \
     servicemanager.te \
     shell.te \
     surfaceflinger.te \
@@ -148,8 +149,7 @@ BOARD_SEPOLICY_UNION += \
     untrusted_app.te
 
 # se-linux override to AOSP policy, needs further study.
-BOARD_SEPOLICY_REPLACE += domain.te \
-                          kernel.te
+BOARD_SEPOLICY_REPLACE += kernel.te
 
 # using legacy audio policy.
 USE_LEGACY_AUDIO_POLICY := 0

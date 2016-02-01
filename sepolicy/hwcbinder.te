@@ -15,7 +15,7 @@ allow hwcbinder surfaceflinger:binder transfer;
 allow hwcbinder mediaserver:binder call;
 allow hwcbinder mediaserver:binder transfer;
 
-allow hwcbinder default_android_service:service_manager add;
+allow hwcbinder system_server_service:service_manager add;
 
 allow hwcbinder dumpstate:fd use;
 allow hwcbinder dumpstate:unix_stream_socket { read write };
