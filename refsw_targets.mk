@@ -16,8 +16,7 @@ REFSW_TARGET_LIST := \
 	brcm_nexus/bin/nexus.client \
 	brcm_nexus/bin/nexus.ko \
 	brcm_nexus/bin/nx_ashmem.ko \
-	brcm_nexus/bin/logger \
-	brcm_nexus/bin/wakeup_drv.ko \
+	brcm_nexus/bin/logger
 
 ifeq ($(SAGE_SUPPORT),y)
 REFSW_TARGET_LIST += \

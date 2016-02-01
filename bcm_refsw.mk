@@ -72,6 +72,11 @@ PRODUCT_OUT_FROM_TOP := ${PRODUCT_OUT}
 export ANDROID_OUT_DIR := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))
 endif
 
+KERNEL_DIR := $(shell [ -e $(ANDROID_TOP)/kernel/private/bcm-97xxx/uclinux-rootfs ] && echo "$(ANDROID_TOP)/kernel/private/bcm-97xxx/uclinux-rootfs")
+ifeq ($(KERNEL_DIR),)
+KERNEL_DIR := $(ANDROID_TOP)/kernel/private/bcm-97xxx/rootfs
+endif
+
 BRCM_NEXUS_INSTALL_PATH		:= ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform
 
 # Android version checks
@@ -158,6 +163,7 @@ nexus_build: build_kernel $(NEXUS_DEPS) build_android_bsu
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/server
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/build
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/lib/os
+	$(MAKE) -C $(KERNEL_DIR)/linux M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm modules
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
 	@echo "================ Copy NEXUS output"
@@ -304,6 +310,7 @@ clean_brcm_dhd_driver:
 
 .PHONY: clean_nexus
 clean_nexus:
+	$(MAKE) -C $(KERNEL_DIR)/linux M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean
 	$(MAKE) -C $(NEXUS_TOP)/nxclient/server clean
@@ -343,7 +350,8 @@ clean : clean_refsw
 REFSW_PREFIX := $(patsubst $(ANDROID_TOP)/%,%,${BRCM_NEXUS_INSTALL_PATH})
 REFSW_BUILD_TARGETS := $(addprefix $(REFSW_PREFIX)/,$(REFSW_TARGET_LIST))
 REFSW_BUILD_TARGETS += \
-	${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko
+	${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko \
+	${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko
 
 $(REFSW_BUILD_TARGETS) : nexus_build
 	@echo "'nexus_build' target: $@"
