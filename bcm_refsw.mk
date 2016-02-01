@@ -85,7 +85,7 @@ ANDROID_ICS		   := n
 NEXUS_TOP       := ${REFSW_BASE_DIR}/nexus
 ROCKFORD_TOP    := ${REFSW_BASE_DIR}/rockford
 BSEAV_TOP       := ${REFSW_BASE_DIR}/BSEAV
-B_REFSW_OBJ_ROOT := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/refsw/obj.$(NEXUS_PLATFORM)
+B_REFSW_OBJ_ROOT := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/obj.$(NEXUS_PLATFORM)
 
 export NEXUS_TOP ROCKFORD_TOP BSEAV_TOP B_REFSW_OBJ_ROOT
 
@@ -341,7 +341,7 @@ clean_v3d_driver: clean_gpumon_hook
 .PHONY: clean_refsw
 clean_refsw: clean_nexus clean_v3d_driver clean_bolt
 	@echo "================ MAKE CLEAN"
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/refsw/
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxmini_*
 
