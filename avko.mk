@@ -25,7 +25,7 @@ include device/broadcom/custom/97439B0SFF/root/settings.mk
 export LOCAL_DEVICE_KERNEL_CMDLINE := mem=768M@0x00000000 mem=512M@0x80000000 vmalloc=560M
 export ANDROID_PRODUCT_OUT := avko
 
-PRODUCT_NAME := full_avko
+PRODUCT_NAME := avko
 PRODUCT_DEVICE := avko
 PRODUCT_CHARACTERISTICS := tv
 PRODUCT_MANUFACTURER := Google

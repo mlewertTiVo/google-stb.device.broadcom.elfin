@@ -5,4 +5,6 @@
 
 # this configuration is for device avko
 
-PRODUCT_MAKEFILES := $(LOCAL_DIR)/full_avko.mk
+PRODUCT_MAKEFILES := \
+   $(LOCAL_DIR)/avko.mk \
+   $(LOCAL_DIR)/aosp_avko.mk 
