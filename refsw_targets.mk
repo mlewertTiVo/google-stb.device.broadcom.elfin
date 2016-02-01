@@ -18,7 +18,6 @@ REFSW_TARGET_LIST := \
 	brcm_nexus/bin/nx_ashmem.ko \
 	brcm_nexus/bin/logger \
 	brcm_nexus/bin/wakeup_drv.ko \
-	libGLES_nexus/bin/libGLES_nexus.so \
 
 ifeq ($(SAGE_SUPPORT),y)
 REFSW_TARGET_LIST += \

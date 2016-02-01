@@ -1,6 +1,6 @@
 # This makefile copies the prebuilt wifi driver moduel and corresponding firmware and configuration files
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/firmware/fw.bin.trx: refsw_build
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/nvrams/nvm.txt: refsw_build
+${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/firmware/fw.bin.trx: brcm_dhd_driver
+${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/nvrams/nvm.txt: brcm_dhd_driver
 
 ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE), true)
 PRODUCT_COPY_FILES += \
@@ -10,9 +10,9 @@ PRODUCT_COPY_FILES += \
 
 else
 
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko: refsw_build
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/tools/wl: refsw_build
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/tools/dhd: refsw_build
+${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko: brcm_dhd_driver
+${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/tools/wl: brcm_dhd_driver
+${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/tools/dhd: brcm_dhd_driver
 
 PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko:system/vendor/broadcom/dhd/driver/bcmdhd.ko \
