@@ -131,34 +131,8 @@ export BRCMSTB_MODEL_NAME
 # Brcm DHD related defines
 BRCM_DHD_PATH      := ${BRCM_NEXUS_INSTALL_PATH}/brcm_dhd
 BRCM_DHD_KO_NAME   := bcmdhd.ko
-ifeq ($(BROADCOM_WIFI_CHIPSET), 43602a1)
-BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive.bin
-BRCM_DHD_NVRAM_NAME ?= bcm43602.nvm
-endif
-ifeq ($(BROADCOM_WIFI_CHIPSET), 43570a2)
 BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive-wfds-dfsradar.bin
 BRCM_DHD_NVRAM_NAME ?= bcm43570.nvm
-endif
-ifeq ($(BROADCOM_WIFI_CHIPSET), 43570a0)
-BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive-wfds.bin
-BRCM_DHD_NVRAM_NAME ?= bcm43570.nvm
-endif
-ifeq ($(BROADCOM_WIFI_CHIPSET), 43569a0)
-BRCM_DHD_FW_NAME    ?= usb-ag-pool-pktctx-dmatxrc-idsup-idauth-keepalive-txbf-p2p-mchan-mfp-pktfilter-wowlpf-tdls-proptxstatus-vusb-wfds.bin.trx
-BRCM_DHD_NVRAM_NAME ?= bcm43569.nvm
-endif
-ifeq ($(BROADCOM_WIFI_CHIPSET), 43569a2)
-BRCM_DHD_FW_NAME    ?= usb-ag-pool-pktctx-dmatxrc-idsup-idauth-keepalive-txbf-p2p-mchan-mfp-pktfilter-wowlpf-tdls-proptxstatus-vusb-wfds-sr.bin.trx
-BRCM_DHD_NVRAM_NAME ?= bcm43569.nvm
-endif
-ifeq ($(BROADCOM_WIFI_CHIPSET), 43242a1)
-BRCM_DHD_FW_NAME    ?= usb-ag-p2p-mchan-idauth-idsup-keepalive-pktfilter-wowlpf-tdls-srvsdb-pclose-proptxstatus-vusb.bin.trx
-BRCM_DHD_NVRAM_NAME ?= bcm943242usbref_p461_comp.txt
-endif
-ifeq ($(BROADCOM_WIFI_CHIPSET), 43236b)
-BRCM_DHD_FW_NAME    ?= ag-p2p-apsta-idsup-af-idauth.bin.trx
-BRCM_DHD_NVRAM_NAME ?= fake43236usb_p532.nvm
-endif
 
 BRCM_GADGET_PATH   := ${BRCM_NEXUS_INSTALL_PATH}/brcm_gadget
 
@@ -184,29 +158,20 @@ nexus_build: build_kernel $(NEXUS_DEPS) build_android_bsu
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/server
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/build
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/lib/os
-ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
-endif
 	@echo "================ Copy NEXUS output"
-ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
-	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/build install_sage
-endif
 	cp -rfp ${NEXUS_BIN_DIR} ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus
 	@echo "'$@' completed"
 
 .PHONY: brcm_dhd_driver
 brcm_dhd_driver: build_kernel
 	@echo "'$@' started"
-ifeq ($(ANDROID_ENABLE_DHD), y)
-ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
-	@if [ ${BROADCOM_WIFI_CHIPSET} = "43242a1" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43569a0" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43569a2" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43570a0" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43570a2" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43602a1" ]; then \
-		if [ ! -e ${BRCM_DHD_PATH}/tools/dhd ]; then \
-			rm -f ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME}; \
-		fi && \
-		if [ ! -e ${BRCM_DHD_PATH}/tools/wl ]; then \
-			rm -f ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME}; \
-		fi \
+	if [ ! -e ${BRCM_DHD_PATH}/tools/dhd ]; then \
+		rm -f ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME}; \
+	fi && \
+	if [ ! -e ${BRCM_DHD_PATH}/tools/wl ]; then \
+		rm -f ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME}; \
 	fi
 	+@if [ ! -e ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME} ]; then \
 		if [ -d ${BROADCOM_DHD_SOURCE_PATH} ]; then \
@@ -216,23 +181,17 @@ ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 				./build-clean.sh && \
 				./build-drv-nic-p2p-mchan-cfg80211.sh; \
 			else \
-				if [ ${BROADCOM_WIFI_CHIPSET} = "43242a1" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43569a0" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43569a2" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43570a0" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43570a2" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43602a1" ]; then \
-					source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && \
-					./bfd-clean.sh && \
-					./bfd-app-dhd.sh clean && \
-					./bfd-drv-cfg80211.sh && \
-					./bfd-app-dhd.sh && \
-					./bfd-app-wl.sh && \
-					if [ -e ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/wl ]; then \
-						cp -fp ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/wl ${BRCM_DHD_PATH}/tools; \
-					fi && \
-					if [ -e ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/dhd ]; then \
-						cp -fp ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/dhd ${BRCM_DHD_PATH}/tools; \
-					fi \
-				else \
-					source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && \
-					./bfd-clean.sh && \
-					./bfd-drv-cfg80211.sh; \
+				source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && \
+				./bfd-clean.sh && \
+				./bfd-app-dhd.sh clean && \
+				./bfd-drv-cfg80211.sh && \
+				./bfd-app-dhd.sh && \
+				./bfd-app-wl.sh && \
+				if [ -e ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/wl ]; then \
+					cp -fp ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/wl ${BRCM_DHD_PATH}/tools; \
+				fi && \
+				if [ -e ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/dhd ]; then \
+					cp -fp ${BROADCOM_DHD_SOURCE_PATH}/${LINUXVER}/dhd ${BRCM_DHD_PATH}/tools; \
 				fi && \
 				cp -p ${BROADCOM_DHD_SOURCE_PATH}/firmware/${BROADCOM_WIFI_CHIPSET}-roml/${BRCM_DHD_FW_NAME} ${BRCM_DHD_PATH}/firmware/fw.bin.trx; \
 				if [ "${BRCM_DHD_NVRAM_NAME}" != "" ] ; then \
@@ -251,15 +210,6 @@ ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	else \
 		echo "Found prebuilt wifi driver, using it!"; \
 	fi
-else
-	cp -p ${BROADCOM_DHD_SOURCE_PATH}/firmware/${BROADCOM_WIFI_CHIPSET}-roml/${BRCM_DHD_FW_NAME} ${BRCM_DHD_PATH}/firmware/fw.bin.trx; \
-	if [ "${BRCM_DHD_NVRAM_NAME}" != "" ] ; then \
-		cp -p ${BROADCOM_DHD_SOURCE_PATH}/nvrams/${BRCM_DHD_NVRAM_NAME} ${BRCM_DHD_PATH}/nvrams/nvm.txt; \
-	fi;
-endif
-else
-	@echo "ANDROID_ENABLE_DHD is not defined"
-endif
 	@echo "'$@' completed"
 
 .PHONY: gpumon_hook
@@ -330,8 +280,6 @@ build_android_bsu: build_bolt
 
 .PHONY: clean_brcm_dhd_driver
 clean_brcm_dhd_driver:
-ifeq ($(ANDROID_ENABLE_DHD), y)
-ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	@if [ "${BRCM_DHD_PATH}" = "" ];		then echo "( 'BRCM_DHD_PATH' is not defined... )"; fi
 	@if [ "${BRCM_DHD_KO_NAME}" = "" ];		then echo "( 'BRCM_DHD_KO_NAME' is not defined... )"; fi
 	@if [ "${BROADCOM_DHD_SOURCE_PATH}" = "" ];	then echo "( 'BROADCOM_DHD_SOURCE_PATH' is not defined... )"; fi
@@ -353,22 +301,12 @@ ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	rm -fv ${BRCM_DHD_PATH}/nvrams/nvm.txt
 	rm -fv ${BRCM_DHD_PATH}/tools/wl
 	rm -fv ${BRCM_DHD_PATH}/tools/dhd
-endif
-else
-	@echo "no clean on bcmdhd as ANDROID_ENABLE_DHD is not defined"
-endif
 
 .PHONY: clean_nexus
 clean_nexus:
-ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean
 	$(MAKE) -C $(NEXUS_TOP)/nxclient/server clean
-else
-	$(MAKE) -C $(NEXUS_TOP)/nxclient/build clean
-	rm -rf $(NEXUS_TOP)/../obj.$(NEXUS_PLATFORM)
-	rm -rf ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus/bin
-endif
 
 .PHONY: clean_gpumon_hook
 clean_gpumon_hook:

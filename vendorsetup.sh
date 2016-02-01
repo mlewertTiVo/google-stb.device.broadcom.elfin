@@ -15,4 +15,5 @@
 #
 
 add_lunch_combo avko-userdebug
+add_lunch_combo avko-eng
 add_lunch_combo aosp_avko-userdebug

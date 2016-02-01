@@ -15,7 +15,7 @@
 #
 
 export LOCAL_RUN_TARGET := aosp
-include device/google/avko/device.mk
+include device/google/avko/avko.mk
 
 PRODUCT_NAME := aosp_avko
 PRODUCT_DEVICE := avko
