@@ -154,6 +154,7 @@ PRODUCT_PACKAGES += \
     ethtool \
     busybox \
     e2fsck \
+    nxdispfmt \
     nxserver \
     nxlogger \
     makegpt \

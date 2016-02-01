@@ -1,0 +1,9 @@
+type nxdispfmt, domain;
+type nxdispfmt_exec, exec_type, file_type;
+
+# started by init
+init_daemon_domain(nxdispfmt)
+
+allow nxdispfmt nexus_data_file:dir { search read };
+allow nxdispfmt nexus_data_file:file { read open getattr };
+
