@@ -31,9 +31,15 @@ include $(CLEAR_VARS)
 
 NXMINI := $(call intermediates-dir-for,EXECUTABLES,nxmini)/nxmini
 
+ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE), true)
+EXTRA_SYSTEM_LIB_FILES := \
+   $(TOP)/device/google/avko-kernel/drivers/bcmnexusfb.ko \
+   $(TOP)/device/google/avko-kernel/drivers/nexus.ko
+else
 EXTRA_SYSTEM_LIB_FILES := \
    $(TOP)/${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko \
    $(TOP)/${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko
+endif
 
 ifeq ($(SAGE_SUPPORT),y)
 EXTRA_SYSTEM_BIN_FILES := \

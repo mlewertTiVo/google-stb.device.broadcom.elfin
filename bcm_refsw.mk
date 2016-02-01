@@ -191,13 +191,19 @@ nexus_build: nexus_deps
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/server
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/build
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/lib/os
+ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
 	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
+endif
 	@echo "================ Copy NEXUS output"
+ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
+	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/build install_sage
+endif
 	cp -rfp ${NEXUS_BIN_DIR} ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus
 
 brcm_dhd_driver: build_kernel
 ifeq ($(ANDROID_ENABLE_DHD), y)
+ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	@if [ ${BROADCOM_WIFI_CHIPSET} = "43242a1" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43569a0" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43569a2" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43570a0" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43570a2" ] || [ ${BROADCOM_WIFI_CHIPSET} = "43602a1" ]; then \
 		if [ ! -e ${BRCM_DHD_PATH}/tools/dhd ]; then \
 			rm -f ${BRCM_DHD_PATH}/driver/${BRCM_DHD_KO_NAME}; \
@@ -250,6 +256,12 @@ ifeq ($(ANDROID_ENABLE_DHD), y)
 		echo "Found prebuilt wifi driver, using it!"; \
 	fi
 else
+	cp -p ${BROADCOM_DHD_SOURCE_PATH}/firmware/${BROADCOM_WIFI_CHIPSET}-roml/${BRCM_DHD_FW_NAME} ${BRCM_DHD_PATH}/firmware/fw.bin.trx; \
+	if [ "${BRCM_DHD_NVRAM_NAME}" != "" ] ; then \
+		cp -p ${BROADCOM_DHD_SOURCE_PATH}/nvrams/${BRCM_DHD_NVRAM_NAME} ${BRCM_DHD_PATH}/nvrams/nvm.txt; \
+	fi;
+endif
+else
 	@echo "ANDROID_ENABLE_DHD is not defined"
 endif
 
@@ -291,8 +303,10 @@ android_nexus: v3d_driver brcm_dhd_driver
 clean_drivers: clean_brcm_dhd_driver
 
 clean_kernel: clean_drivers
+ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) -C $(KERNEL_DIR) distclean
 	rm -f $(KERNEL_DIR)/images/vmlinuz-$(BCHP_CHIP)$(BCHP_VER_LOWER_LINUX_OVERRIDE)-android
+endif
 	rm -f $(PRODUCT_OUT_FROM_TOP)/kernel
 
 AUTOCONF := $(LINUX)/include/generated/autoconf.h
@@ -337,6 +351,7 @@ build_android_bsu: build_bolt
 
 clean_brcm_dhd_driver:
 ifeq ($(ANDROID_ENABLE_DHD), y)
+ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	@if [ "${BRCM_DHD_PATH}" = "" ];		then echo "( 'BRCM_DHD_PATH' is not defined... )"; fi
 	@if [ "${BRCM_DHD_KO_NAME}" = "" ];		then echo "( 'BRCM_DHD_KO_NAME' is not defined... )"; fi
 	@if [ "${BROADCOM_DHD_SOURCE_PATH}" = "" ];	then echo "( 'BROADCOM_DHD_SOURCE_PATH' is not defined... )"; fi
@@ -358,17 +373,21 @@ ifeq ($(ANDROID_ENABLE_DHD), y)
 	rm -fv ${BRCM_DHD_PATH}/nvrams/nvm.txt
 	rm -fv ${BRCM_DHD_PATH}/tools/wl
 	rm -fv ${BRCM_DHD_PATH}/tools/dhd
+endif
 else
 	@echo "no clean on bcmdhd as ANDROID_ENABLE_DHD is not defined"
 endif
 
 clean_nexus:
+ifeq ($(TARGET_KERNEL_BUILT_FROM_SOURCE),true)
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean
 	$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean
-	$(MAKE) -C $(NEXUS_TOP)/nxclient/build clean
 	$(MAKE) -C $(NEXUS_TOP)/nxclient/server clean
+else
+	$(MAKE) -C $(NEXUS_TOP)/nxclient/build clean
 	rm -rf $(NEXUS_TOP)/../obj.$(NEXUS_PLATFORM)
 	rm -rf ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus/bin
+endif
 
 clean_nexuseglclient:
 	@$(MAKE) clean-libnexuseglclient
