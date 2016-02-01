@@ -1,0 +1,1 @@
+genfscon cramfs / u:object_r:readonlyfs:s0

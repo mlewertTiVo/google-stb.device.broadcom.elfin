@@ -1,0 +1,20 @@
+allow servicemanager init:dir search;
+allow servicemanager init:file { read open };
+allow servicemanager init:process getattr;
+
+allow servicemanager hwcbinder:dir search;
+allow servicemanager hwcbinder:file { read open };
+allow servicemanager hwcbinder:process getattr;
+
+allow servicemanager pmlibservice:dir search;
+allow servicemanager pmlibservice:file { read open };
+allow servicemanager pmlibservice:process getattr;
+
+allow servicemanager nxserver:dir search;
+allow servicemanager nxserver:file { read open };
+allow servicemanager nxserver:process getattr;
+
+allow servicemanager init_shell:dir search;
+allow servicemanager init_shell:file { read open };
+allow servicemanager init_shell:process getattr;
+

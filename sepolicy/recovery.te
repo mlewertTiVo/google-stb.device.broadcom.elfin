@@ -1,0 +1,5 @@
+allow recovery block_device:dir write;
+allow recovery cache_file:dir mounton;
+allow recovery vfat:dir { read search open };
+allow recovery vfat:file { read getattr open };
+

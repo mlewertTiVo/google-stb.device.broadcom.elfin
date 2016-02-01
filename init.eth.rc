@@ -1,0 +1,6 @@
+service dhcpcd_eth0 /system/bin/dhcpcd -dABKL
+   class main
+   group dhcp
+   disabled
+   oneshot
+

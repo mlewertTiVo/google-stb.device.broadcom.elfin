@@ -1,0 +1,24 @@
+type hwcbinder, domain;
+type hwcbinder_exec, exec_type, file_type;
+
+# started by init
+init_daemon_domain(hwcbinder)
+
+allow hwcbinder self:capability {
+    sys_nice
+};
+
+allow hwcbinder servicemanager:binder call;
+allow hwcbinder servicemanager:binder transfer;
+allow hwcbinder surfaceflinger:binder call;
+allow hwcbinder surfaceflinger:binder transfer;
+allow hwcbinder mediaserver:binder call;
+allow hwcbinder mediaserver:binder transfer;
+
+allow hwcbinder default_android_service:service_manager add;
+
+allow hwcbinder dumpstate:fd use;
+allow hwcbinder dumpstate:unix_stream_socket { read write };
+
+allow hwcbinder nexus_data_file:dir { search read };
+allow hwcbinder nexus_data_file:file { read open getattr };

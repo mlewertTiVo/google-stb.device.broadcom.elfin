@@ -1,0 +1,3 @@
+allow dumpstate nxserver:binder call;
+allow dumpstate hwcbinder:binder call;
+allow dumpstate pmlibservice:binder call;
