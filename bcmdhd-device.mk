@@ -1,6 +1,7 @@
 # This makefile copies the prebuilt wifi driver moduel and corresponding firmware and configuration files
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/firmware/fw.bin.trx: brcm_dhd_driver
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/nvrams/nvm.txt: brcm_dhd_driver
+BRCM_DHD_DRIVER_TARGETS := \
+	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/firmware/fw.bin.trx \
+	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/nvrams/nvm.txt
 
 ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE), true)
 PRODUCT_COPY_FILES += \
@@ -9,10 +10,10 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc
 
 else
-
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko: brcm_dhd_driver
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/tools/wl: brcm_dhd_driver
-${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/tools/dhd: brcm_dhd_driver
+BRCM_DHD_DRIVER_TARGETS += \
+	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko \
+	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/tools/wl \
+	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/tools/dhd
 
 PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko:system/vendor/broadcom/dhd/driver/bcmdhd.ko \
@@ -39,3 +40,5 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
    wifi.interface=wlan0
 
+$(BRCM_DHD_DRIVER_TARGETS): brcm_dhd_driver
+	@echo "'brcm_dhd_driver' target: $@"
