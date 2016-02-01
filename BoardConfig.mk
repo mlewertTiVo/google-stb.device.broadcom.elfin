@@ -121,6 +121,7 @@ BOARD_SEPOLICY_UNION += \
     adbd.te \
     bluetooth.te \
     bootanim.te \
+    device.te \
     drmserver.te \
     dumpstate.te \
     file.te \
