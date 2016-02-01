@@ -20,24 +20,32 @@ ifeq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
   $(error Unable to build kernel from source, aborting.)
 endif
 
+# To prevent from including GMS twice in Google's internal source.
+ifeq ($(wildcard vendor/google/prebuilt),)
+PRODUCT_USE_PREBUILT_GMS := yes
+endif
+
 # standard target - based on the standard google atv device if present,
 #                   otherwise fallback (note pdk device is not atv based in
 #                   particular since device/google/atv is not part of pdk).
 ifeq (,$(LOCAL_RUN_TARGET))
   ifneq ($(wildcard $(TOPDIR)device/google/atv/tv_core_hardware.xml),)
     $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
-    $(call inherit-product-if-exists, $(TOPDIR)device/google/atv/products/atv_base.mk)
+    $(call inherit-product, $(TOPDIR)device/google/atv/products/atv_base.mk)
   else
     $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
     PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   endif
-  $(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
 endif
 # aosp - inherit from AOSP-BASE, not ATV.
 ifeq ($(LOCAL_RUN_TARGET),aosp)
   PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
-  $(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
+endif
+$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
+ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
+  # Build WebView from source when using the internal source.
+  override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
 endif
 
 include device/google/avko/settings.mk
