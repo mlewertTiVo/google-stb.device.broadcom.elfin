@@ -168,7 +168,8 @@ LIBS_BUILT_IN_ANDROID :=  \
 	${PRODUCT_OUT}/obj/lib/crtbegin_dynamic.o \
 	${PRODUCT_OUT}/obj/lib/crtend_android.o
 
-V3D_ANDROID_DEFINES := $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
+V3D_ANDROID_DEFINES := -I$(ANDROID_TOP)/${BCM_VENDOR_STB_ROOT}/drivers/nx_ashmem
+V3D_ANDROID_DEFINES += $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
 V3D_ANDROID_DEFINES += $(addprefix -D,$(NEXUS_APP_DEFINES))
 V3D_ANDROID_DEFINES += -I${NEXUS_TOP}/nxclient/include
 
