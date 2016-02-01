@@ -1,0 +1,10 @@
+type nxmini, domain;
+type nxmini_exec, exec_type, file_type;
+
+# started by init
+init_daemon_domain(nxmini)
+
+allow nxmini block_device:dir { write add_name };
+allow nxmini block_device:file { write create open };
+allow nxmini cache_file:dir mounton;
+allow nxmini device:chr_file { ioctl };
