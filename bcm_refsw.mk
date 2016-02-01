@@ -136,7 +136,7 @@ export BRCMSTB_MODEL_NAME
 # Brcm DHD related defines
 BRCM_DHD_PATH      := ${BRCM_NEXUS_INSTALL_PATH}/brcm_dhd
 BRCM_DHD_KO_NAME   := bcmdhd.ko
-BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive-wfds-dfsradar.bin
+BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive-wfds.bin
 BRCM_DHD_NVRAM_NAME ?= bcm43570.nvm
 
 BRCM_GADGET_PATH   := ${BRCM_NEXUS_INSTALL_PATH}/brcm_gadget
