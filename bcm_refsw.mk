@@ -339,6 +339,9 @@ else
 	@echo "Using prebuilt kernel image..."
 endif
 
+$(PRODUCT_OUT)/kernel: build_kernel
+	@echo "'build_kernel' target: $@"
+
 .PHONY: clean_bolt
 clean_bolt: clean_android_bsu
 	$(MAKE) -C $(BOLT_DIR) distclean
@@ -442,7 +445,6 @@ clean : clean_refsw
 REFSW_PREFIX := $(patsubst $(ANDROID_TOP)/%,%,${BRCM_NEXUS_INSTALL_PATH})
 REFSW_BUILD_TARGETS := $(addprefix $(REFSW_PREFIX)/,$(REFSW_TARGET_LIST))
 REFSW_BUILD_TARGETS += \
-	${PRODUCT_OUT}/kernel \
 	${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko
 
 $(REFSW_BUILD_TARGETS) : nexus_build
