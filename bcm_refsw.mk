@@ -107,7 +107,7 @@ else
     V3D_DEBUG = y
 endif
 
-BCHP_VER_LOWER := $(shell echo ${BCHP_VER} | tr [A-Z] [a-z])
+BCHP_VER_LOWER := $(shell echo ${BCHP_VER} | tr [:upper:] [:lower:])
 ifeq ($(BCHP_VER_LOWER_LINUX_OVERRIDE),)
 BCHP_VER_LOWER_LINUX_OVERRIDE := $(BCHP_VER_LOWER)
 endif
