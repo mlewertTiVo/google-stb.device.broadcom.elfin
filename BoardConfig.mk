@@ -75,7 +75,6 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB       := lib_driver_cmd_bcmdhd
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/broadcom/avko/bluetooth
-BOARD_CUSTOM_BT_CONFIG := device/broadcom/avko/bluetooth/vnd_avko.txt
 
 BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 3
 
@@ -85,33 +84,33 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.sf.lcd_density=320 \
     ro.v3d.fence.expose=true
 
-TARGET_USERIMAGES_USE_EXT4            := true
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE     := ext4
-BOARD_BOOTIMAGE_PARTITION_SIZE        := 33554432   # 32M
-BOARD_RECOVERYIMAGE_PARTITION_SIZE    := 33554432   # 32M
-BOARD_CACHEIMAGE_PARTITION_SIZE       := 268435456  # 256M
-BOARD_SYSTEMIMAGE_PARTITION_SIZE      := 1317011456 # 1256M
-ifeq ($(EXPERIMENTAL_SQUASHFS),wanted)
-BOARD_SYSTEMIMAGE_JOURNAL_SIZE        := 0
-BOARD_SYSTEMIMAGE_SQUASHFS_COMPRESSOR := lz4
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE    := squashfs
+ifneq ($(TARGET_BUILD_PDK),true)
+   ifeq ($(LOCAL_RUN_TARGET),)
+   # Enable dex-preoptimization to speed up first boot sequence
+      ifeq ($(HOST_OS),linux)
+         ifeq ($(WITH_DEXPREOPT),)
+            WITH_DEXPREOPT := true
+         endif
+      endif
+   endif
 endif
-BOARD_USERDATAIMAGE_PARTITION_SIZE    := 6137298432 # ~5.7G
+
+TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
+BOARD_BOOTIMAGE_PARTITION_SIZE     := 33554432   # 32M
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432   # 32M
+BOARD_CACHEIMAGE_PARTITION_SIZE    := 268435456  # 256M
+BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 1317011456 # 1256M
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 6137298432 # ~5.7G
 
 BOARD_FLASH_BLOCK_SIZE := 512
 BOARD_KERNEL_BASE := 0x00008000
 BOARD_KERNEL_PAGESIZE := 4096
 
-BOARD_KERNEL_CMDLINE := mem=1024m@0m mem=1024m@2048m bmem=336m@672m bmem=256m@2048m brcm_cma=768m@2304m
-BOARD_KERNEL_CMDLINE += ramoops.mem_address=0x3F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000 pmem=8m@1016m
+BOARD_KERNEL_CMDLINE := mem=1016m@0m mem=1024m@2048m bmem=336m@672m bmem=256m@2048m brcm_cma=768m@2304m ramoops.mem_address=0x3F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
-ifeq ($(EXPERIMENTAL_SQUASHFS),wanted)
-TARGET_RECOVERY_FSTAB := device/broadcom/avko/recovery/fstab-squashfs/recovery.fstab
-else
-TARGET_RECOVERY_FSTAB := device/broadcom/avko/recovery/fstab-default/recovery.fstab
-endif
 TARGET_RECOVERY_UI_LIB := librecovery_ui_avko
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_avko
 TARGET_RELEASETOOLS_EXTENSIONS := device/broadcom/avko

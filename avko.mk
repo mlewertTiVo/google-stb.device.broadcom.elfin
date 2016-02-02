@@ -42,16 +42,13 @@ ifeq ($(LOCAL_RUN_TARGET),aosp)
   PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 endif
-
-# Build WebView from source when using the internal source.
-override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
-
+$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
 ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/google_aware.xml:system/etc/permissions/google_aware.xml
+  # Build WebView from source when using the internal source.
+  override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
 endif
 
 include device/broadcom/avko/settings.mk
-include device/broadcom/avko/refsw_defs.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
   export B_REFSW_DEBUG ?= n
@@ -80,8 +77,8 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 TARGET_CPU_SMP := true
 
 PRODUCT_COPY_FILES += \
-    ${NEXUS_BIN_DIR}/nexus.ko:system/vendor/drivers/nexus.ko \
-    ${NEXUS_BIN_DIR}/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko:system/vendor/drivers/nexus.ko \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
     device/broadcom/avko/bootanimation.zip:system/media/bootanimation.zip \
     device/broadcom/avko/init.blockdev.rc:root/init.blockdev.rc \
     device/broadcom/avko/init.blockdev.rc:root/init.recovery.blockdev.rc \
@@ -89,12 +86,8 @@ PRODUCT_COPY_FILES += \
     device/broadcom/avko/init.recovery.bcm_platform.rc:root/init.recovery.avko.rc \
     device/broadcom/avko/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
     device/broadcom/avko/media_codecs.xml:system/etc/media_codecs.xml \
-    device/broadcom/avko/media_profiles.xml:system/etc/media_profiles.xml \
-    device/broadcom/avko/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     device/broadcom/avko/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
     device/broadcom/avko/audio_policy_btusb.conf:system/etc/audio_policy.conf \
-    device/broadcom/avko/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled_5.kl \
-    device/broadcom/avko/nexus_silver_remote.kl:system/usr/keylayout/NexusIrHandler.kl \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml \
@@ -106,34 +99,25 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.software.live_tv.xml:system/etc/permissions/android.software.live_tv.xml \
     frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/gps.conf:system/etc/gps.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.rc:root/init.avko.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/ueventd.bcm_platform.rc:root/ueventd.avko.rc \
-    ${NEXUS_BIN_DIR}/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
-    ${NEXUS_BIN_DIR}/gator.ko:system/vendor/drivers/gator.ko
-
-ifeq ($(EXPERIMENTAL_SQUASHFS),wanted)
-PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.squashfs:root/fstab.bcm_platform \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.squashfs:root/fstab.avko
-else
-PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.bcm_platform \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/fstab.broadcomstb:root/fstab.avko
-endif
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.bcm_platform \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.avko \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/gps.conf:system/etc/gps.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.rc:root/init.avko.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.avko.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ws_home.html:root/ws_home.html \
+    ${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
+    ${BCM_VENDOR_STB_ROOT}/drivers/gator/driver/gator.ko:system/vendor/drivers/gator.ko
 
 ifeq ($(SAGE_SUPPORT),y)
-SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
-SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
-PRODUCT_COPY_FILES += \
-    ${SAGE_BL_BINARY_PATH}/sage_bl.bin:system/bin/sage_bl.bin \
-    ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
-    ${SAGE_APP_BINARY_PATH}/sage_os_app.bin:system/bin/sage_os_app.bin \
-    ${SAGE_APP_BINARY_PATH}/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
+  PRODUCT_COPY_FILES += \
+      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl.bin:system/bin/sage_bl.bin \
+      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
+      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app.bin:system/bin/sage_os_app.bin \
+      ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/sage_os_app_dev.bin:system/bin/sage_os_app_dev.bin
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -161,8 +145,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.odv.use.alt=150m \
     ro.nx.odv.a1.use=50 \
     ro.nx.capable.cb=1 \
-    ro.v3d.fence.expose=true \
-    ro.nx.svp=1
+    ro.v3d.fence.expose=true
 
 # This provides the build id of the reference platform that the current build
 # is based on. Do not remove this line.
@@ -173,11 +156,12 @@ $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-he
 PRODUCT_PACKAGES += \
     busybox \
     dhcpcd.conf \
+    ethtool \
     e2fsck \
     gatord \
     gptbin \
     makehwcfg \
-    netcoal \
+    network \
     nxdispfmt \
     nxserver \
     nxlogger \
@@ -194,18 +178,20 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libaudiopolicymanager \
       BcmAdjustScreenOffset \
       BcmCoverFlow \
-      BcmSidebandViewer \
       BcmTVInput \
       BcmOtaUpdater \
-      BcmKeyInterceptor \
       camera.avko \
+      Galaxy4 \
       gralloc.avko \
       hdmi_cec.avko \
+      HoloSpiralWallpaper \
       hwcbinder \
       hwcomposer.avko \
       libhwcbinder \
       libhwcconv \
       libjni_adjustScreenOffset \
+      libjni_changedisplayformat \
+      libjni_generalSTBFunctions \
       libGLES_nexus \
       libnexusir \
       libpmlibservice \
@@ -217,38 +203,52 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libcmndrm \
       libcmndrm_tl \
       libsrai \
+      libOMX.BCM.h264.decoder.secure \
       liboemcrypto \
       libwvdrmengine \
       libcmndrmprdy \
       libplayreadydrmplugin \
       libplayreadypk_host \
+      LiveWallpapers \
+      LiveWallpapersPicker \
       memtrack.avko \
       power.avko \
       pmlibserver \
       send_cec \
       tv_input.avko \
       TV \
-      TvProvider
+      MagicSmokeWallpapers \
+      NoiseField \
+      PhaseBeam \
+      PhotoTable \
+      TvProvider \
+      VisualizationWallpapers
+
+  ifneq ($(TARGET_BUILD_VARIANT),user)
+    PRODUCT_PACKAGES += \
+	ExoPlayerDemo
+  endif
 
   PRODUCT_PROPERTY_OVERRIDES += drm.service.enabled=true
 endif
 
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
 
+
 PRODUCT_NAME := avko
 PRODUCT_DEVICE := avko
 PRODUCT_MODEL := avko
 PRODUCT_CHARACTERISTICS := tv
-PRODUCT_MANUFACTURER := broadcom
+PRODUCT_MANUFACTURER := google
 PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.5/bin:${PATH}
+export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.4/bin:${PATH}
 
 # This makefile copies the prebuilt BT kernel module and corresponding firmware and configuration files
 
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_btusb/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
@@ -256,28 +256,28 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.rfkilldisabled=1
 
 PRODUCT_COPY_FILES += \
-   ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:system/vendor/broadcom/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd:system/vendor/broadcom/btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd
 
 PRODUCT_PACKAGES += \
 	audio.a2dp.default
 
 # This makefile copies the prebuilt wifi driver module and corresponding firmware and configuration files
 BRCM_DHD_DRIVER_TARGETS := \
-	${B_DHD_OBJ_ROOT}/fw.bin.trx \
-	${B_DHD_OBJ_ROOT}/nvm.txt \
-	${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko
+	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/firmware/fw.bin.trx \
+	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/nvrams/nvm.txt \
+	${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko
 
 PRODUCT_COPY_FILES += \
-    ${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko:system/vendor/broadcom/dhd/driver/bcmdhd.ko \
-    ${B_DHD_OBJ_ROOT}/fw.bin.trx:system/vendor/firmware/broadcom/dhd/firmware/fw.bin.trx \
-    ${B_DHD_OBJ_ROOT}/nvm.txt:system/vendor/firmware/broadcom/dhd/nvrams/nvm.txt \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/driver/bcmdhd.ko:system/vendor/broadcom/dhd/driver/bcmdhd.ko \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/firmware/fw.bin.trx:system/vendor/firmware/broadcom/dhd/firmware/fw.bin.trx \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/nvrams/nvm.txt:system/vendor/firmware/broadcom/dhd/nvrams/nvm.txt \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
@@ -287,3 +287,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
    wifi.interface=wlan0 \
    ro.nrdp.modelgroup=AVKO
+
+$(BRCM_DHD_DRIVER_TARGETS): brcm_dhd_driver
+	@echo "'brcm_dhd_driver' target: $@"
