@@ -34,12 +34,12 @@ ifeq (,$(LOCAL_RUN_TARGET))
     $(call inherit-product, $(TOPDIR)device/google/atv/products/atv_base.mk)
   else
     $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-    PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
+    PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   endif
 endif
 # aosp - inherit from AOSP-BASE, not ATV.
 ifeq ($(LOCAL_RUN_TARGET),aosp)
-  PRODUCT_COPY_FILES += $(TOPDIR)device/google/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
+  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 endif
 $(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
@@ -48,7 +48,7 @@ ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
   override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
 endif
 
-include device/google/avko/settings.mk
+include device/broadcom/avko/settings.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
   export B_REFSW_DEBUG ?= n
@@ -61,10 +61,10 @@ endif
 ifneq ($(wildcard device/google/atv/permissions/tv_core_hardware.xml),)
   # purposefully swap overlay layout to override some settings from
   # the ATV setup.
-  DEVICE_PACKAGE_OVERLAYS := device/google/avko/overlay
+  DEVICE_PACKAGE_OVERLAYS := device/broadcom/avko/overlay
   DEVICE_PACKAGE_OVERLAYS += device/google/atv/overlay
 else
-  DEVICE_PACKAGE_OVERLAYS += device/google/avko/overlay
+  DEVICE_PACKAGE_OVERLAYS += device/broadcom/avko/overlay
 endif
 
 PRODUCT_AAPT_CONFIG := normal large xlarge tvdpi hdpi xhdpi xxhdpi
@@ -79,19 +79,19 @@ TARGET_CPU_SMP := true
 PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nexus.ko:system/vendor/drivers/nexus.ko \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_nexus/bin/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko \
-    device/google/avko/bootanimation.zip:system/media/bootanimation.zip \
-    device/google/avko/init.blockdev.rc:root/init.blockdev.rc \
-    device/google/avko/init.blockdev.rc:root/init.recovery.blockdev.rc \
-    device/google/avko/init.eth.rc:root/init.eth.rc \
-    device/google/avko/init.recovery.bcm_platform.rc:root/init.recovery.avko.rc \
-    device/google/avko/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
-    device/google/avko/media_codecs.xml:system/etc/media_codecs.xml \
-    device/google/avko/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
-    device/google/avko/audio_policy_btusb.conf:system/etc/audio_policy.conf \
+    device/broadcom/avko/bootanimation.zip:system/media/bootanimation.zip \
+    device/broadcom/avko/init.blockdev.rc:root/init.blockdev.rc \
+    device/broadcom/avko/init.blockdev.rc:root/init.recovery.blockdev.rc \
+    device/broadcom/avko/init.eth.rc:root/init.eth.rc \
+    device/broadcom/avko/init.recovery.bcm_platform.rc:root/init.recovery.avko.rc \
+    device/broadcom/avko/init.recovery.nx.dynheap.rc:root/init.recovery.nx.dynheap.rc \
+    device/broadcom/avko/media_codecs.xml:system/etc/media_codecs.xml \
+    device/broadcom/avko/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
+    device/broadcom/avko/audio_policy_btusb.conf:system/etc/audio_policy.conf \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml \
-    device/google/avko/webview-command-line:/data/local/tmp/webview-command-line \
+    device/broadcom/avko/webview-command-line:/data/local/tmp/webview-command-line \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.hdmi.cec.xml:system/etc/permissions/android.hardware.hdmi.cec.xml \
     frameworks/native/data/etc/android.hardware.screen.landscape.xml:system/etc/permissions/android.hardware.screen.landscape.xml \
@@ -149,7 +149,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # This provides the build id of the reference platform that the current build
 # is based on. Do not remove this line.
-$(call inherit-product, device/google/avko/reference_build.mk)
+$(call inherit-product, device/broadcom/avko/reference_build.mk)
 
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
