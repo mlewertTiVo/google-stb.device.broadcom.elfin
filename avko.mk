@@ -178,6 +178,7 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libaudiopolicymanager \
       BcmAdjustScreenOffset \
       BcmCoverFlow \
+      BcmSidebandViewer \
       BcmTVInput \
       BcmOtaUpdater \
       camera.avko \
