@@ -89,6 +89,7 @@ PRODUCT_COPY_FILES += \
     device/broadcom/avko/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     device/broadcom/avko/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg \
     device/broadcom/avko/audio_policy_btusb.conf:system/etc/audio_policy.conf \
+    device/broadcom/avko/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled_5.kl \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml \
@@ -182,6 +183,7 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmSidebandViewer \
       BcmTVInput \
       BcmOtaUpdater \
+      BcmKeyInterceptor \
       camera.avko \
       Galaxy4 \
       gralloc.avko \
