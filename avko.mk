@@ -147,7 +147,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.nx.odv.use.alt=150m \
     ro.nx.odv.a1.use=50 \
     ro.nx.capable.cb=1 \
-    ro.v3d.fence.expose=true
+    ro.v3d.fence.expose=true \
+    ro.nx.svp=1
 
 # This provides the build id of the reference platform that the current build
 # is based on. Do not remove this line.
