@@ -306,6 +306,7 @@ clean_refsw: clean_nexus clean_v3d_driver clean_bolt clean_bootloaderimg
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxmini_*
+	rm -rf ${BRCM_NEXUS_INSTALL_PATH}/brcm_nexus/bin
 
 clean : clean_refsw
 
