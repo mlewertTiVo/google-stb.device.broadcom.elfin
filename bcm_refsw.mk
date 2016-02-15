@@ -130,15 +130,20 @@ nexus_build: setup_nexus_toolchains clean_recovery_ramdisk build_kernel $(NEXUS_
 	@if [ ! -d "${NEXUS_BIN_DIR}" ]; then \
 		mkdir -p ${NEXUS_BIN_DIR}; \
 	fi
-	@echo "================ Starting NEXUS build"
+	@if [ ! -d "${B_REFSW_OBJ_ROOT}/k_drivers/" ]; then \
+		mkdir -p ${B_REFSW_OBJ_ROOT}/k_drivers/; \
+	fi
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/server
 	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/nxclient/build
-	$(MAKE) $(MAKE_OPTIONS) -C $(NEXUS_TOP)/lib/os
-	$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm modules
-	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
-	$(MAKE) $(MAKE_OPTIONS) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
-	$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver modules
-	@echo "================ Copy NEXUS output"
+	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm ${B_REFSW_OBJ_ROOT}/k_drivers/ && \
+	$(MAKE) -C ${B_REFSW_OBJ_ROOT}/k_drivers/droid_pm INSTALL_DIR=$(NEXUS_BIN_DIR) install
+	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev ${B_REFSW_OBJ_ROOT}/k_drivers/ && \
+	$(MAKE) -C ${B_REFSW_OBJ_ROOT}/k_drivers/fbdev INSTALL_DIR=$(NEXUS_BIN_DIR) install
+	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem ${B_REFSW_OBJ_ROOT}/k_drivers/ && \
+	$(MAKE) $(MAKE_OPTIONS) -C ${B_REFSW_OBJ_ROOT}/k_drivers/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR) install
+	mkdir -p ${B_REFSW_OBJ_ROOT}/k_drivers/gator && cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver ${B_REFSW_OBJ_ROOT}/k_drivers/gator && \
+	$(MAKE) -C $(LINUX_OUT) M=${B_REFSW_OBJ_ROOT}/k_drivers/gator/driver modules && \
+	cp ${B_REFSW_OBJ_ROOT}/k_drivers/gator/driver/gator.ko $(NEXUS_BIN_DIR)
 	@echo "'$@' completed"
 
 .PHONY: gpumon_hook
@@ -227,12 +232,6 @@ clean_bootloaderimg:
 
 .PHONY: clean_nexus
 clean_nexus:
-	@if [ -d ${LINUX_OUT} ]; then \
-		$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm clean; \
-		$(MAKE) -C $(LINUX_OUT) M=$(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver clean; \
-		$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev clean; \
-		$(MAKE) -C $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem clean; \
-	fi
 	rm -rf ${B_REFSW_OBJ_ROOT}
 
 .PHONY: clean_gpumon_hook
@@ -271,11 +270,6 @@ clean_refsw: clean_nexus clean_v3d_driver clean_bolt clean_bootloaderimg
 clean : clean_refsw
 
 REFSW_BUILD_TARGETS := $(REFSW_TARGET_LIST)
-REFSW_BUILD_TARGETS += \
-	${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko \
-	${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko \
-	${BCM_VENDOR_STB_ROOT}/drivers/gator/driver/gator.ko
-
 $(REFSW_BUILD_TARGETS) : nexus_build
 	@echo "'nexus_build' target: $@"
 

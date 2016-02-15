@@ -111,8 +111,8 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/ueventd.bcm_platform.rc:root/ueventd.avko.rc \
-    ${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
-    ${BCM_VENDOR_STB_ROOT}/drivers/gator/driver/gator.ko:system/vendor/drivers/gator.ko
+    ${NEXUS_BIN_DIR}/droid_pm.ko:system/vendor/drivers/droid_pm.ko \
+    ${NEXUS_BIN_DIR}/gator.ko:system/vendor/drivers/gator.ko
 
 ifeq ($(SAGE_SUPPORT),y)
 SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
