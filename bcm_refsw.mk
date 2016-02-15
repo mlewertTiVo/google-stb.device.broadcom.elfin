@@ -270,7 +270,7 @@ clean_refsw: clean_nexus clean_v3d_driver clean_bolt clean_bootloaderimg
 
 clean : clean_refsw
 
-REFSW_BUILD_TARGETS := $(REFSW_TARGET_LIST))
+REFSW_BUILD_TARGETS := $(REFSW_TARGET_LIST)
 REFSW_BUILD_TARGETS += \
 	${BCM_VENDOR_STB_ROOT}/drivers/fbdev/bcmnexusfb.ko \
 	${BCM_VENDOR_STB_ROOT}/drivers/droid_pm/droid_pm.ko \
