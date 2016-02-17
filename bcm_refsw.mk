@@ -55,11 +55,9 @@ ANDROID_BSU_DIR := ${BRCMSTB_ANDROID_VENDOR_PATH}/bolt/android
 ifeq ($(B_REFSW_DEBUG), n)
     BUILD_TYPE ?= release
     SEC_LIB_MODE ?= retail
-    V3D_DEBUG = n
 else
     BUILD_TYPE ?= debug
     SEC_LIB_MODE ?= debug
-    V3D_DEBUG = y
 endif
 
 ifeq ($(BCHP_VER_LOWER),)
@@ -93,16 +91,6 @@ NEXUS_APP_CFLAGS := $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
 NEXUS_APP_CFLAGS += $(addprefix -D,$(NEXUS_APP_DEFINES))
 NEXUS_APP_CFLAGS += -DBSTD_CPU_ENDIAN=BSTD_ENDIAN_LITTLE
 export NEXUS_APP_CFLAGS
-
-V3D_ANDROID_DEFINES := -I$(ANDROID_TOP)/${BCM_VENDOR_STB_ROOT}/drivers/nx_ashmem
-V3D_ANDROID_DEFINES += $(NEXUS_APP_CFLAGS)
-V3D_ANDROID_DEFINES += -I${NEXUS_TOP}/nxclient/include
-V3D_ANDROID_LD :=
-
-ifeq ($(B_REFSW_USES_CLANG),y)
-V3D_ANDROID_DEFINES += -target arm-linux-androideabi -B${B_REFSW_CROSS_COMPILE_PATH}
-V3D_ANDROID_LD := -target arm-linux-androideabi -B${B_REFSW_CROSS_COMPILE_PATH}
-endif
 
 .PHONY: setup_nexus_toolchains
 setup_nexus_toolchains:
@@ -145,51 +133,6 @@ nexus_build: setup_nexus_toolchains clean_recovery_ramdisk build_kernel $(NEXUS_
 	$(MAKE) -C $(LINUX_OUT) M=${B_REFSW_OBJ_ROOT}/k_drivers/gator/driver modules && \
 	cp ${B_REFSW_OBJ_ROOT}/k_drivers/gator/driver/gator.ko $(NEXUS_BIN_DIR)
 	@echo "'$@' completed"
-
-.PHONY: gpumon_hook
-gpumon_hook: libnexuseglclient
-	@echo "'$@' started"; \
-	export ROOT=$(ANDROID_TOP); \
-	export GRALLOC=${BRCM_NEXUS_INSTALL_PATH}/libgralloc; \
-	export PLATFORM_DIR=$(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/platform; \
-	export PLATFORM_APP_INC=${NEXUS_TOP}/platforms/$(PLATFORM)/build/platform_app.inc; \
-	export OBJDIR=$(B_REFSW_OBJ_ROOT)/v3d_obj_$(NEXUS_PLATFORM); \
-	export LIBDIR=$(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM); \
-	export V3D_DEBUG=$(V3D_DEBUG); \
-	export ANDROID_LIBDIR_LINK=${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/system/lib; \
-	export V3D_EXTRA_CFLAGS='$(V3D_ANDROID_DEFINES)'; \
-	export V3D_EXTRA_LDFLAGS='$(V3D_ANDROID_LD)'; \
-	if [ -e $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/gpumon_hook/gpumon_hook.cpp ]; then \
-		$(MAKE) $(MAKE_OPTIONS) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/gpumon_hook -f Android.make && \
-		mkdir -p ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin && \
-		cp -fp $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM)/libgpumon_hook.so ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin; \
-	elif [ -e $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/spyhook/spyhook.cpp ]; then \
-		$(MAKE) $(MAKE_OPTIONS) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/spyhook -f Android.make && \
-		mkdir -p ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin && \
-		cp -fp $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM)/libgpumonitor.so ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin; \
-	fi
-	@echo "'$@' completed"
-
-.PHONY: v3d_driver
-v3d_driver: libnexuseglclient gpumon_hook
-	@echo "'$@' started (with -j1)"
-	$(MAKE) -j1 $(MAKE_OPTIONS) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/driver -f GLES_nexus.mk \
-		ANDROID_ICS=n \
-		GRALLOC=${BRCM_NEXUS_INSTALL_PATH}/libgralloc \
-		PLATFORM_DIR=$(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/platform \
-		PLATFORM_APP_INC=${NEXUS_TOP}/platforms/$(PLATFORM)/build/platform_app.inc \
-		OBJDIR=$(B_REFSW_OBJ_ROOT)/v3d_obj_$(NEXUS_PLATFORM) \
-		LIBDIR=$(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM) \
-		V3D_DEBUG=$(V3D_DEBUG) \
-		V3D_EXTRA_CFLAGS='$(V3D_ANDROID_DEFINES)' \
-		V3D_EXTRA_LDFLAGS='$(V3D_ANDROID_LD)'
-	mkdir -p ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
-	cp -fp $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM)/libGLES_nexus.so ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
-	@echo "'$@' completed"
-
-# the target which invokes the "v3d_driver" rule
-$(BCM_VENDOR_STB_ROOT)/bcm_platform/libGLES_nexus/bin/libGLES_nexus.so: v3d_driver
-	@echo "'v3d_driver' target: $@"
 
 .PHONY: clean_bolt
 clean_bolt: clean_android_bsu
@@ -234,34 +177,8 @@ clean_bootloaderimg:
 clean_nexus:
 	rm -rf ${B_REFSW_OBJ_ROOT}
 
-.PHONY: clean_gpumon_hook
-clean_gpumon_hook:
-	@echo "'$@' started"; \
-	export ROOT=$(ANDROID_TOP); \
-	export OBJDIR=$(B_REFSW_OBJ_ROOT)/v3d_obj_$(NEXUS_PLATFORM); \
-	export LIBDIR=$(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM); \
-	if [ -e $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/gpumon_hook/gpumon_hook.cpp ]; then \
-		$(MAKE) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/gpumon_hook -f Android.make clean_hook && \
-		rm -f ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin/libgpumon_hook.so; \
-	elif [ -e $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/spyhook/spyhook.cpp ]; then \
-		$(MAKE) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/tools/spyhook -f Android.make clean_hook && \
-		rm -f ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin/libgpumonitor.so; \
-	fi
-
-.PHONY: clean_v3d_driver
-#also invoke: clean_gpumon_hook
-clean_v3d_driver: clean_gpumon_hook
-	@echo "================ CLEAN V3D"
-	$(MAKE) -C $(ROCKFORD_TOP)/middleware/$(V3D_PREFIX)/driver -f GLES_nexus.mk \
-		OBJDIR=$(B_REFSW_OBJ_ROOT)/v3d_obj_$(NEXUS_PLATFORM) \
-		LIBDIR=$(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM) \
-		clean
-	rmdir $(B_REFSW_OBJ_ROOT)/v3d_obj_$(NEXUS_PLATFORM) || :
-	rmdir $(B_REFSW_OBJ_ROOT)/v3d_lib_$(NEXUS_PLATFORM) || :
-	rm -rf ${BRCM_NEXUS_INSTALL_PATH}/libGLES_nexus/bin
-
 .PHONY: clean_refsw
-clean_refsw: clean_nexus clean_v3d_driver clean_bolt clean_bootloaderimg
+clean_refsw: clean_nexus clean_bolt clean_bootloaderimg
 	@echo "================ MAKE CLEAN"
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
@@ -275,8 +192,8 @@ $(REFSW_BUILD_TARGETS) : nexus_build
 
 # for backwards compatibilty only!
 .PHONY: refsw refsw_build
-refsw: clean_recovery_ramdisk v3d_driver brcm_dhd_driver
-refsw_build: clean_recovery_ramdisk v3d_driver brcm_dhd_driver
+refsw: clean_recovery_ramdisk brcm_dhd_driver
+refsw_build: clean_recovery_ramdisk brcm_dhd_driver
 
 # standalone rules to clean/build the security libs from source, this assumes you have
 # an environment allowing you to do that, otherwise do not bother.
