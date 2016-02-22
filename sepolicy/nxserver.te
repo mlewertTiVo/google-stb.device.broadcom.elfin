@@ -47,7 +47,21 @@ allow nxserver system_data_file:dir { search setattr write add_name remove_name 
 allow nxserver self:udp_socket { write create setattr ioctl };
 allow nxserver self:capability { net_raw net_admin };
 
+allow nxserver cgroup:dir search;
+allow nxserver cgroup:file { open read write };
+allow nxserver proc:file { read open };
+allow nxserver self:capability sys_nice;
+allow nxserver sysfs_devices_system_cpu:dir search;
+allow nxserver debugfs:dir search;
+allow nxserver ion_device:chr_file { open ioctl read write };
 allow nxserver kernel:system module_request;
-
 allow nxserver nexus_prop:property_service set;
 allow nxserver self:capability { sys_nice };
+allow nxserver proc:file getattr;
+allow nxserver sysfs:lnk_file { read getattr open write };
+allow nxserver sysfs_devices_system_cpu:file read;
+allow nxserver tmpfs:dir search;
+allow nxserver tmpfs:lnk_file read;
+allow nxserver sysfs:dir { open read };
+allow nxserver sysfs:file { read write getattr open };
+allow nxserver sysfs_devices_system_cpu:file { open read write getattr };
