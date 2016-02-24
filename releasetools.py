@@ -10,7 +10,7 @@ import common
 # False:
 #   gpt will NOT be part of the OTA package
 #   Normal update will carry out.
-update_gpt = True
+update_gpt = False
 
 def WriteBoltBsu(info, bolt_img, bsu_img):
   common.ZipWriteStr(info.output_zip, "bolt-bb.bin", bolt_img)
@@ -85,8 +85,8 @@ else
     info.script.AppendExtra("""
 set_stage("%(bcb_dev)s", "2/3");
 reboot_now("%(bcb_dev)s", "");
-endif;
-endif;
+endif
+endif
 """ % bcb_dev)
 
 def IncrementalOTA_InstallBegin(info):
