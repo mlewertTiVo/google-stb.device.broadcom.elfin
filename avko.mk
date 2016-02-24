@@ -290,9 +290,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 $(BRCM_DHD_DRIVER_TARGETS): brcm_dhd_driver
 	@echo "'brcm_dhd_driver' target: $@"
-
-#GMS Package - Avoid Adding GMS Twice when building on Google Infrastructure
-ifeq ($(wildcard vendor/google/prebuilt),)
-  PRODUCT_USE_PREBUILT_GMS := yes
-endif
-
