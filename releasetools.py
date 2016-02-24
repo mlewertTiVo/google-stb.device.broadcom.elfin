@@ -39,27 +39,9 @@ def FullOTA_InstallBegin(info):
     bcb_dev = {"bcb_dev": misc_device}
 
     info.script.AppendExtra("""
-if get_stage("%(bcb_dev)s") == "2/2" then
+if get_stage("%(bcb_dev)s") == "2/3" then
 """ % bcb_dev)
-
-    info.script.FormatPartition("/data")
-    info.script.AppendExtra("""
-set_stage("%(bcb_dev)s", "");
-""" % bcb_dev)
-    info.script.AppendExtra("else\n")
-
-def FullOTA_InstallEnd(info):
-  try:
-    bolt_img = info.input_zip.read("RADIO/bolt-bb.bin")
-    bsu_img = info.input_zip.read("RADIO/android_bsu.elf")
-  except KeyError:
-    print "no bolt-bb.bin or android_bsu.elf in target_files; skipping install"
-  else:
-    WriteBoltBsu(info, bolt_img, bsu_img)
-
-  if (update_gpt):
-    _, misc_device = common.GetTypeAndDevice("/misc", info.info_dict)
-    bcb_dev = {"bcb_dev": misc_device}
+    info.script.WriteRawImage("/recovery", "recovery.img")
 
     try:
       gpt_img = info.input_zip.read("RADIO/gpt.bin")
@@ -69,9 +51,42 @@ def FullOTA_InstallEnd(info):
       WriteGPT(info, gpt_img)
 
     info.script.AppendExtra("""
-set_stage("%(bcb_dev)s", "2/2");
+set_stage("%(bcb_dev)s", "3/3");
 reboot_now("%(bcb_dev)s", "recovery");
-endif;
+else if get_stage("%(bcb_dev)s") == "3/3" then
+""" % bcb_dev)
+
+def FullOTA_InstallEnd(info):
+  if (update_gpt):
+    _, misc_device = common.GetTypeAndDevice("/misc", info.info_dict)
+    bcb_dev = {"bcb_dev": misc_device}
+
+    info.script.FormatPartition("/data")
+
+    info.script.AppendExtra("""
+set_stage("%(bcb_dev)s", "");
+else
+""" % bcb_dev)
+
+    recovery_img = common.GetBootableImage("recovery.img", "recovery.img",
+                                             common.OPTIONS.input_tmp, "RECOVERY")
+    common.ZipWriteStr(info.output_zip, "recovery.img", recovery_img.data)
+    info.script.WriteRawImage("/boot", "recovery.img")
+
+  try:
+    bolt_img = info.input_zip.read("RADIO/bolt-bb.bin")
+    bsu_img = info.input_zip.read("RADIO/android_bsu.elf")
+  except KeyError:
+    print "no bolt-bb.bin or android_bsu.elf in target_files; skipping install"
+  else:
+    WriteBoltBsu(info, bolt_img, bsu_img)
+
+  if (update_gpt):
+    info.script.AppendExtra("""
+set_stage("%(bcb_dev)s", "2/3");
+reboot_now("%(bcb_dev)s", "");
+endif
+endif
 """ % bcb_dev)
 
 def IncrementalOTA_InstallBegin(info):
@@ -80,16 +95,50 @@ def IncrementalOTA_InstallBegin(info):
     bcb_dev = {"bcb_dev": misc_device}
 
     info.script.AppendExtra("""
-if get_stage("%(bcb_dev)s") == "2/2" then
+if get_stage("%(bcb_dev)s") == "2/3" then
+""" % bcb_dev)
+    info.script.WriteRawImage("/recovery", "recovery.img")
+
+    try:
+      target_gpt_img = info.target_zip.read("RADIO/gpt.bin")
+      try:
+        source_gpt_img = info.source_zip.read("RADIO/gpt.bin")
+      except KeyError:
+        target_gpt_img = None
+        source_gpt_img = None
+
+      if (target_gpt_img == source_gpt_img):
+        print "gpt did not change: skipping"
+      else:
+        WriteGPT(info, target_gpt_img)
+
+    except KeyError:
+      print "gpt found in target_files; skipping install"
+
+    info.script.AppendExtra("""
+set_stage("%(bcb_dev)s", "3/3");
+reboot_now("%(bcb_dev)s", "recovery");
+else if get_stage("%(bcb_dev)s") == "3/3" then
 """ % bcb_dev)
 
+
+def IncrementalOTA_InstallEnd(info):
+  if (update_gpt):
+    _, misc_device = common.GetTypeAndDevice("/misc", info.info_dict)
+    bcb_dev = {"bcb_dev": misc_device}
+
     info.script.FormatPartition("/data")
+
     info.script.AppendExtra("""
 set_stage("%(bcb_dev)s", "");
 """ % bcb_dev)
     info.script.AppendExtra("else\n")
 
-def IncrementalOTA_InstallEnd(info):
+    recovery_img = common.GetBootableImage("recovery.img", "recovery.img",
+                                             common.OPTIONS.input_tmp, "RECOVERY")
+    common.ZipWriteStr(info.output_zip, "recovery.img", recovery_img.data)
+    info.script.WriteRawImage("/boot", "recovery.img")
+
   try:
     target_bolt_img = info.target_zip.read("RADIO/bolt-bb.bin")
     target_bsu_img = info.target_zip.read("RADIO/android_bsu.elf")
@@ -129,7 +178,8 @@ def IncrementalOTA_InstallEnd(info):
       print "gpt found in target_files; skipping install"
 
     info.script.AppendExtra("""
-set_stage("%(bcb_dev)s", "2/2");
-reboot_now("%(bcb_dev)s", "recovery");
+set_stage("%(bcb_dev)s", "2/3");
+reboot_now("%(bcb_dev)s", "");
+endif;
 endif;
 """ % bcb_dev)
