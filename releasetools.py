@@ -10,7 +10,7 @@ import common
 # False:
 #   gpt will NOT be part of the OTA package
 #   Normal update will carry out.
-update_gpt = False
+update_gpt = True
 
 def WriteBoltBsu(info, bolt_img, bsu_img):
   common.ZipWriteStr(info.output_zip, "bolt-bb.bin", bolt_img)
