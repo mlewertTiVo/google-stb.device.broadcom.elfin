@@ -111,6 +111,7 @@ BOARD_KERNEL_CMDLINE := mem=1024m@0m mem=1024m@2048m bmem=336m@672m bmem=256m@20
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
+TARGET_RECOVERY_FSTAB := device/broadcom/avko/recovery.fstab
 TARGET_RECOVERY_UI_LIB := librecovery_ui_avko
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_avko
 TARGET_RELEASETOOLS_EXTENSIONS := device/broadcom/avko
