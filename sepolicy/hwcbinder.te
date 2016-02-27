@@ -34,4 +34,4 @@ allow hwcbinder debugfs:dir search;
 allow hwcbinder sysfs_devices_system_cpu:dir search;
 allow hwcbinder sysfs:dir { open read };
 allow hwcbinder sysfs:file { read write getattr };
-allow hwcbinder sysfs_devices_system_cpu:file read;
+allow hwcbinder sysfs_devices_system_cpu:file { open read write getattr };
