@@ -239,7 +239,7 @@ PRODUCT_NAME := avko
 PRODUCT_DEVICE := avko
 PRODUCT_MODEL := avko
 PRODUCT_CHARACTERISTICS := tv
-PRODUCT_MANUFACTURER := google
+PRODUCT_MANUFACTURER := broadcom
 PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
