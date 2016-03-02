@@ -46,6 +46,10 @@ endif
 # Build WebView from source when using the internal source.
 override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
 
+ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
+  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/google_aware.xml:system/etc/permissions/google_aware.xml
+endif
+
 include device/broadcom/avko/settings.mk
 include device/broadcom/avko/refsw_defs.mk
 
