@@ -42,11 +42,9 @@ ifeq ($(LOCAL_RUN_TARGET),aosp)
   PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 endif
-$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
-ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-  # Build WebView from source when using the internal source.
-  override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
-endif
+
+# Build WebView from source when using the internal source.
+override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
 
 include device/broadcom/avko/settings.mk
 
