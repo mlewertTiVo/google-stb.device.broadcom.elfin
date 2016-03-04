@@ -46,3 +46,6 @@ allow nxserver nexus_log_file:file { open create read write setattr getattr unli
 allow nxserver system_data_file:dir { search setattr write add_name remove_name };
 allow nxserver self:udp_socket { write create setattr ioctl };
 allow nxserver self:capability { net_raw net_admin };
+
+allow nxserver kernel:system module_request;
+

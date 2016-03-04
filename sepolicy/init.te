@@ -13,3 +13,4 @@ allow init tmpfs:lnk_file create_file_perms;
 allow init cache_file:dir mounton;
 allow init storage_file:dir mounton;
 
+domain_trans(init, rootfs, nxmini)

@@ -23,4 +23,4 @@ PRODUCT_MANUFACTURER := Google
 PRODUCT_BRAND := Google
 
 # exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.4/bin:${PATH}
+export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.5/bin:${PATH}

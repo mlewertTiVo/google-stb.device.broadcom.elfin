@@ -49,7 +49,7 @@ export NEXUS_PLATFORM_7241_WIFI := n
 export NEXUS_POWER_MANAGEMENT := y
 export NEXUS_REPLACE_BOILERPLATE := y
 export NEXUS_SHARED_LIB := y
-export NEXUS_HDMI_INPUT_SUPPORT := n
+export NEXUS_HDMI_INPUT_SUPPORT := y
 export PVR_SUPPORT := y
 export REFSW_BASE_DIR := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw
 export ROCKFORD := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/rockford
@@ -65,11 +65,8 @@ export NEXUS_COMMON_CRYPTO_SUPPORT=y
 export NEXUS_HDCP_SUPPORT=y
 export BMRC_ALLOW_XPT_TO_ACCESS_KERNEL := y
 export SAGE_SECURE_MODE := 5
-
-ifneq ($(wildcard ${BCM_VENDOR_STB_ROOT}/bcm_platform/libsecurity/playreadydrmplugin),)
-    export MSDRM_PRDY_SUPPORT=y
-    export MSDRM_PRDY_SDK_VERSION=2.5
-endif
+export MSDRM_PRDY_SUPPORT=y
+export MSDRM_PRDY_SDK_VERSION=2.5
 
 export ANDROID_PRODUCT_OUT := avko
 export NEXUS_USE_3461_FRONTEND_DAUGHTER_CARD := y
