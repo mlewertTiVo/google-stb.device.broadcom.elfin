@@ -1,0 +1,2 @@
+allow zygote nexus_prop:file { open read write getattr };
+

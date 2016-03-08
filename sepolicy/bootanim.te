@@ -5,3 +5,4 @@ allow bootanim nexus_service:service_manager find;
 
 allow bootanim nexus_data_file:dir { search read };
 allow bootanim nexus_data_file:file { read open getattr };
+allow bootanim nexus_prop:file { open read write getattr };

@@ -65,3 +65,4 @@ allow nxserver tmpfs:lnk_file read;
 allow nxserver sysfs:dir { open read };
 allow nxserver sysfs:file { read write getattr open };
 allow nxserver sysfs_devices_system_cpu:file { open read write getattr };
+allow nxserver nexus_prop:file { open read write getattr };

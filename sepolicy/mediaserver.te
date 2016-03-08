@@ -12,4 +12,4 @@ allow mediaserver nexus_debug_file:dir { search read write add_name remove_name 
 allow mediaserver nexus_debug_file:file { open create read write setattr getattr };
 allow mediaserver nexus_service:service_manager find;
 allow mediaserver nexus_prop:property_service set;
-
+allow mediaserver nexus_prop:file { open read write getattr };
