@@ -78,3 +78,6 @@ export BXPT_POWER_MANAGEMENT := n
 export NEXUS_C_STD := c99
 export NEXUS_EXPORT_FILE := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
 
+export ANDROID_SUPPORTS_WIDEVINE := n
+export ANDROID_SUPPORTS_PLAYREADY := n
+
