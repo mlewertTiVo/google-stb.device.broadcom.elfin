@@ -226,7 +226,6 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       MagicSmokeWallpapers \
       NoiseField \
       PhaseBeam \
-      PhotoTable \
       TvProvider \
       VisualizationWallpapers
 
