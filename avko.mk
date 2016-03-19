@@ -295,6 +295,3 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
    wifi.interface=wlan0 \
    ro.nrdp.modelgroup=AVKO
-
-$(BRCM_DHD_DRIVER_TARGETS): brcm_dhd_driver
-	@echo "'brcm_dhd_driver' target: $@"
