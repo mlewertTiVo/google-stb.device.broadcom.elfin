@@ -257,7 +257,7 @@ export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.5/bin:${PATH}
 # This makefile copies the prebuilt BT kernel module and corresponding firmware and configuration files
 
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_btusb/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
@@ -265,7 +265,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.rfkilldisabled=1
 
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd:system/vendor/broadcom/btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd:system/vendor/broadcom/btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd
 
 PRODUCT_PACKAGES += \
 	audio.a2dp.default
@@ -280,13 +280,13 @@ PRODUCT_COPY_FILES += \
     ${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko:system/vendor/broadcom/dhd/driver/bcmdhd.ko \
     ${B_DHD_OBJ_ROOT}/fw.bin.trx:system/vendor/firmware/broadcom/dhd/firmware/fw.bin.trx \
     ${B_DHD_OBJ_ROOT}/nvm.txt:system/vendor/firmware/broadcom/dhd/nvrams/nvm.txt \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/brcm_dhd/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
