@@ -7,4 +7,5 @@
 
 /dev/block/by-name/bsu          /bsu          emmc     defaults                                                                defaults
 
-/dev/block/mmcblk0              /sdcard       vfat     defaults                                                                defaults
+/dev/block/sda1                 /sdcard       vfat     defaults                                                                defaults
+#/dev/block/mmcblk0             /sdcard       vfat     defaults                                                                defaults
