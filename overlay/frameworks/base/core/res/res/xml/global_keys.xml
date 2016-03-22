@@ -34,4 +34,5 @@
          KEYCODE_TVGUIDE and KEYCODE_DVR. -->
     <key keyCode="KEYCODE_PAIRING" component="com.broadcom.BcmKeyInterceptor/.BcmKeyInterceptorReceiver" />
     <key keyCode="KEYCODE_TV_NETWORK" component="com.broadcom.BcmKeyInterceptor/.BcmKeyInterceptorReceiver" />
+    <key keyCode="KEYCODE_BUTTON_16" component="com.broadcom.BcmKeyInterceptor/.BcmKeyInterceptorReceiver" />
 </global_keys>
