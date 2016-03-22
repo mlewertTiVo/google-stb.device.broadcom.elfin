@@ -109,8 +109,8 @@ setup_nexus_toolchains:
 	fi
 	@ln -s ${P_REFSW_CC}ar ${B_REFSW_TOOLCHAINS_INSTALL}ar;
 
-export NXCLIENT_SOCKET_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxsocket/nxclient_android_socket.c
-export NEXUS_PLATFORM_PROXY_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxproxyif/nexus_platform_proxy_intf.c
+export NXCLIENT_SOCKET_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxsocket/nxclient_android_socket.c
+export NEXUS_PLATFORM_PROXY_INTF := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxproxyif/nexus_platform_proxy_intf.c
 
 .PHONY: nexus_build
 nexus_build: setup_nexus_toolchains clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_bootloaderimg

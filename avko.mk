@@ -106,8 +106,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.software.live_tv.xml:system/etc/permissions/android.software.live_tv.xml \
     frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.bcm_platform \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/fstab.broadcomstb:root/fstab.avko \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/prebuilt/gps.conf:system/etc/gps.conf \
