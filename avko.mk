@@ -191,17 +191,13 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       BcmOtaUpdater \
       BcmKeyInterceptor \
       camera.avko \
-      Galaxy4 \
       gralloc.avko \
       hdmi_cec.avko \
-      HoloSpiralWallpaper \
       hwcbinder \
       hwcomposer.avko \
       libhwcbinder \
       libhwcconv \
       libjni_adjustScreenOffset \
-      libjni_changedisplayformat \
-      libjni_generalSTBFunctions \
       libGLES_nexus \
       libnexusir \
       libpmlibservice \
@@ -213,36 +209,23 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libcmndrm \
       libcmndrm_tl \
       libsrai \
-      libOMX.BCM.h264.decoder.secure \
       liboemcrypto \
       libwvdrmengine \
       libcmndrmprdy \
       libplayreadydrmplugin \
       libplayreadypk_host \
-      LiveWallpapers \
-      LiveWallpapersPicker \
       memtrack.avko \
       power.avko \
       pmlibserver \
       send_cec \
       tv_input.avko \
       TV \
-      MagicSmokeWallpapers \
-      NoiseField \
-      PhaseBeam \
-      TvProvider \
-      VisualizationWallpapers
-
-  ifneq ($(TARGET_BUILD_VARIANT),user)
-    PRODUCT_PACKAGES += \
-	ExoPlayerDemo
-  endif
+      TvProvider
 
   PRODUCT_PROPERTY_OVERRIDES += drm.service.enabled=true
 endif
 
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
-
 
 PRODUCT_NAME := avko
 PRODUCT_DEVICE := avko
@@ -265,7 +248,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.rfkilldisabled=1
 
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd:system/vendor/broadcom/btusb/firmware/BCM43569A2_001.003.004.0044.0000_Generic_USB_40MHz_fcbga_BU_Tx6dbm_desen_Freebox.hcd
+   ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:system/vendor/broadcom/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd
 
 PRODUCT_PACKAGES += \
 	audio.a2dp.default
