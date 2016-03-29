@@ -85,17 +85,6 @@ ADDITIONAL_BUILD_PROPERTIES += \
     ro.sf.lcd_density=320 \
     ro.v3d.fence.expose=true
 
-ifneq ($(TARGET_BUILD_PDK),true)
-   ifeq ($(LOCAL_RUN_TARGET),)
-   # Enable dex-preoptimization to speed up first boot sequence
-      ifeq ($(HOST_OS),linux)
-         ifeq ($(WITH_DEXPREOPT),)
-            WITH_DEXPREOPT := true
-         endif
-      endif
-   endif
-endif
-
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 33554432   # 32M
