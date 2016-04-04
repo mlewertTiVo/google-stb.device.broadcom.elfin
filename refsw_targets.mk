@@ -6,10 +6,10 @@
 #
 
 REFSW_TARGET_LIST := \
-	${NEXUS_BIN_DIR}/libnexus.so \
-	${NEXUS_BIN_DIR}/libnexus_static.a \
-	${NEXUS_BIN_DIR}/libnxclient.so \
-	${NEXUS_BIN_DIR}/libnxserver.a \
+	/${NEXUS_BIN_DIR}/libnexus.so \
+	/${NEXUS_BIN_DIR}/libnexus_static.a \
+	/${NEXUS_BIN_DIR}/libnxclient.so \
+	/${NEXUS_BIN_DIR}/libnxserver.a \
 	\
 	${NEXUS_BIN_DIR}/nexus.ko \
 	${NEXUS_BIN_DIR}/bcmnexusfb.ko \
