@@ -160,6 +160,7 @@ PRODUCT_PACKAGES += \
     e2fsck \
     gatord \
     gptbin \
+    hfrvideo \
     makehwcfg \
     network \
     nxdispfmt \
