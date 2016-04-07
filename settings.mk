@@ -20,6 +20,7 @@ export PLATFORM := 97439
 export ANDROID := $(shell pwd)
 export ANDROID_TOP := ${ANDROID}
 export B_REFSW_ARCH := arm-linux
+export B_REFSW_ARCH_1ST_ARCH := ${B_REFSW_ARCH}
 export B_REFSW_USES_CLANG := n
 ifeq ($(B_REFSW_USES_CLANG),y)
    export P_REFSW_CC_CLANG := ${ANDROID_TOP}/prebuilts/clang/linux-x86/host/3.6/bin
