@@ -196,7 +196,6 @@ ifeq (,$(filter redux,$(LOCAL_RUN_TARGET)))
       libaudiopolicymanagerdefault \
       libaudiopolicymanager \
       BcmAdjustScreenOffset \
-      BcmCoverFlow \
       BcmSidebandViewer \
       BcmTVInput \
       BcmOtaUpdater \
