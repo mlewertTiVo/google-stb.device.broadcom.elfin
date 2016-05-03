@@ -150,7 +150,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # nx configuration.
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196609 \
+    ro.opengles.version=196608 \
     debug.hwui.render_dirty_regions=false \
     ro.nx.heap.video_secure=80m \
     ro.nx.heap.main=96m \
