@@ -211,6 +211,16 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
 
+        <MediaCodec name="OMX.broadcom.video_decoder.secure.vp9" >
+            <Type name="video/x-vnd.on2.vp9" >
+                <Feature name="adaptive-playback" />
+                <Feature name="secure-playback" required="true" />
+                <Limit name="concurrent-instances" max="1" />
+                <Limit name="size" min="2x2" max="4096x2160" />
+            </Type>
+            <Quirk name="requires-allocate-on-input-ports" />
+        </MediaCodec>
+
         <!-- Broadcom Secure Video Decoder (Android Tunnel) -->
 
         <!-- TBD -->
