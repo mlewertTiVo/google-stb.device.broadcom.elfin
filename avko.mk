@@ -112,6 +112,7 @@ PRODUCT_COPY_FILES += \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/gps.conf:system/etc/gps.conf \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.rc:root/init.avko.rc \
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.fs.rc:root/init.brcm_fs.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.broadcomstb.usb.rc:root/init.bcm_platform.usb.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/init.nx.dynheap.rc:root/init.nx.dynheap.rc \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/cfgs/ueventd.bcm_platform.rc:root/ueventd.avko.rc \
