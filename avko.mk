@@ -140,7 +140,16 @@ PRODUCT_COPY_FILES += \
     ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22.bin:system/bin/sage_ta_hdcp22.bin \
     ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30.bin:system/bin/sage_ta_playready_30.bin \
     ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video.bin:system/bin/sage_ta_secure_video.bin \
-    ${SAGE_APP_BINARY_PATH}/sage_ta_utility.bin:system/bin/sage_ta_utility.bin
+    ${SAGE_APP_BINARY_PATH}/sage_ta_utility.bin:system/bin/sage_ta_utility.bin \
+    \
+    ${SAGE_BL_BINARY_PATH}/dev/sage_bl_dev.bin:system/bin/sage_bl_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_framework_dev.bin:system/bin/sage_framework_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_antirollback_dev.bin:system/bin/sage_ta_antirollback_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_common_drm_dev.bin:system/bin/sage_ta_common_drm_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_hdcp22_dev.bin:system/bin/sage_ta_hdcp22_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_playready_30_dev.bin:system/bin/sage_ta_playready_30_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_secure_video_dev.bin:system/bin/sage_ta_secure_video_dev.bin \
+    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_utility_dev.bin:system/bin/sage_ta_utility_dev.bin
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
