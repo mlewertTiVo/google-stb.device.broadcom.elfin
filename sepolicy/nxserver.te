@@ -49,3 +49,5 @@ allow nxserver self:capability { net_raw net_admin };
 
 allow nxserver kernel:system module_request;
 
+allow nxserver nexus_prop:property_service set;
+allow nxserver self:capability { sys_nice };

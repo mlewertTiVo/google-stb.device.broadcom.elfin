@@ -19,4 +19,8 @@ allow nxmini init:unix_stream_socket connectto;
 allow nxmini system_prop:property_service set;
 allow nxmini nxserver_socket:sock_file write;
 allow nxmini rootfs:file entrypoint;
+allow nxmini input_device:dir search;
+allow nxmini input_device:chr_file { read open };
+allow nxmini self:udp_socket { create ioctl };
+allow nxmini self:capability { net_raw net_admin };
 

@@ -5,10 +5,11 @@ on early-init
     export LD_LIBRARY_PATH /system/lib
     export SAGEBIN_PATH /system/bin
     export NEXUS_DEVICE_NODE /dev/mali
+    setprop dyn.nx.state none
 
 service nxmini /sbin/nxmini
     oneshot
     seclabel u:r:nxmini:s0
 
-on property:hw.nexus.platforminit=on
+on property:dyn.nx.state=loaded
     insmod /system/lib/bcmnexusfb.ko
