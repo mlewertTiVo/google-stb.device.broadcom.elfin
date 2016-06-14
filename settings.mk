@@ -75,4 +75,4 @@ export V3D_VARIANT := vc5
 export ANDROID_USES_BORINGSSL := y
 export BOLT_IMG_TO_USE_OVERRIDE :=
 export BXPT_POWER_MANAGEMENT := n
-
+export NEXUS_C_STD := c99
