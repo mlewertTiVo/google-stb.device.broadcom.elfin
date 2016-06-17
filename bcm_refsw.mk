@@ -146,7 +146,7 @@ build_bolt:
 	@if [ ! -d "${B_BOLT_OBJ_ROOT}" ]; then \
 		mkdir -p ${B_BOLT_OBJ_ROOT}; \
 	fi
-	$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT)
+	$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
 	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba.bin || :
 	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin || :
 	@echo "'$@' completed"
@@ -159,7 +159,7 @@ clean_android_bsu:
 .PHONY: build_android_bsu
 build_android_bsu: build_bolt
 	@echo "'$@' started"
-	$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT)
+	$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
 	cp -pv $(B_BOLT_OBJ_ROOT)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
 	@echo "'$@' completed"
 
