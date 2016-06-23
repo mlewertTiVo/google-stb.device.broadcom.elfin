@@ -29,6 +29,7 @@ export B_REFSW_CROSS_COMPILE_PATH := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/
 export P_REFSW_CC := ${B_REFSW_CROSS_COMPILE_PATH}/arm-linux-androideabi-
 export B_REFSW_KERNEL_CROSS_COMPILE := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH := arm-linux
+export ANDROID_PREBUILT_LIBGCC := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9/libgcc.a
 
 export B_REFSW_CCACHE := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
 export USE_CCACHE := 1
