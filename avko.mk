@@ -259,8 +259,8 @@ PRODUCT_MANUFACTURER := broadcom
 PRODUCT_BRAND := google
 
 # exporting toolchains path for kernel image+modules
-export PATH := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.5/bin:${PATH}
-
+export PATH := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.5/bin:${PATH}
+ 
 # This makefile copies the prebuilt BT kernel module and corresponding firmware and configuration files
 
 PRODUCT_COPY_FILES += \
