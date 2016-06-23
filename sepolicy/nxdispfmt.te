@@ -12,5 +12,5 @@ allow nxdispfmt nxserver:unix_stream_socket connectto;
 allow nxdispfmt gpu_device:chr_file rw_file_perms;
 allow nxdispfmt property_socket:sock_file write;
 allow nxdispfmt init:unix_stream_socket connectto;
-allow nxdispfmt nexus_prop:property_service set;
-allow nxdispfmt nexus_prop:file { open read write getattr };
+
+set_prop(nxdispfmt, nexus_prop);

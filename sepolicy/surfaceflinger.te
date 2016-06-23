@@ -1,5 +1,3 @@
-allow surfaceflinger nexus_prop:property_service set;
-
 allow surfaceflinger hwcbinder:binder { transfer call };
 allow surfaceflinger nxserver:binder { transfer call };
 allow surfaceflinger nxserver:unix_stream_socket connectto;
@@ -8,4 +6,5 @@ allow surfaceflinger nexus_data_file:file { read open getattr };
 allow surfaceflinger sw_sync_device:chr_file { open ioctl read write };
 allow surfaceflinger nxserver_socket:sock_file write;
 allow surfaceflinger nexus_service:service_manager find;
-allow surfaceflinger nexus_prop:file { open read write getattr };
+
+set_prop(surfaceflinger, nexus_prop);

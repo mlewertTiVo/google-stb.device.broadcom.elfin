@@ -55,8 +55,13 @@ allow nxserver sysfs_devices_system_cpu:dir search;
 allow nxserver debugfs:dir search;
 allow nxserver ion_device:chr_file { open ioctl read write };
 allow nxserver kernel:system module_request;
+
+type_transition nxserver system_data_file:file nexus_secdma_file "stbpriv.txt";
+allow nxserver nexus_secdma_file:file { open create read write setattr getattr unlink };
+allow nxserver nexus_secdma_file:dir { search setattr write add_name remove_name };
 allow nxserver nexus_prop:property_service set;
 allow nxserver self:capability { sys_nice };
+
 allow nxserver proc:file getattr;
 allow nxserver sysfs:lnk_file { read getattr open write };
 allow nxserver sysfs_devices_system_cpu:file read;
@@ -65,4 +70,5 @@ allow nxserver tmpfs:lnk_file read;
 allow nxserver sysfs:dir { open read };
 allow nxserver sysfs:file { read write getattr open };
 allow nxserver sysfs_devices_system_cpu:file { open read write getattr };
-allow nxserver nexus_prop:file { open read write getattr };
+
+set_prop(nxserver, nexus_prop);

@@ -1,2 +1,2 @@
-allow zygote nexus_prop:file { open read write getattr };
+set_prop(zygote, nexus_prop);
 

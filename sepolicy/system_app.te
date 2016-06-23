@@ -6,3 +6,5 @@ allow system_app nxserver_socket:sock_file write;
 allow system_app nexus_service:service_manager find;
 
 dontaudit system_app nexus_data_file:dir search;
+get_prop(system_app, nexus_prop);
+
