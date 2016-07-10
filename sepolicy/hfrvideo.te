@@ -17,3 +17,5 @@ r_dir_file(hfrvideo, domain)
 
 dontaudit hfrvideo platform_app:dir search;
 dontaudit hfrvideo untrusted_app:dir search;
+
+get_prop(hfrvideo, nexus_prop);

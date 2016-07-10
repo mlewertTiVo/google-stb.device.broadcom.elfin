@@ -3,3 +3,4 @@ allow bluetooth nxserver:unix_stream_socket connectto;
 allow bluetooth nxserver:binder call;
 allow bluetooth nxserver_socket:sock_file write;
 allow bluetooth nexus_service:service_manager find;
+allow bluetooth sysfs:file write;
