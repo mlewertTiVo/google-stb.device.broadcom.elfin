@@ -46,7 +46,7 @@ include device/broadcom/avko/settings.mk
 include device/broadcom/avko/refsw_defs.mk
 
 # It is required to build the Kernel from source.
-KERNEL_SRC_DIR ?= kernel/private/bcm-97xxx/linux-${LOCAL_LINUX_VERSION}
+KERNEL_SRC_DIR ?= kernel/private/bcm-97xxx/linux${LOCAL_LINUX_VERSION}
 ifeq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
   $(error Unable to build kernel from source, aborting.)
 endif
