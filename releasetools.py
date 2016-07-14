@@ -85,8 +85,8 @@ else
     info.script.AppendExtra("""
 set_stage("%(bcb_dev)s", "2/3");
 reboot_now("%(bcb_dev)s", "");
-endif
-endif
+endif;
+endif;
 """ % bcb_dev)
 
 def IncrementalOTA_InstallBegin(info):
