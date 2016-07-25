@@ -171,6 +171,7 @@ Only the three quirks included above are recognized at this point:
             <Type name="video/x-vnd.on2.vp9" >
                 <Feature name="adaptive-playback" />
                 <Feature name="tunneled-playback" required="true" />
+                <Limit name="concurrent-instances" max="1" />
                 <Limit name="size" min="2x2" max="3840x2160" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
