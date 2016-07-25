@@ -15,8 +15,10 @@
 #
 
 # To prevent from including GMS twice in Google's internal source.
+# Only include google_aware.xml if building on Google internal structure.
 ifeq ($(wildcard vendor/google/prebuilt),)
 PRODUCT_USE_PREBUILT_GMS := yes
+PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/google_aware.xml:system/etc/permissions/google_aware.xml
 endif
 
 # standard target - based on the standard google atv device if present,
@@ -36,15 +38,9 @@ ifeq ($(LOCAL_RUN_TARGET),aosp)
   PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
   $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 endif
-$(call inherit-product-if-exists, $(TOPDIR)vendor/google/products/gms.mk)
-ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-  # Build WebView from source when using the internal source.
-  override PRODUCT_PREBUILT_WEBVIEWCHROMIUM := $(PRODUCT_USE_PREBUILT_GMS)
-endif
 
-ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-  PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/avko/google_aware.xml:system/etc/permissions/google_aware.xml
-endif
+#Call GMS Makefile
+$(call inherit-product-if-exists, $(TOPDIR)vendor/broadcom/prebuilts/gms/google/products/gms.mk)
 
 include device/broadcom/avko/settings.mk
 include device/broadcom/avko/refsw_defs.mk
