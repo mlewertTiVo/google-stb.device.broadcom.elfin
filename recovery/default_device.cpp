@@ -15,6 +15,7 @@
  */
 
 #include <linux/input.h>
+#include <unistd.h>
 
 #include "common.h"
 #include "device.h"
