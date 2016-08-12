@@ -19,7 +19,6 @@ LOCAL_PATH := $(my-dir)
 include $(LOCAL_PATH)/AndroidKernel.mk
 include $(LOCAL_PATH)/AndroidPhony.mk
 
-# adding bolt and bsu to the output target package for OTA packaging
-$(call add-radio-file, bolt-bb.bin)
-$(call add-radio-file, android_bsu.elf)
 $(call add-radio-file, bootloader.img)
+$(call add-radio-file, gpt.bin)
+
