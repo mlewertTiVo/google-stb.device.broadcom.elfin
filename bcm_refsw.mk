@@ -90,6 +90,10 @@ NEXUS_DEPS := \
 NEXUS_APP_CFLAGS := $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
 NEXUS_APP_CFLAGS += $(addprefix -D,$(NEXUS_APP_DEFINES))
 NEXUS_APP_CFLAGS += -DBSTD_CPU_ENDIAN=BSTD_ENDIAN_LITTLE
+ifeq ($(SAGE_SUPPORT),y)
+include ${BCM_VENDOR_STB_ROOT}/refsw/magnum/syslib/sagelib/bsagelib_public.inc
+NEXUS_APP_CFLAGS += $(addprefix -D,$(BSAGELIB_DEFINES))
+endif
 export NEXUS_APP_CFLAGS
 
 .PHONY: setup_nexus_toolchains
