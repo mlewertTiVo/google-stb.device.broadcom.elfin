@@ -21,4 +21,3 @@
 
 /eio(/.*)?                u:object_r:system_file:s0
 /hwcfg(/.*)?              u:object_r:system_file:s0
-

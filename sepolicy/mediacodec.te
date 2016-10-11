@@ -11,5 +11,6 @@ allow mediacodec self:netlink_kobject_uevent_socket { create bind read };
 allow mediacodec nexus_debug_file:dir { search read write add_name remove_name };
 allow mediacodec nexus_debug_file:file { open create read write setattr getattr };
 allow mediacodec nexus_service:service_manager find;
+allow mediacodec proc:file r_file_perms;
 
 set_prop(mediacodec, nexus_prop);
