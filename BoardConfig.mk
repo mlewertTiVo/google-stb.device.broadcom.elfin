@@ -52,7 +52,6 @@ ADDITIONAL_BUILD_PROPERTIES += \
    media.aac_51_output_enabled=true \
    media.stagefright.cache-params=32768/65536/25 \
    media.stagefright.codecremote=false \
-   media.stagefright.extractremote=false \
    media.stagefright.legacyencoder=true \
    media.httplive.startathighbw=1
 
