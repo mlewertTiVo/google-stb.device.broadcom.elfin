@@ -1,0 +1,2 @@
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/elfin.mk
+PRODUCT_MAKEFILES += $(LOCAL_DIR)/aosp_elfin.mk
