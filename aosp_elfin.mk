@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-include device/broadcom/elfin.mk
+include device/broadcom/elfin/elfin.mk
 
 PRODUCT_NAME                     := aosp_elfin
 PRODUCT_MODEL                    := elfin
