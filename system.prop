@@ -15,5 +15,8 @@ ro.nx.heap.gfx=64m
 ro.nx.capable.cb=1
 ro.nx.capable.bg=1
 
+# google assigned client id
+ro.com.google.clientidbase=android-elfin
+
 ro.nrdp.modelgroup=ELFIN
 
