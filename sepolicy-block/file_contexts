@@ -1,6 +1,7 @@
 # Block labeling
 /dev/block/platform/rdb/f0200200\.sdhci/by-name/boot_[ie]      u:object_r:boot_block_device:s0
 /dev/block/platform/rdb/f0200200\.sdhci/by-name/system_[ie]    u:object_r:system_block_device:s0
+/dev/block/platform/rdb/f0200200\.sdhci/by-name/vendor_[ie]    u:object_r:system_block_device:s0
 
 /dev/block/platform/rdb/f0200200\.sdhci/by-name/bsu       u:object_r:root_block_device:s0
 /dev/block/platform/rdb/f0200200\.sdhci/by-name/cache     u:object_r:cache_block_device:s0
