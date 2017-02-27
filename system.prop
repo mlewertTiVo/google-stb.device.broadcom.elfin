@@ -22,3 +22,6 @@ ro.com.google.clientidbase=android-elfin
 
 ro.nrdp.modelgroup=ELFIN
 
+# gfx driver versioning package.
+ro.gfx.driver.0=gfxdriver-bcmstb
+
