@@ -54,6 +54,8 @@ export LOCAL_DEVICE_USE_VERITY   := y
 
 # no legacy decoder (vp9, h263, mpeg4) in hardware s.1
 export HW_DECODER_LEGACY_SUPPORT := n
+# v3d mmu available.
+export HW_GPU_MMU_SUPPORT        := y
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2040m@0m
