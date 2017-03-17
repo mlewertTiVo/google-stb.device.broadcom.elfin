@@ -64,6 +64,11 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7F800000 ramoops.mem_s
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
+# *** WARNING: O-BRING-UP: no drm's.
+export ANDROID_SUPPORTS_WIDEVINE  := n
+export ANDROID_SUPPORTS_PLAYREADY := n
+# *** WARNING: O-BRING-UP: no drm's.
+
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
 PRODUCT_NAME                     := elfin
