@@ -25,4 +25,5 @@ ro.nx.eth.irq_mode_mask=f:c
 ro.com.google.clientidbase=android-elfin
 
 ro.nrdp.modelgroup=ELFIN
+ro.nrdp.validation=ninja_4
 
