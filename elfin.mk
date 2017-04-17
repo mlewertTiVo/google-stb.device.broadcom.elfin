@@ -53,8 +53,8 @@ export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
 export PRODUCT_AAPT_PREF_CONFIG  := tvdpi
 
-# no legacy decoder (vp9, h263, mpeg4) in hardware s.1
-export HW_DECODER_LEGACY_SUPPORT := n
+# no legacy decoder (vp8, h263, mpeg4) in hardware s.1
+export HW_HVD_REVISION := S
 # v3d mmu available.
 export HW_GPU_MMU_SUPPORT        := y
 
