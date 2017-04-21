@@ -15,6 +15,7 @@ ro.nx.heap.gfx=64m
 ro.nx.capable.cb=1
 ro.nx.capable.bg=1
 ro.nx.hwc2.tweak.fbcomp=1
+ro.sf.lcd_density=320
 
 ro.nx.eth.irq_mode_mask=f:c
 
