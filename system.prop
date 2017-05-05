@@ -28,7 +28,3 @@ ro.com.google.clientidbase=android-elfin
 
 ro.nrdp.modelgroup=ELFIN
 ro.nrdp.validation=ninja_4
-
-# disable hdcp
-dyn.nx.hdcp.force=0
-
