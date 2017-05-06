@@ -70,7 +70,7 @@ export LOCAL_DEVICE_KERNEL_CMDLINE
 $(call inherit-product, device/broadcom/common/bcm.mk)
 PRODUCT_NAME                     := elfin
 PRODUCT_MODEL                    := elfin
-PRODUCT_BRAND                    := broadcom
+PRODUCT_BRAND                    := google
 PRODUCT_DEVICE                   := elfin
 
 # additional setup per device.
