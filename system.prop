@@ -24,7 +24,7 @@ ro.sf.lcd_density=160
 ro.nx.eth.irq_mode_mask=f:c
 
 # google assigned client id
-ro.com.google.clientidbase=android-elfin
+ro.com.google.clientidbase=android-elfin-tv
 
 ro.nrdp.modelgroup=ELFIN
 ro.nrdp.validation=ninja_4
