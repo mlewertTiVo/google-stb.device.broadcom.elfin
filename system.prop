@@ -17,7 +17,7 @@ ro.nx.capable.bg=1
 ro.nx.hwc2.tweak.fbcomp=1
 ro.sf.lcd_density=320
 
-ro.nx.eth.irq_mode_mask=f:c
+ro.nx.eth.irq_mode_mask=3:2
 
 # google assigned client id
 ro.com.google.clientidbase=android-elfin-tv
