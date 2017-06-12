@@ -52,6 +52,9 @@ export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/elfin/reference_build.mk
 export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
 
+# one image to rule them all.
+export LOCAL_DEVICE_SAGE_DEV_N_PROD := y
+
 # no legacy decoder (vp8, h263, mpeg4) in hardware s.1
 export HW_HVD_REVISION := S
 # v3d mmu available.
