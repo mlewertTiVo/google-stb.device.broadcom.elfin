@@ -2,8 +2,8 @@
 export LOCAL_NVI_LAYOUT          := y
 export ANDROID_PRODUCT_OUT       := elfin_nvi
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.nvi.verity.squashfs.ab-update:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.nvi.verity.squashfs.ab-update:root/fstab.elfin_nvi
+LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.squashfs.ab-update.early:root/fstab.bcm
+LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.squashfs.ab-update.early:root/fstab.elfin_nvi
 export LOCAL_DEVICE_FSTAB
 
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.nvi.conf
