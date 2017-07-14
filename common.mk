@@ -36,7 +36,7 @@ export LOCAL_DEVICE_USERDATA     := 5927582720 # ~5.52GB
 export HW_ENCODER_SUPPORT        := n
 export BT_RFKILL_SUPPORT         := y
 export LOCAL_SYSTEMIMAGE_SQUASHFS := y
-export LOCAL_VENDORIMAGE_SQUASHFS := y
+export LOCAL_VENDORIMAGE_SQUASHFS := n
 export ANDROID_ENABLE_BT         := usb
 export LOCAL_KCONFIG_CHIP_OVERRIDE := 7271A0
 export V3D_VARIANT               := vc5
@@ -46,6 +46,13 @@ export LOCAL_DEVICE_USE_VERITY   := y
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION := /dev/block/platform/rdb/f0200200.sdhci/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION := /dev/block/platform/rdb/f0200200.sdhci/by-name/vendor
 
+# bootloader firmware manipulation.
+export BOLT_IMG_SWAP_BBL         := device/broadcom/elfin/blb/zd/bbl-3.1.1-zd.bin
+export BOLT_IMG_SWAP_BFW         := device/broadcom/elfin/blb/zd/bfw-4.2.3-zd.bin
+
+# one image to rule them all.
+export LOCAL_DEVICE_SAGE_DEV_N_PROD := y
+
 # no legacy decoder (vp8, h263, mpeg4) in hardware s.1
 export HW_HVD_REVISION           := S
 # v3d mmu available.
@@ -54,11 +61,7 @@ export HW_GPU_MMU_SUPPORT        := y
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2040m@0m
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=528m@1512m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=744m@768m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=608m@904m
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
-
-# *** WARNING: O-BRING-UP: no PR drm.
-export ANDROID_SUPPORTS_PLAYREADY := n
-# *** WARNING: O-BRING-UP: no PR drm.
