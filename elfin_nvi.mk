@@ -17,6 +17,7 @@ include device/broadcom/elfin/common.mk
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
+$(call inherit-product, build/make/target/product/product_launched_with_n.mk)
 PRODUCT_NAME                     := elfin_nvi
 PRODUCT_MODEL                    := elfin_nvi
 PRODUCT_BRAND                    := broadcom
