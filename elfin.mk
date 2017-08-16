@@ -52,8 +52,10 @@ export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/elfin/reference_build.mk
 export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_USE_VERITY   := y
 
-# one image to rule them all.
+# bootloader firmware manipulation.
 export LOCAL_DEVICE_SAGE_DEV_N_PROD := y
+export BOLT_IMG_SWAP_BBL            := device/broadcom/elfin/blb/zb/bbl-3.1.1-zb.bin
+export BOLT_IMG_SWAP_BFW            := device/broadcom/elfin/blb/zb/bfw-4.2.3-zb.bin
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware s.1
 export HW_HVD_REVISION := S
