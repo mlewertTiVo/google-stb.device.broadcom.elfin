@@ -1,7 +1,7 @@
 export ANDROID_PRODUCT_OUT       := elfin
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.squashfs.ab-update.early:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.squashfs.ab-update.early:root/fstab.elfin
+LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.bcm
+LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.elfin
 export LOCAL_DEVICE_FSTAB
 
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.conf
