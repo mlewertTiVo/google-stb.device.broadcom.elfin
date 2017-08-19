@@ -57,9 +57,9 @@ export HW_HVD_REVISION           := S
 export HW_GPU_MMU_SUPPORT        := y
 
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2040m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=528m@1512m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=608m@904m
-LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7F800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
+LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=496m@1480m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=608m@872m
+LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
