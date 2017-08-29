@@ -25,4 +25,4 @@ PRODUCT_DEVICE                   := elfin_nvi
 
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=elfin_nvi
-PRODUCT_PROPERTY_OVERRIDES    += ro.product.board=elfin_nvi
+TARGET_BOOTLOADER_BOARD_NAME := elfin_nvi
