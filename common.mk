@@ -38,7 +38,6 @@ export BT_RFKILL_SUPPORT         := y
 export LOCAL_SYSTEMIMAGE_SQUASHFS := n
 export LOCAL_VENDORIMAGE_SQUASHFS := n
 export ANDROID_ENABLE_BT         := usb
-export LOCAL_KCONFIG_CHIP_OVERRIDE := 7271A0
 export V3D_VARIANT               := vc5
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/elfin/reference_build.mk
 export HW_AB_UPDATE_SUPPORT      := y
