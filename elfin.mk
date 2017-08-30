@@ -23,4 +23,4 @@ PRODUCT_DEVICE                   := elfin
 
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=elfin
-PRODUCT_PROPERTY_OVERRIDES    += ro.product.board=elfin
+TARGET_BOOTLOADER_BOARD_NAME := elfin
