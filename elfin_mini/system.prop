@@ -36,3 +36,5 @@ ro.com.google.clientidbase=android-elfin-tv
 
 ro.nrdp.modelgroup=ELFIN
 ro.nrdp.validation=ninja_4
+
+ro.config.low_ram=true
