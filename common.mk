@@ -54,11 +54,3 @@ export BOLT_IMG_SWAP_BFW            := device/broadcom/elfin/blb/zb/bfw-4.2.5-zb
 export HW_HVD_REVISION           := S
 # v3d mmu available.
 export HW_GPU_MMU_SUPPORT        := y
-
-# kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=530m@416m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
-LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
-LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
-export LOCAL_DEVICE_KERNEL_CMDLINE
