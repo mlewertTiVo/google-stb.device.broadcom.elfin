@@ -10,7 +10,26 @@ export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.nvi.conf
 
 LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin_nvi.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin_nvi.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.block.rc:root/init.block.rc # block devices
+
 LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.elfin_nvi.rc
+LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block.rc:root/init.recovery.block.rc # block devices
+
+# kernel command line.
+LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=530m@416m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
+LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
+LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
+export LOCAL_DEVICE_KERNEL_CMDLINE
+
+# compile the media codecs for the device.
+LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_no_legacy_enc.xml:system/etc/media_codecs.xml
+LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:system/etc/media_profiles.xml
+LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
+export LOCAL_DEVICE_MEDIA
+
+export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk

@@ -20,4 +20,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Regex of wired ethernet ifaces -->
     <string translatable="false" name="config_ethernet_iface_regex">eth0</string>
+
+    <integer name="config_lowMemoryKillerMinFreeKbytesAbsolute">65536</integer>
 </resources>

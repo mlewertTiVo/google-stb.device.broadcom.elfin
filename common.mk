@@ -7,27 +7,18 @@ export PLATFORM                  := 97260
 
 # compile the rc's for the device.
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.nx.rc:root/init.nx.rc
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc  # verity
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc   # verity
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.eth0.rc:root/init.eth.rc   # uses 'eth0'
-LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.block.rc:root/init.block.rc   # block devices
-LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.bcm.usb.rc:root/init.bcm.usb.rc   # uses 'configfs'
+LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.bcm.usb.rc:root/init.bcm.usb.rc # uses 'configfs'
 export LOCAL_DEVICE_RCS
 
-LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block.rc:root/init.recovery.block.rc   # block devices
-LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.recovery.usb.rc:root/init.recovery.usb.rc   # uses 'configfs'
+LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.recovery.usb.rc:root/init.recovery.usb.rc # uses 'configfs'
 export LOCAL_DEVICE_RECOVERY_RCS
 
 LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-update/recovery.fstab
 export LOCAL_DEVICE_RECOVERY_FSTAB
 
-# compile the media codecs for the device.
-LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_no_legacy_enc.xml:system/etc/media_codecs.xml
-LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:system/etc/media_profiles.xml
-LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
-export LOCAL_DEVICE_MEDIA
-
 # optional device override/addition.
-export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 export LOCAL_DEVICE_SEPOLICY_BLOCK := device/broadcom/elfin/sepolicy-block
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/elfin/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
@@ -54,11 +45,3 @@ export BOLT_IMG_SWAP_BFW            := device/broadcom/elfin/blb/zb/bfw-4.2.5-zb
 export HW_HVD_REVISION           := S
 # v3d mmu available.
 export HW_GPU_MMU_SUPPORT        := y
-
-# kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=530m@416m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
-LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
-LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
-export LOCAL_DEVICE_KERNEL_CMDLINE

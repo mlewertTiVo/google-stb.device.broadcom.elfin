@@ -49,7 +49,6 @@
                 <Limit name="measured-frame-rate-720x480" range="257-257" />
                 <Limit name="measured-frame-rate-1280x720" range="128-128" />
                 <Limit name="measured-frame-rate-1920x1080" range="66-66" />
-                <Limit name="measured-frame-rate-3840x2160" range="30-30" />
             </Type>
         </MediaCodec>
 
@@ -60,7 +59,6 @@
                 <Limit name="measured-frame-rate-640x360" range="155-156" />
                 <Limit name="measured-frame-rate-1280x720" range="146-147" />
                 <Limit name="measured-frame-rate-1920x1080" range="89-89" />
-                <Limit name="measured-frame-rate-3840x2160" range="55-80" />
             </Type>
         </MediaCodec>
 
