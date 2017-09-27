@@ -1,14 +1,17 @@
 export ANDROID_PRODUCT_OUT       := elfin_mini
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.elfin_mini
+LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:root/fstab.bcm
+LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:root/fstab.elfin_mini
 export LOCAL_DEVICE_FSTAB
 
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.conf
 
 LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin_mini.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin_mini.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.block-zram.rc:root/init.block.rc # block devices
+
 LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.elfin_mini.rc
+LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc:root/init.recovery.block.rc # block devices
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1024m@0m
@@ -41,4 +44,4 @@ PRODUCT_DEVICE                   := elfin_mini
 
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=elfin_mini
-TARGET_BOOTLOADER_BOARD_NAME := elfin_mini
+TARGET_BOOTLOADER_BOARD_NAME  := elfin_mini
