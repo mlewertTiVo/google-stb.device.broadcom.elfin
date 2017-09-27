@@ -20,12 +20,6 @@ export LOCAL_DEVICE_RECOVERY_RCS
 LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-update/recovery.fstab
 export LOCAL_DEVICE_RECOVERY_FSTAB
 
-# compile the media codecs for the device.
-LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_no_legacy_enc.xml:system/etc/media_codecs.xml
-LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:system/etc/media_profiles.xml
-LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
-export LOCAL_DEVICE_MEDIA
-
 # optional device override/addition.
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 export LOCAL_DEVICE_SEPOLICY_BLOCK := device/broadcom/elfin/sepolicy-block

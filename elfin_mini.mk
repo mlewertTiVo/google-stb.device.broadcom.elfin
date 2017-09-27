@@ -12,10 +12,19 @@ LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1024m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=224m@768m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=296m@472m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=240m@752m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=224m@528m
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
+
+# compile the media codecs for the device.
+LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_hd.xml:system/etc/media_codecs.xml
+LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:system/etc/media_profiles.xml
+LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance_mini.xml:system/etc/media_codecs_performance.xml
+export LOCAL_DEVICE_MEDIA
+
+LOCAL_DEVICE_DALVIK_CONFIG       := frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
+export LOCAL_DEVICE_DALVIK_CONFIG
 
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk
