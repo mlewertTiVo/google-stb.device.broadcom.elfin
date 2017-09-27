@@ -21,7 +21,6 @@ LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-upd
 export LOCAL_DEVICE_RECOVERY_FSTAB
 
 # optional device override/addition.
-export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 export LOCAL_DEVICE_SEPOLICY_BLOCK := device/broadcom/elfin/sepolicy-block
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/elfin/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
