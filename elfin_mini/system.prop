@@ -26,7 +26,6 @@ ro.nx.hwc2.nfb.h=720
 # hd only device.
 ro.nx.trim.4kdec=1
 ro.nx.trim.10bcol=1
-ro.nx.trim.dcap=1
 ro.nx.trim.d0hd=1
 
 ro.nx.eth.irq_mode_mask=3:2
