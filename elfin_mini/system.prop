@@ -5,7 +5,7 @@ ro.nx.mma=1
 
 # middleware heaps configuration
 ro.nx.heap.video_secure=48m
-ro.nx.heap.main=48m
+ro.nx.heap.main=64m
 ro.nx.heap.drv_managed=0m
 ro.nx.heap.grow=8m
 ro.nx.heap.shrink=2m
