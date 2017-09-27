@@ -26,6 +26,8 @@ LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.
 LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
 
+export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
+
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk
 
