@@ -1,4 +1,5 @@
 export ANDROID_PRODUCT_OUT       := elfin
+export LOCAL_DEVICE_FULL_TREBLE  := y
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.elfin
