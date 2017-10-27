@@ -7,9 +7,9 @@ export PLATFORM                  := 97260
 
 # compile the rc's for the device.
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.nx.rc:root/init.nx.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:root/init.nx.rc
 else
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.nx.rc:root/init.nx.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.mmu.nx.rc:root/init.nx.rc
 endif
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc   # verity
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.eth0.rc:root/init.eth.rc   # uses 'eth0'
