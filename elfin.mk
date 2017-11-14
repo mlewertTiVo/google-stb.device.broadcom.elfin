@@ -15,7 +15,7 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block.rc:root
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=530m@416m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=532m@414m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
