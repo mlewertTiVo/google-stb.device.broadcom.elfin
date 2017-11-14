@@ -4,8 +4,8 @@ debug.hwui.render_dirty_regions=false
 ro.nx.mma=1
 
 # middleware heaps configuration
-ro.nx.heap.video_secure=64m
-ro.nx.heap.main=64m
+ro.nx.heap.video_secure=56m
+ro.nx.heap.main=56m
 ro.nx.heap.drv_managed=0m
 ro.nx.heap.grow=8m
 ro.nx.heap.shrink=2m
