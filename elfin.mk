@@ -7,7 +7,7 @@ export PLATFORM                  := 97260
 export ANDROID_PRODUCT_OUT       := elfin
 
 # compile the rc's for the device.
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin.rc
+LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.mmu.rc:root/init.elfin.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.nx.rc:root/init.nx.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc  # verity
