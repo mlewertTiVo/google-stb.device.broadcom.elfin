@@ -21,8 +21,8 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block.rc:root
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.recovery.usb.rc:root/init.recovery.usb.rc   # uses 'configfs'
 export LOCAL_DEVICE_RECOVERY_RCS
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.verity.squashfs.ab-update:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.verity.squashfs.ab-update:root/fstab.elfin
+LOCAL_DEVICE_FSTAB               := device/broadcom/common/fstab/fstab.verity.ab-update:root/fstab.bcm
+LOCAL_DEVICE_FSTAB               += device/broadcom/common/fstab/fstab.verity.ab-update:root/fstab.elfin
 export LOCAL_DEVICE_FSTAB
 
 LOCAL_DEVICE_RECOVERY_FSTAB      := device/broadcom/common/recovery/fstab.ab-update/recovery.fstab
@@ -40,11 +40,10 @@ export LOCAL_DEVICE_SEPOLICY_BLOCK := device/broadcom/elfin/sepolicy-block
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/elfin/aon_gpio.cfg:system/vendor/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
 export LOCAL_DEVICE_BT_CONFIG    := device/broadcom/elfin/bluetooth/vnd_elfin.txt
-export LOCAL_DEVICE_USERDATA     := 5927582720 # ~5.52GB
+export LOCAL_DEVICE_USERDATA     := 5368709120  # 5.0009GB.
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.conf
 export HW_ENCODER_SUPPORT        := n
 export BT_RFKILL_SUPPORT         := y
-export LOCAL_SYSTEMIMAGE_SQUASHFS := y
 export ANDROID_ENABLE_BT         := usb
 export LOCAL_KCONFIG_CHIP_OVERRIDE := 7271A0
 export V3D_VARIANT               := vc5
