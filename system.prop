@@ -7,7 +7,7 @@ ro.nx.mma=1
 ro.nx.heap.video_secure=80m
 ro.nx.heap.main=96m
 ro.nx.heap.drv_managed=0m
-ro.nx.heap.grow=8m
+ro.nx.heap.grow=2m
 ro.nx.heap.shrink=2m
 ro.nx.heap.gfx=64m
 
