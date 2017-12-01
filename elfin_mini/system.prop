@@ -16,13 +16,6 @@ ro.nx.capable.cb=1
 ro.nx.capable.bg=1
 ro.nx.hwc2.tweak.fbcomp=1
 
-# running in 720p mode.
-ro.sf.lcd_density=213
-ro.nx.hwc2.afb.w=1280
-ro.nx.hwc2.afb.h=720
-ro.nx.hwc2.nfb.w=1280
-ro.nx.hwc2.nfb.h=720
-
 # hd only device.
 ro.nx.trim.4kdec=1
 ro.nx.trim.10bcol=1
