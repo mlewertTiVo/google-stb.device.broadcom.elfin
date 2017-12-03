@@ -17,6 +17,11 @@ ro.nx.capable.bg=1
 ro.nx.hwc2.tweak.fbcomp=1
 ro.sf.lcd_density=320
 
+# hd only device.
+ro.nx.trim.4kdec=1
+ro.nx.trim.10bcol=1
+ro.nx.trim.d0hd=1
+
 ro.nx.eth.irq_mode_mask=3:2
 
 # google assigned client id
@@ -26,3 +31,4 @@ ro.nrdp.modelgroup=ELFIN
 ro.nrdp.validation=ninja_4
 
 ro.config.low_ram=true
+
