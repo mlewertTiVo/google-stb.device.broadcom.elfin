@@ -1,21 +1,19 @@
-export ANDROID_PRODUCT_OUT       := elfin
+export ANDROID_PRODUCT_OUT       := elfin_l
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.elfin
+LOCAL_DEVICE_FSTAB               := device/broadcom/elfin_l/fstab/fstab.verity.early:root/fstab.bcm
+LOCAL_DEVICE_FSTAB               += device/broadcom/elfin_l/fstab/fstab.verity.early:root/fstab.elfin_l
 export LOCAL_DEVICE_FSTAB
 
-ifeq ($(TARGET_BUILD_PDK),true)
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u-sys-bloat.conf
-else
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.conf
-endif
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/default_v3.conf
+export LOCAL_DEVICE_RECOVERY_LEGACY := 67108864 # 64M
+export LOCAL_DEVICE_SYSTEM_LEGACY := 1602224128 # 1528M
 
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin.rc
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin.rc
+LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin_l.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin_l.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.block.rc:root/init.block.rc # block devices
 
-LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.elfin.rc
+LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.elfin_l.rc
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block.rc:root/init.recovery.block.rc # block devices
 
 # kernel command line.
@@ -32,27 +30,19 @@ LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.
 LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
 
-export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk
 
-ifeq ($(TARGET_BUILD_PDK),true)
-# playready not building from source in P right now.
-export ANDROID_SUPPORTS_PLAYREADY := n
-# bloat system.img to absorb additional size from pdk.
-export LOCAL_DEVICE_SYSTEM_AB     := 1073741824 # 1GB
-endif
-
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
 $(call inherit-product, build/make/target/product/product_launched_with_n.mk)
-PRODUCT_NAME                     := elfin
-PRODUCT_MODEL                    := elfin
+PRODUCT_NAME                     := elfin_l
+PRODUCT_MODEL                    := elfin_l
 PRODUCT_BRAND                    := google
-PRODUCT_DEVICE                   := elfin
+PRODUCT_DEVICE                   := elfin_l
 
 # additional setup per device.
-PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=elfin
-TARGET_BOOTLOADER_BOARD_NAME := elfin
+PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=elfin_l
+TARGET_BOOTLOADER_BOARD_NAME := elfin_l
