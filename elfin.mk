@@ -35,11 +35,6 @@ export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk
 
-ifeq ($(TARGET_BUILD_PDK),true)
-# playready not building from source in P right now.
-export ANDROID_SUPPORTS_PLAYREADY := n
-endif
-
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
 $(call inherit-product, build/make/target/product/product_launched_with_n.mk)
