@@ -5,11 +5,8 @@ LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.elfin
 export LOCAL_DEVICE_FSTAB
 
-ifeq ($(TARGET_BUILD_PDK),true)
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u-sys-bloat.conf
-else
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.conf
-endif
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.conf
+export LOCAL_DEVICE_GPT_O_LAYOUT := y
 
 LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin.rc
@@ -41,8 +38,6 @@ include device/broadcom/elfin/common.mk
 ifeq ($(TARGET_BUILD_PDK),true)
 # playready not building from source in P right now.
 export ANDROID_SUPPORTS_PLAYREADY := n
-# bloat system.img to absorb additional size from pdk.
-export LOCAL_DEVICE_SYSTEM_AB     := 1073741824 # 1GB
 endif
 
 # baseline the common support.
@@ -55,4 +50,4 @@ PRODUCT_DEVICE                   := elfin
 
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=elfin
-TARGET_BOOTLOADER_BOARD_NAME := elfin
+TARGET_BOOTLOADER_BOARD_NAME  := elfin
