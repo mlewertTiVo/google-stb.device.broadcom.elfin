@@ -39,7 +39,8 @@ include device/broadcom/elfin/common.mk
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
-#$(call inherit-product, build/make/target/product/product_launched_with_n.mk)
+#$(call inherit-product, build/make/target/product/product_launched_with_o_mr1.mk)
+PRODUCT_SHIPPING_API_LEVEL       := 27
 PRODUCT_NAME                     := elfin_mini
 PRODUCT_MODEL                    := elfin_mini
 PRODUCT_BRAND                    := google
