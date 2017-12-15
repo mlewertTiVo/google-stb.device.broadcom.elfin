@@ -7,7 +7,7 @@ export PLATFORM                  := 97260
 export ANDROID_PRODUCT_OUT       := elfin
 
 # compile the rc's for the device.
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.mmu.rc:root/init.elfin.rc
+LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.nx.rc:root/init.nx.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc  # verity
@@ -59,7 +59,7 @@ export BOLT_IMG_SWAP_BFW            := device/broadcom/elfin/blb/zb/bfw-4.2.3-zb
 # no legacy decoder (vp8, h263, mpeg4) in hardware s.1
 export HW_HVD_REVISION := S
 # v3d mmu available.
-export HW_GPU_MMU_SUPPORT        := y
+export HW_GPU_MMU_SUPPORT        := n
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2040m@0m
