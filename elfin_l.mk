@@ -1,4 +1,4 @@
-export ANDROID_PRODUCT_OUT       := elfin_l
+export LOCAL_PRODUCT_OUT       := elfin_l
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin_l/fstab/fstab.verity.early:root/fstab.bcm
