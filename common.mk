@@ -5,6 +5,10 @@ export NEXUS_PLATFORM            := 97260
 export BCHP_VER                  := A0
 export PLATFORM                  := 97260
 
+# binary distribution
+export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.1/elfin
+export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.1
+
 # compile the rc's for the device.
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:root/init.nx.rc
