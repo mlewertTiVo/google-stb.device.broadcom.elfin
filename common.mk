@@ -6,6 +6,7 @@ export BCHP_VER                  := A0
 export PLATFORM                  := 97260
 
 # binary distribution
+export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
 export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.1/elfin
 export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.1
 
