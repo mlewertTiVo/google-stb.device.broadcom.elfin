@@ -9,6 +9,8 @@ export PLATFORM                  := 97260
 export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
 export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.1/elfin
 export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.1
+export BCM_DIST_FORCED_BINDIST   := y
+export BCM_DIST_BLIM_BINS        := y
 
 # compile the rc's for the device.
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
