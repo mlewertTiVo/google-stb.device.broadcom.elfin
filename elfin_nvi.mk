@@ -1,6 +1,6 @@
 # non-vendor-image layout: there is no separate partition for vendor.img in O+.
 export LOCAL_NVI_LAYOUT          := y
-export ANDROID_PRODUCT_OUT       := elfin_nvi
+export LOCAL_PRODUCT_OUT       := elfin_nvi
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.elfin_nvi
@@ -17,7 +17,7 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block.rc:root
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2008m@0m mem=32m@2016m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=530m@416m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=532m@414m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D800000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro

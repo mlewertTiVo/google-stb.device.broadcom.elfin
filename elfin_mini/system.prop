@@ -4,10 +4,10 @@ debug.hwui.render_dirty_regions=false
 ro.nx.mma=1
 
 # middleware heaps configuration
-ro.nx.heap.video_secure=64m
-ro.nx.heap.main=64m
+ro.nx.heap.video_secure=56m
+ro.nx.heap.main=56m
 ro.nx.heap.drv_managed=0m
-ro.nx.heap.grow=8m
+ro.nx.heap.grow=2m
 ro.nx.heap.shrink=2m
 ro.nx.heap.gfx=48m
 
@@ -15,18 +15,7 @@ ro.nx.heap.gfx=48m
 ro.nx.capable.cb=1
 ro.nx.capable.bg=1
 ro.nx.hwc2.tweak.fbcomp=1
-
-# running in 720p mode.
-ro.sf.lcd_density=213
-ro.nx.hwc2.afb.w=1280
-ro.nx.hwc2.afb.h=720
-ro.nx.hwc2.nfb.w=1280
-ro.nx.hwc2.nfb.h=720
-
-# hd only device.
-ro.nx.trim.4kdec=1
-ro.nx.trim.10bcol=1
-ro.nx.trim.d0hd=1
+ro.sf.lcd_density=320
 
 ro.nx.eth.irq_mode_mask=3:2
 
@@ -37,4 +26,3 @@ ro.nrdp.modelgroup=ELFIN
 ro.nrdp.validation=ninja_4
 
 ro.config.low_ram=true
-

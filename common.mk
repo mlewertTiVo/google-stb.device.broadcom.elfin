@@ -7,9 +7,9 @@ export PLATFORM                  := 97260
 
 # compile the rc's for the device.
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.nx.rc:root/init.nx.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:root/init.nx.rc
 else
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.nx.rc:root/init.nx.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.mmu.nx.rc:root/init.nx.rc
 endif
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc   # verity
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.eth0.rc:root/init.eth.rc   # uses 'eth0'
@@ -42,7 +42,11 @@ export LOCAL_DEVICE_SEPOLICY_BLOCK
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/elfin/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
 export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_polled.kl:system/usr/keylayout/gpio_keys_polled.kl
 export LOCAL_DEVICE_BT_CONFIG    := device/broadcom/elfin/bluetooth/vnd_elfin.txt
+ifneq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
 export LOCAL_DEVICE_USERDATA     := 5368709120  # 5.0009GB.
+else
+export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
+endif
 export HW_ENCODER_SUPPORT        := n
 export BT_RFKILL_SUPPORT         := y
 export LOCAL_SYSTEMIMAGE_SQUASHFS := n
