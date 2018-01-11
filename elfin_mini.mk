@@ -31,6 +31,7 @@ export LOCAL_DEVICE_MEDIA
 LOCAL_DEVICE_DALVIK_CONFIG       := frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 export LOCAL_DEVICE_DALVIK_CONFIG
 
+export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay_mini
 
 # common to all elfin devices.
