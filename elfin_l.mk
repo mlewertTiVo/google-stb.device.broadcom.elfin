@@ -1,8 +1,8 @@
 export LOCAL_PRODUCT_OUT       := elfin_l
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
-LOCAL_DEVICE_FSTAB               := device/broadcom/elfin_l/fstab/fstab.verity.early:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/elfin_l/fstab/fstab.verity.early:root/fstab.elfin_l
+LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.early:root/fstab.bcm
+LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.early:root/fstab.elfin_l
 export LOCAL_DEVICE_FSTAB
 
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/default_v3.conf
