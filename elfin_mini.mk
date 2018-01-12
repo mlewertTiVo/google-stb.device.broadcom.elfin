@@ -1,11 +1,12 @@
-export ANDROID_PRODUCT_OUT       := elfin_mini
+export LOCAL_PRODUCT_OUT         := elfin_mini
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:root/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:root/fstab.elfin_mini
 export LOCAL_DEVICE_FSTAB
 
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.conf
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.conf
+export LOCAL_DEVICE_GPT_O_LAYOUT := y
 
 LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin_mini.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin_mini.rc
@@ -30,6 +31,7 @@ export LOCAL_DEVICE_MEDIA
 LOCAL_DEVICE_DALVIK_CONFIG       := frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 export LOCAL_DEVICE_DALVIK_CONFIG
 
+export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay_mini
 
 # common to all elfin devices.
@@ -37,7 +39,8 @@ include device/broadcom/elfin/common.mk
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
-#$(call inherit-product, build/make/target/product/product_launched_with_n.mk)
+#$(call inherit-product, build/make/target/product/product_launched_with_o_mr1.mk)
+PRODUCT_SHIPPING_API_LEVEL       := 27
 PRODUCT_NAME                     := elfin_mini
 PRODUCT_MODEL                    := elfin_mini
 PRODUCT_BRAND                    := google

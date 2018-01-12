@@ -1,6 +1,6 @@
 # non-vendor-image layout: there is no separate partition for vendor.img in O+.
 export LOCAL_NVI_LAYOUT          := y
-export ANDROID_PRODUCT_OUT       := elfin_nvi
+export LOCAL_PRODUCT_OUT       := elfin_nvi
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.elfin_nvi

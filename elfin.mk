@@ -1,4 +1,4 @@
-export ANDROID_PRODUCT_OUT       := elfin
+export LOCAL_PRODUCT_OUT       := elfin
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early:root/fstab.bcm
@@ -35,14 +35,10 @@ export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk
 
-ifeq ($(TARGET_BUILD_PDK),true)
-# playready not building from source in P right now.
-export ANDROID_SUPPORTS_PLAYREADY := n
-endif
-
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
-$(call inherit-product, build/make/target/product/product_launched_with_n.mk)
+#$(call inherit-product, build/make/target/product/product_launched_with_o.mk)
+PRODUCT_SHIPPING_API_LEVEL       := 26
 PRODUCT_NAME                     := elfin
 PRODUCT_MODEL                    := elfin
 PRODUCT_BRAND                    := google
