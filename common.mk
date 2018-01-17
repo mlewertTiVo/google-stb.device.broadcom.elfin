@@ -74,3 +74,7 @@ export BOLT_IMG_SWAP_BFW            := device/broadcom/elfin/blb/zb/bfw-4.2.5-zb
 export HW_HVD_REVISION           := S
 # v3d mmu available.
 export HW_GPU_MMU_SUPPORT        := y
+
+# Insure GLOBAL_ASSIST_TRIGGERING flag set.
+# https://b.corp.google.com/issues/71766328
+include vendor/google_atv/products/atv_google_mixin.mk
