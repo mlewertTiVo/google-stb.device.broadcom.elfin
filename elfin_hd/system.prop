@@ -4,18 +4,22 @@ debug.hwui.render_dirty_regions=false
 ro.nx.mma=1
 
 # middleware heaps configuration
-ro.nx.heap.video_secure=56m
-ro.nx.heap.main=56m
+ro.nx.heap.video_secure=30m
+ro.nx.heap.main=36m
 ro.nx.heap.drv_managed=0m
 ro.nx.heap.grow=2m
 ro.nx.heap.shrink=2m
-ro.nx.heap.gfx=48m
+ro.nx.heap.gfx=30m
 
 # hwc optimizations
 ro.nx.capable.cb=1
 ro.nx.capable.bg=1
 ro.nx.hwc2.tweak.fbcomp=1
-ro.sf.lcd_density=320
+ro.nx.hwc2.gfb.w=1280
+ro.nx.hwc2.gfb.h=720
+ro.nx.hwc2.nfb.w=1280
+ro.nx.hwc2.nfb.h=720
+ro.sf.lcd_density=213
 
 # hd only device.
 ro.nx.trim.4kdec=1
