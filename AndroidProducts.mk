@@ -4,4 +4,5 @@ PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_mini.mk
 PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_l.mk
 PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_hd.mk
 PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_ms12d.mk
+PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_fhd.mk
 PRODUCT_MAKEFILES += $(LOCAL_DIR)/aosp_elfin.mk
