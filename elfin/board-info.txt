@@ -1,2 +1,2 @@
 require board=elfin
-require version-bootloader=v1.34-226-gb6ea5ef
+require version-bootloader=v1.36-229-g82aded4
