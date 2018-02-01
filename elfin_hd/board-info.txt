@@ -1,4 +1,3 @@
 require board=elfin_hd
-require version-bootloader=v1.34-221-g2b3bec1
 
 

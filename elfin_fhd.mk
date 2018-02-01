@@ -1,24 +1,24 @@
-export LOCAL_PRODUCT_OUT         := elfin_hd
+export LOCAL_PRODUCT_OUT         := elfin_fhd
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:root/fstab.bcm
-LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:root/fstab.elfin_hd
+LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:root/fstab.elfin_fhd
 export LOCAL_DEVICE_FSTAB
 
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.conf
 export LOCAL_DEVICE_GPT_O_LAYOUT := y
 
-LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin_hd.rc
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin_hd.rc
+LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:root/init.elfin_fhd.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:root/ueventd.elfin_fhd.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.block-zram.rc:root/init.block.rc # block devices
 
-LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.elfin_hd.rc
+LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.elfin_fhd.rc
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc:root/init.recovery.block.rc # block devices
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1024m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=180m@812m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=142m@670m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=243m@736m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=224m@512m
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
@@ -41,11 +41,11 @@ include device/broadcom/elfin/common.mk
 $(call inherit-product, device/broadcom/common/bcm.mk)
 #$(call inherit-product, build/make/target/product/product_launched_with_o_mr1.mk)
 PRODUCT_SHIPPING_API_LEVEL       := 27
-PRODUCT_NAME                     := elfin_hd
-PRODUCT_MODEL                    := elfin_hd
+PRODUCT_NAME                     := elfin_fhd
+PRODUCT_MODEL                    := elfin_fhd
 PRODUCT_BRAND                    := google
-PRODUCT_DEVICE                   := elfin_hd
+PRODUCT_DEVICE                   := elfin_fhd
 
 # additional setup per device.
-PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=elfin_hd
-TARGET_BOOTLOADER_BOARD_NAME  := elfin_hd
+PRODUCT_PROPERTY_OVERRIDES    += ro.hardware=elfin_fhd
+TARGET_BOOTLOADER_BOARD_NAME  := elfin_fhd
