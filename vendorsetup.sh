@@ -15,3 +15,6 @@ add_lunch_combo aosp_elfin-userdebug
 
 add_lunch_combo elfin_hd-userdebug
 add_lunch_combo elfin_hd-user
+
+add_lunch_combo elfin_ms12d-userdebug
+add_lunch_combo elfin_ms12d-user
