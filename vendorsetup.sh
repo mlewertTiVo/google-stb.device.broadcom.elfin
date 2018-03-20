@@ -18,3 +18,6 @@ add_lunch_combo elfin_hd-user
 
 add_lunch_combo elfin_ms12d-userdebug
 add_lunch_combo elfin_ms12d-user
+
+add_lunch_combo elfin_fhd-userdebug
+add_lunch_combo elfin_fhd-user

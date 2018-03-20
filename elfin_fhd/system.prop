@@ -17,6 +17,11 @@ ro.nx.capable.bg=1
 ro.nx.hwc2.tweak.fbcomp=1
 ro.sf.lcd_density=320
 
+# hd only device.
+ro.nx.trim.4kdec=1
+ro.nx.trim.10bcol=1
+ro.nx.trim.d0hd=1
+
 ro.nx.eth.irq_mode_mask=3:2
 
 # google assigned client id
@@ -26,12 +31,4 @@ ro.nrdp.modelgroup=ELFIN
 ro.nrdp.validation=ninja_5.1
 
 ro.config.low_ram=true
-ro.lmk.low=1001
-ro.lmk.medium=800
-ro.lmk.critical=0
-ro.lmk.critical_upgrade=false
-ro.lmk.upgrade_pressure=100
-ro.lmk.downgrade_pressure=100
-ro.lmk.upgrade_kill_fail_count=2
-ro.lmk.kill_heaviest_task=true
 
