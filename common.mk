@@ -7,13 +7,13 @@ export PLATFORM                  := 97260
 
 # compile the rc's for the device.
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:root/init.nx.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.ft.mmu.nx.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nx.rc
 else
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.mmu.nx.rc:root/init.nx.rc
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.mmu.nx.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nx.rc
 endif
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:root/init.fs.rc   # verity
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.eth0.rc:root/init.eth.rc   # uses 'eth0'
-LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.bcm.usb.rc:root/init.bcm.usb.rc # uses 'configfs'
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.fs.rc   # verity
+LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.eth0.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.eth.rc   # uses 'eth0'
+LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.bcm.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bcm.usb.rc # uses 'configfs'
 export LOCAL_DEVICE_RCS
 
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.recovery.usb.rc:root/init.recovery.usb.rc # uses 'configfs'
