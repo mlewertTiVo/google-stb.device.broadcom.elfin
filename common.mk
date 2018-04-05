@@ -77,3 +77,6 @@ export HW_GPU_MMU_SUPPORT        := y
 
 # enable once the sage ta load problem is solved.
 export ANDROID_SUPPORTS_RPMB     := n
+
+# enable Bluetooth remote pairing in setup
+PRODUCT_PROPERTY_OVERRIDES       += setup.bt_remote_pairing=true
