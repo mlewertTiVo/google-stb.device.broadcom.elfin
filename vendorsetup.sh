@@ -8,9 +8,6 @@ add_lunch_combo elfin_nvi-user
 add_lunch_combo elfin_mini-userdebug
 add_lunch_combo elfin_mini-user
 
-add_lunch_combo elfin_l-userdebug
-add_lunch_combo elfin_l-user
-
 add_lunch_combo aosp_elfin-userdebug
 
 add_lunch_combo elfin_hd-userdebug
@@ -18,3 +15,9 @@ add_lunch_combo elfin_hd-user
 
 add_lunch_combo elfin_fhd-userdebug
 add_lunch_combo elfin_fhd-user
+
+add_lunch_combo elfin_ms12d-userdebug
+add_lunch_combo elfin_ms12d-user
+
+add_lunch_combo elfink64-userdebug
+add_lunch_combo elfink64-user
