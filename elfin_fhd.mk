@@ -17,7 +17,7 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=992m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=340m@652m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=314m@678m
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
@@ -67,6 +67,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.trim.4kdec=1 \
    ro.nx.trim.10bcol=1 \
    ro.nx.trim.d0hd=1 \
+   ro.nx.trim.deint=1 \
    \
    ro.nx.eth.irq_mode_mask=3:2 \
    \
