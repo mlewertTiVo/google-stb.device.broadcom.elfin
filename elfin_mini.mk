@@ -74,13 +74,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nrdp.validation=ninja_5.1 \
    \
    ro.config.low_ram=true \
-   ro.lmk.low=1001 \
    ro.lmk.medium=800 \
-   ro.lmk.critical=0 \
-   ro.lmk.critical_upgrade=false \
-   ro.lmk.upgrade_pressure=100 \
-   ro.lmk.downgrade_pressure=100 \
-   ro.lmk.upgrade_kill_fail_count=2 \
-   ro.lmk.kill_heaviest_task=true
+   ro.lmk.critical_upgrade=true \
+   ro.lmk.upgrade_pressure=40 \
+   ro.lmk.downgrade_pressure=60
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin_mini
