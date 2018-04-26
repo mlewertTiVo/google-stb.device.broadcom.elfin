@@ -1,12 +1,18 @@
-export LOCAL_PRODUCT_OUT       := elfin
+export LOCAL_PRODUCT_OUT         := elfin
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
+ifeq ($(LOCAL_DEVICE_FORCED_NAB),y)
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/nab.o.conf
+LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.early:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.elfin
+LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.early:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.bcm
+else
+export HW_AB_UPDATE_SUPPORT      := y
+export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.conf
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.elfin
-export LOCAL_DEVICE_FSTAB
-
-export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/ab-u.o.conf
+endif
 export LOCAL_DEVICE_GPT_O_LAYOUT := y
+export LOCAL_DEVICE_FSTAB
 
 LOCAL_DEVICE_RCS                 := device/broadcom/common/rcs/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.elfin.rc
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
@@ -29,7 +35,6 @@ LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.
 LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
 
-export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 
 # common to all elfin devices.
