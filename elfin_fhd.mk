@@ -24,7 +24,7 @@ export LOCAL_DEVICE_KERNEL_CMDLINE
 
 # compile the media codecs for the device.
 LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_hd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
-LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml
+LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance_hd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
 
@@ -77,6 +77,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nrdp.modelgroup=ELFIN \
    ro.nrdp.validation=ninja_5.1 \
    \
-   ro.config.low_ram=true
+   ro.config.low_ram=true \
+   ro.lmk.medium=800 \
+   ro.lmk.critical_upgrade=true \
+   ro.lmk.upgrade_pressure=40 \
+   ro.lmk.downgrade_pressure=60
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin_fhd
