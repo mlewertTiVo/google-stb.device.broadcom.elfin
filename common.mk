@@ -7,8 +7,8 @@ export PLATFORM                  := 97260
 
 # binary distribution
 export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
-export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.1/elfin
-export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.1
+export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.9/elfin
+export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.9
 export BCM_DIST_FORCED_BINDIST   := y
 export BCM_DIST_BLIM_BINS        := y
 
@@ -80,3 +80,8 @@ export HW_GPU_MMU_SUPPORT        := y
 
 # enable once the sage ta load problem is solved.
 export ANDROID_SUPPORTS_RPMB     := n
+
+ifeq ($(HW_AB_UPDATE_SUPPORT),y)
+# always boot from first slot regardless of the mode.
+export LOCAL_DEVICE_USE_FIXED_SLOT := y
+endif
