@@ -29,14 +29,11 @@ export LOCAL_DEVICE_RECOVERY_FSTAB
 # optional device override/addition.
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 LOCAL_DEVICE_SEPOLICY_BLOCK      := device/broadcom/elfin/sepolicy/block
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/elfin/sepolicy/treble
-endif
 else
 LOCAL_DEVICE_SEPOLICY_BLOCK      := device/broadcom/elfin/sepolicy-v2/block
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/elfin/sepolicy-v2/treble
 endif
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/elfin/sepolicy/treble
 endif
 export LOCAL_DEVICE_SEPOLICY_BLOCK
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/elfin/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
