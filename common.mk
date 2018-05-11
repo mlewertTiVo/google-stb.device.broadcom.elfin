@@ -7,10 +7,15 @@ export PLATFORM                  := 97260
 
 # binary distribution
 export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
-export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.9/elfin
-export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.9
 export BCM_DIST_FORCED_BINDIST   := y
 export BCM_DIST_BLIM_BINS        := y
+ifeq ($(BDSP_MS12_SUPPORT),D)
+export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.9/elfin-ms12d
+export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.9-ms12d
+else
+export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.9/elfin
+export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.9
+endif
 
 # compile the rc's for the device.
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
@@ -36,14 +41,11 @@ export LOCAL_DEVICE_RECOVERY_FSTAB
 # optional device override/addition.
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 LOCAL_DEVICE_SEPOLICY_BLOCK      := device/broadcom/elfin/sepolicy/block
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/elfin/sepolicy/treble
-endif
 else
 LOCAL_DEVICE_SEPOLICY_BLOCK      := device/broadcom/elfin/sepolicy-v2/block
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/elfin/sepolicy-v2/treble
 endif
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+LOCAL_DEVICE_SEPOLICY_BLOCK      += device/broadcom/elfin/sepolicy/treble
 endif
 export LOCAL_DEVICE_SEPOLICY_BLOCK
 export LOCAL_DEVICE_AON_GPIO     := device/broadcom/elfin/aon_gpio.cfg:$(TARGET_COPY_OUT_VENDOR)/power/aon_gpio.cfg
