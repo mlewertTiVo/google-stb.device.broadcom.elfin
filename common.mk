@@ -4,6 +4,7 @@ export LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE := y
 export NEXUS_PLATFORM            := 97260
 export BCHP_VER                  := A0
 export PLATFORM                  := 97260
+export BOLT_BOARD_VB             := BCM972604USFF
 
 # binary distribution
 export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
@@ -24,7 +25,6 @@ else
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.mmu.nx.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nx.rc
 endif
 LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.fs.verity.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.fs.rc   # verity
-LOCAL_DEVICE_RCS                 += device/broadcom/common/rcs/init.eth.eth0.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.eth.rc   # uses 'eth0'
 LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.bcm.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bcm.usb.rc # uses 'configfs'
 export LOCAL_DEVICE_RCS
 
@@ -80,10 +80,3 @@ export HW_HVD_REVISION           := S
 # v3d mmu available.
 export HW_GPU_MMU_SUPPORT        := y
 
-# enable once the sage ta load problem is solved.
-export ANDROID_SUPPORTS_RPMB     := n
-
-ifeq ($(HW_AB_UPDATE_SUPPORT),y)
-# always boot from first slot regardless of the mode.
-export LOCAL_DEVICE_USE_FIXED_SLOT := y
-endif
