@@ -7,9 +7,8 @@ export PLATFORM                  := 97260
 export BOLT_BOARD_VB             := BCM972604USFF
 
 # binary distribution
-export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
 export BCM_DIST_FORCED_BINDIST   := y
-export BCM_DIST_BLIM_BINS        := y
+export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
 ifeq ($(BDSP_MS12_SUPPORT),D)
 export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.9/elfin-ms12d
 export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.9-ms12d
