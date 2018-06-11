@@ -4,3 +4,4 @@
 /vendor/lib/hw/gralloc\.elfin_fhd\.so                        u:object_r:same_process_hal_file:s0
 /vendor/lib/hw/gralloc\.elfin_ms12d\.so                      u:object_r:same_process_hal_file:s0
 /vendor/lib/hw/gralloc\.elfink64\.so                         u:object_r:same_process_hal_file:s0
+/vendor/lib/hw/gralloc\.elfin_msd\.so                        u:object_r:same_process_hal_file:s0
