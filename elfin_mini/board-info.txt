@@ -1,3 +1,4 @@
 require board=elfin_mini
+require version-bootloader=v1.42-249-gb504594
 
 
