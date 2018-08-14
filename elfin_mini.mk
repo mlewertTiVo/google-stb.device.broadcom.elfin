@@ -16,14 +16,13 @@ LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc:root/init.recovery.block.rc # block devices
 
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1536m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=452m@540m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=224m@316m
+LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1024m@0m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=503m@484m
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
 # compile the media codecs for the device.
-LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_hd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_no_legacy_enc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
@@ -39,8 +38,7 @@ include device/broadcom/elfin/common.mk
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
-#$(call inherit-product, build/make/target/product/product_launched_with_o_mr1.mk)
-PRODUCT_SHIPPING_API_LEVEL       := 27
+$(call inherit-product, build/make/target/product/product_launched_with_o.mk)
 PRODUCT_NAME                     := elfin_mini
 PRODUCT_MODEL                    := elfin_mini
 PRODUCT_BRAND                    := google
@@ -58,9 +56,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.video_secure=56m \
    ro.nx.heap.main=56m \
    ro.nx.heap.drv_managed=0m \
-   ro.nx.heap.grow=2m \
-   ro.nx.heap.shrink=2m \
-   ro.nx.heap.gfx=48m \
+   ro.nx.heap.gfx=128m \
    \
    ro.nx.capable.cb=1 \
    ro.nx.capable.bg=1 \
