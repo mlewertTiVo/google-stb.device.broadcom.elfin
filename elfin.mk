@@ -45,8 +45,8 @@ export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay
 include device/broadcom/elfin/common.mk
 
 # baseline the common support.
-$(call inherit-product, device/broadcom/common/bcm.mk)
 $(call inherit-product, build/make/target/product/product_launched_with_o.mk)
+$(call inherit-product, device/broadcom/common/bcm.mk)
 PRODUCT_NAME                     := elfin
 PRODUCT_MODEL                    := elfin
 PRODUCT_BRAND                    := google
