@@ -1,5 +1,6 @@
 export LOCAL_PRODUCT_OUT         := elfin_fhd
 export LOCAL_DEVICE_FULL_TREBLE  := y
+export LOCAL_DEVICE_LOWRAM       := y
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.elfin_fhd
@@ -18,6 +19,7 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=992m@0m
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=314m@678m
+LOCAL_DEVICE_KERNEL_CMDLINE      += vmalloc=341m
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
@@ -53,10 +55,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.mma=1 \
    ro.v3d.disable_buffer_age=true \
    \
-   ro.nx.heap.video_secure=56m \
-   ro.nx.heap.main=56m \
+   ro.nx.heap.video_secure=28m \
+   ro.nx.heap.main=35m \
    ro.nx.heap.drv_managed=0m \
-   ro.nx.heap.gfx=128m \
+   ro.nx.heap.gfx=177m \
    \
    ro.nx.capable.cb=1 \
    ro.nx.capable.bg=1 \
