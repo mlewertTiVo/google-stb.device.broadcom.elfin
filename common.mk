@@ -70,12 +70,12 @@ export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION := /dev/block/platform/rdb/f0200200.
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION := /dev/block/platform/rdb/f0200200.sdhci/by-name/vendor
 
 # bootloader firmware manipulation.
-export LOCAL_DEVICE_SAGE_DEV_N_PROD := y
+export LOCAL_DEVICE_SAGE_DEV_N_PROD ?= y
 export BOLT_IMG_SWAP_BBL            := device/broadcom/elfin/blb/zb/bbl-3.1.1-zb.bin
 export BOLT_IMG_SWAP_BFW            := device/broadcom/elfin/blb/zb/bfw-4.2.5-zb.bin
 
-export LOCAL_DEVICE_PAK_BINARY      := pak.72604.zb.bin
-export LOCAL_DEVICE_PAK_BINARY_ALT  := pak.72604.zd.bin
+export LOCAL_DEVICE_PAK_BINARY_DEV   := pak.72604.zd.bin
+export LOCAL_DEVICE_PAK_BINARY_PROD  := pak.72604.zb.bin
 
 # no legacy decoder (vp8, h263, mpeg4) in hardware s.1
 export HW_HVD_REVISION           := S
