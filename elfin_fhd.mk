@@ -29,7 +29,7 @@ LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.
 LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance_hd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
 
-LOCAL_DEVICE_DALVIK_CONFIG       := frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
+LOCAL_DEVICE_DALVIK_CONFIG       := frameworks/native/build/tablet-dalvik-heap.mk
 export LOCAL_DEVICE_DALVIK_CONFIG
 
 export HW_AB_UPDATE_SUPPORT      := y
