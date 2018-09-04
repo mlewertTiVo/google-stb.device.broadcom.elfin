@@ -85,8 +85,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.nx.eth.irq_mode_mask=f:c \
    \
-   ro.com.google.clientidbase=android-elfin-tv \
-   ro.nrdp.modelgroup=ELFIN \
-   ro.nrdp.validation=ninja_5.1
+   ro.com.google.clientidbase=android-elfin-tv
 
 TARGET_BOOTLOADER_BOARD_NAME := elfink64

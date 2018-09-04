@@ -22,6 +22,3 @@ ro.nx.eth.irq_mode_mask=3:2
 
 # google assigned client id
 ro.com.google.clientidbase=android-elfin-tv
-
-ro.nrdp.modelgroup=ELFIN
-ro.nrdp.validation=ninja_5.1
