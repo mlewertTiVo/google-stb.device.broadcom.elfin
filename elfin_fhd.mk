@@ -17,9 +17,11 @@ LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc:root/init.recovery.block.rc # block devices
 
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=992m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=314m@678m
-LOCAL_DEVICE_KERNEL_CMDLINE      += vmalloc=341m
+LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1000m@0m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=229m@766m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=144m@512m
+LOCAL_DEVICE_KERNEL_CMDLINE      += vmalloc=320m
+LOCAL_DEVICE_KERNEL_CMDLINE      += ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
@@ -56,9 +58,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.v3d.disable_buffer_age=true \
    \
    ro.nx.heap.video_secure=28m \
-   ro.nx.heap.main=35m \
+   ro.nx.heap.main=128m \
    ro.nx.heap.drv_managed=0m \
-   ro.nx.heap.gfx=177m \
+   ro.nx.heap.gfx=0m \
+   ro.nx.heap.grow=2m \
+   ro.nx.heap.shrink=2m \
    \
    ro.nx.capable.cb=1 \
    ro.nx.capable.bg=1 \
