@@ -82,3 +82,5 @@ export HW_HVD_REVISION           := S
 # v3d mmu available.
 export HW_GPU_MMU_SUPPORT        := y
 
+# Netflix support
+export LOCAL_DEVICE_NRDP_MODEL_GROUP := ELFIN

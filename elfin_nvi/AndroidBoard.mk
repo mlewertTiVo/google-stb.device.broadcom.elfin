@@ -3,10 +3,10 @@ LOCAL_PATH := $(my-dir)
 include $(LOCAL_PATH)/AndroidKernel.mk
 include $(LOCAL_PATH)/AndroidPhony.mk
 
-$(call add-radio-file, bootloader.dev.img)
-$(call add-radio-file, bootloader.prod.img)
+INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/bootloader.prod.img
 
 ifneq ($(BCM_DIST_BLIMG_BINS),y)
-$(call add-radio-file, gpt.bin)
+INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/gpt.bin
+INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/bootloader.dev.img
 endif
 
