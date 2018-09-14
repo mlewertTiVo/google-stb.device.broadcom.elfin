@@ -1,4 +1,6 @@
+ifndef LOCAL_PRODUCT_OUT
 export LOCAL_PRODUCT_OUT       := elfink64
+endif
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
 # Enable ARM streamline support

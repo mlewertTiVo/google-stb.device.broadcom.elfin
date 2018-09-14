@@ -1,4 +1,6 @@
+ifndef LOCAL_PRODUCT_OUT
 export LOCAL_PRODUCT_OUT         := elfin_mini
+endif
 export LOCAL_DEVICE_FULL_TREBLE  := y
 export LOCAL_DEVICE_LOWRAM       := y
 
