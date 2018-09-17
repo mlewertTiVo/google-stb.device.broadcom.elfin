@@ -64,7 +64,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=0m \
    ro.nx.heap.grow=2m \
-   ro.nx.heap.shrink=2m \
+   ro.nx.act.gs=0 \
    \
    ro.nx.capable.cb=1 \
    ro.nx.capable.bg=1 \
