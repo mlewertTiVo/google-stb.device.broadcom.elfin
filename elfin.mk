@@ -1,4 +1,6 @@
+ifndef LOCAL_PRODUCT_OUT
 export LOCAL_PRODUCT_OUT         := elfin
+endif
 export LOCAL_DEVICE_FULL_TREBLE  := y
 
 ifeq ($(LOCAL_DEVICE_FORCED_NAB),y)
