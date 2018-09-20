@@ -52,8 +52,6 @@ export LOCAL_DEVICE_KEY_POLL     := device/broadcom/common/keylayout/gpio_keys_p
 export LOCAL_DEVICE_BT_CONFIG    := device/broadcom/elfin/bluetooth/vnd_elfin.txt
 ifneq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
 export LOCAL_DEVICE_USERDATA     := 5368709120  # 5.0009GB.
-else
-export LOCAL_DEVICE_USERDATA     := 4294967296  # 4GB.
 endif
 ifeq (${LOCAL_ARM_AARCH64_COMPAT_32_BIT},y)
 export LOCAL_DEVICE_BOOT         := 67108864   # 64M
@@ -66,8 +64,6 @@ export ANDROID_ENABLE_BT         := usb
 export V3D_VARIANT               := vc5
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/elfin/reference_build.mk
 export LOCAL_DEVICE_USE_VERITY   := y
-export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION := /dev/block/platform/rdb/f0200200.sdhci/by-name/system
-export LOCAL_DEVICE_VENDOR_VERITY_PARTITION := /dev/block/platform/rdb/f0200200.sdhci/by-name/vendor
 
 # bootloader firmware manipulation.
 export LOCAL_DEVICE_SAGE_DEV_N_PROD ?= y
