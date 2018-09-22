@@ -4,6 +4,6 @@ export LOCAL_CFG_PROFILE       := ms12d
 include device/broadcom/elfin/elfin.mk
 
 PRODUCT_NAME                   := elfin_ms12d
-PRODUCT_MODEL                  := elfin
+PRODUCT_MODEL                  := elfin_ms12d
 PRODUCT_BRAND                  := google
 PRODUCT_DEVICE                 := elfin
