@@ -71,6 +71,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.capable.cb=1 \
    ro.nx.capable.bg=1 \
    ro.nx.hwc2.tweak.fbcomp=1 \
+   ro.nx.hwc2.tweak.fbs=2 \
    ro.sf.lcd_density=320 \
    \
    ro.nx.trim.4kdec=1 \
