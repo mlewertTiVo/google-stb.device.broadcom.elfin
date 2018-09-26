@@ -99,6 +99,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    pm.dexopt.shared=quicken \
    \
+   ro.nx.audio.pbk=2 \
    ro.nx.audio.pbkfifosz=48k
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin_hd
