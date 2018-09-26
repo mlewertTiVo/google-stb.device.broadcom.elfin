@@ -93,6 +93,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.lmk.upgrade_pressure=40 \
    ro.lmk.downgrade_pressure=60 \
    \
-   pm.dexopt.shared=quicken
+   pm.dexopt.shared=quicken \
+   \
+   ro.nx.audio.pbkfifosz=48k
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin_fhd
