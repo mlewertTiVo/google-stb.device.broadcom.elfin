@@ -20,10 +20,10 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1000m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=229m@766m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=144m@512m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=164m@798m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=200m@496m
 LOCAL_DEVICE_KERNEL_CMDLINE      += vmalloc=320m
-LOCAL_DEVICE_KERNEL_CMDLINE      += ignore_cma=1
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcmv3d.ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
@@ -50,25 +50,28 @@ PRODUCT_MODEL                    := elfin_fhd
 PRODUCT_BRAND                    := google
 PRODUCT_DEVICE                   := elfin_fhd
 
+PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
+PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK   := true
+
 # additional setup per device.
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.hardware=elfin_fhd \
    \
    ro.opengles.version=196609 \
-   debug.hwui.render_dirty_regions=false \
    ro.nx.mma=1 \
    ro.v3d.disable_buffer_age=true \
    \
    ro.nx.heap.video_secure=28m \
-   ro.nx.heap.main=128m \
+   ro.nx.heap.main=62m \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=0m \
-   ro.nx.heap.grow=2m \
-   ro.nx.heap.shrink=2m \
+   ro.nx.heap.grow=8m \
+   ro.nx.act.gs=0 \
    \
    ro.nx.capable.cb=1 \
    ro.nx.capable.bg=1 \
    ro.nx.hwc2.tweak.fbcomp=1 \
+   ro.nx.hwc2.tweak.fbs=2 \
    ro.sf.lcd_density=320 \
    \
    ro.nx.trim.4kdec=1 \
@@ -81,9 +84,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.com.google.clientidbase=android-elfin-tv \
    \
    ro.config.low_ram=true \
-   ro.lmk.medium=800 \
+   ro.lmk.low=800 \
+   ro.lmk.medium=600 \
+   ro.lmk.critical=-700 \
+   ro.lmk.kill_heaviest_task=true \
+   ro.lmk.kill_timeout_ms=0 \
    ro.lmk.critical_upgrade=true \
    ro.lmk.upgrade_pressure=40 \
-   ro.lmk.downgrade_pressure=60
+   ro.lmk.downgrade_pressure=60 \
+   \
+   pm.dexopt.shared=quicken
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin_fhd

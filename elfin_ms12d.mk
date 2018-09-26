@@ -4,5 +4,5 @@ include device/broadcom/elfin/elfin.mk
 
 PRODUCT_NAME                   := elfin_ms12d
 PRODUCT_MODEL                  := elfin
-PRODUCT_BRAND                  := broadcom
+PRODUCT_BRAND                  := google
 PRODUCT_DEVICE                 := elfin

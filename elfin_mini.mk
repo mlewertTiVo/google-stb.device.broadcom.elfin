@@ -52,7 +52,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.hardware=elfin_mini \
    \
    ro.opengles.version=196609 \
-   debug.hwui.render_dirty_regions=false \
    ro.nx.mma=1 \
    ro.v3d.disable_buffer_age=true \
    \
