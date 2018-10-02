@@ -1,7 +1,6 @@
 ifndef LOCAL_PRODUCT_OUT
 export LOCAL_PRODUCT_OUT         := elfin_hd
 endif
-export LOCAL_DEVICE_FULL_TREBLE  := y
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.elfin_hd
@@ -99,6 +98,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    pm.dexopt.shared=quicken \
    \
+   ro.nx.audio.pbk=2 \
    ro.nx.audio.pbkfifosz=48k
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin_hd
