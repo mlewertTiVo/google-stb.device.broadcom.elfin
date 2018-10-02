@@ -27,7 +27,11 @@ LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2000m@0m mem=40m@2008m
 ifeq ($(BDSP_MS12_SUPPORT),D)
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=548m@398m
 else
+ifeq ($(BDSP_MS11_SUPPORT),y)
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=548m@398m
+else
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=532m@414m
+endif
 endif
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D000000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
@@ -79,8 +83,21 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.main=112m \
    ro.nx.dolby.ms=12
 else
+ifeq ($(BDSP_MS11_SUPPORT),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=112m \
+   ro.nx.dolby.ms=11 \
+   ro.nx.audio_loudness=ebu
+else
+ifeq ($(BDSP_MS10_SUPPORT),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=96m \
+   ro.nx.dolby.ms=10
+else
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.main=96m
+endif
+endif
 endif
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin
