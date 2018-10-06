@@ -18,10 +18,9 @@ LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc:root/init.recovery.block.rc # block devices
 
 # kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1000m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=164m@798m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=200m@496m
-LOCAL_DEVICE_KERNEL_CMDLINE      += vmalloc=320m
+LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1024m@0m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=165m@859m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=200m@659m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcmv3d.ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
@@ -40,6 +39,9 @@ export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay_hd
 
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk
+
+# allow m2mc access to kernel memory.
+export BMRC_ALLOW_GFX_TO_ACCESS_KERNEL := y
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
