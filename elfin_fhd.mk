@@ -37,11 +37,13 @@ export LOCAL_DEVICE_DALVIK_CONFIG
 export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay_hd
 
+export HW_CAMERA_SUPPORT         := n
+
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk
 
 # allow m2mc access to kernel memory.
-export BMRC_ALLOW_GFX_TO_ACCESS_KERNEL := y
+# export BMRC_ALLOW_GFX_TO_ACCESS_KERNEL := y
 
 # baseline the common support.
 $(call inherit-product, device/broadcom/common/bcm.mk)
