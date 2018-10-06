@@ -19,8 +19,8 @@ LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block-zram.rc
 
 # kernel command line.
 LOCAL_DEVICE_KERNEL_CMDLINE      := mem=1024m@0m
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=165m@859m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=200m@659m
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=165m@829m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=200m@629m
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcmv3d.ignore_cma=1
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
