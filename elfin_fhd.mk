@@ -82,6 +82,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.trim.10bcol=1 \
    ro.nx.trim.d0hd=1 \
    ro.nx.trim.deint=1 \
+   ro.nx.trim.disp.cap=1 \
    \
    ro.nx.eth.irq_mode_mask=3:2 \
    \
@@ -100,6 +101,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    pm.dexopt.shared=quicken \
    \
    ro.nx.audio.pbk=2 \
-   ro.nx.audio.pbkfifosz=48k
+   ro.nx.audio.pbkfifosz=48k \
+   ro.nx.audio.pcm=1 \
+   ro.nx.trpt.pband=1 \
+   ro.nx.trpt.ppump=2
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin_fhd
