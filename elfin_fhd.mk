@@ -72,7 +72,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.v3d.disable_buffer_age=true \
    \
    ro.nx.heap.video_secure=28m \
-   ro.nx.heap.main=62m \
+   ro.nx.heap.main=188m \
    ro.nx.heap.drv_managed=0m \
    ro.nx.heap.gfx=0m \
    \
