@@ -44,8 +44,6 @@ export LOCAL_DEVICE_DALVIK_CONFIG
 export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay_hd
 
-export HW_CAMERA_SUPPORT         := n
-
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk
 
