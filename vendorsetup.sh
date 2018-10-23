@@ -34,3 +34,6 @@ add_lunch_combo elfink64-user
 
 add_lunch_combo elfin_msd-userdebug
 add_lunch_combo elfin_msd-user
+
+add_lunch_combo elfin_dd-userdebug
+add_lunch_combo elfin_dd-user

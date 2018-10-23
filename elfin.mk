@@ -30,7 +30,11 @@ else
 ifeq ($(BDSP_MS11_SUPPORT),y)
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=548m@398m
 else
+ifeq ($(HW_HVD_REDUX),y)
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=536m@410m
+else
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=532m@414m
+endif
 endif
 endif
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
@@ -39,7 +43,11 @@ LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
 # compile the media codecs for the device.
+ifeq ($(HW_HVD_REDUX),y)
+LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_with_pip__no_legacy_enc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+else
 LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_no_legacy_enc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+endif
 LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA

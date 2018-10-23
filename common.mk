@@ -59,6 +59,10 @@ export V3D_VARIANT               := vc5
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/elfin/reference_build.mk
 export LOCAL_DEVICE_USE_VERITY   := y
 
+ifeq ($(HW_HVD_REDUX),y)
+export LOCAL_DEVICE_RTS_MODE     := 4
+endif
+
 # bootloader firmware manipulation.
 export LOCAL_DEVICE_SAGE_DEV_N_PROD ?= y
 export BOLT_IMG_SWAP_BBL            := device/broadcom/elfin/blb/zb/bbl-3.1.1-zb.bin
