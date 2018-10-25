@@ -87,7 +87,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.nx.eth.irq_mode_mask=3:2 \
    \
-   ro.com.google.clientidbase=android-elfin-tv
+   ro.com.google.clientidbase=android-elfin-tv \
+   \
+   ro.nx.media.vdec.fsm1080p=1
 
 ifeq ($(BDSP_MS12_SUPPORT),D)
 PRODUCT_PROPERTY_OVERRIDES += \
