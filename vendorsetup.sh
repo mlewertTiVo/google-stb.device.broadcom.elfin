@@ -40,3 +40,6 @@ add_lunch_combo elfin_dd-user
 
 add_lunch_combo elfin_dd_ms12d-userdebug
 add_lunch_combo elfin_dd_ms12d-user
+
+add_lunch_combo elfin_vmx-userdebug
+add_lunch_combo elfin_vmx-user
