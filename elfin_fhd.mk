@@ -2,6 +2,7 @@ ifndef LOCAL_PRODUCT_OUT
 export LOCAL_PRODUCT_OUT         := elfin_fhd
 endif
 export LOCAL_DEVICE_LOWRAM       := y
+export TARGET_SAGE_PLATFORM      := elfin
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.elfin_fhd
