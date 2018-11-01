@@ -89,8 +89,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.com.google.clientidbase=android-elfin-tv \
    \
-   ro.nx.media.vdec.fsm1080p=1 \
-   ro.nx.trim.deint=1
+   ro.nx.media.vdec.fsm1080p=1
 
 ifeq ($(BDSP_MS12_SUPPORT),D)
 PRODUCT_PROPERTY_OVERRIDES += \
