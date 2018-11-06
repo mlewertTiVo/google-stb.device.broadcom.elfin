@@ -58,6 +58,11 @@ export ANDROID_ENABLE_BT         := usb
 export V3D_VARIANT               := vc5
 export LOCAL_DEVICE_REFERENCE_BUILD := device/broadcom/elfin/reference_build.mk
 export LOCAL_DEVICE_USE_VERITY   := y
+export LOCAL_DEVICE_KMCERT_CUSTOM := device/broadcom/common/kmgk/km.zb.cus.generic.bin
+
+ifeq ($(HW_HVD_REDUX),y)
+export LOCAL_DEVICE_RTS_MODE     := 4
+endif
 
 # bootloader firmware manipulation.
 export LOCAL_DEVICE_SAGE_DEV_N_PROD ?= y

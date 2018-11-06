@@ -2,6 +2,7 @@ ifndef LOCAL_PRODUCT_OUT
 export LOCAL_PRODUCT_OUT         := elfin_fhd
 endif
 export LOCAL_DEVICE_LOWRAM       := y
+export TARGET_SAGE_PLATFORM      := elfin
 
 LOCAL_DEVICE_FSTAB               := device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.bcm
 LOCAL_DEVICE_FSTAB               += device/broadcom/elfin/fstab/fstab.verity.ab-update.early.zram:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.elfin_fhd
@@ -43,8 +44,6 @@ export LOCAL_DEVICE_DALVIK_CONFIG
 
 export HW_AB_UPDATE_SUPPORT      := y
 export LOCAL_DEVICE_OVERLAY      := device/broadcom/elfin/overlay_hd
-
-export HW_CAMERA_SUPPORT         := n
 
 # common to all elfin devices.
 include device/broadcom/elfin/common.mk

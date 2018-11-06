@@ -30,16 +30,27 @@ else
 ifeq ($(BDSP_MS11_SUPPORT),y)
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=548m@398m
 else
+ifeq ($(HW_HVD_REDUX),y)
+LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=640m@410m
+LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=512m@1050m
+else
 LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=532m@414m
 endif
 endif
+endif
+ifneq ($(HW_HVD_REDUX),y)
 LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
+endif
 LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D000000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
 LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
 export LOCAL_DEVICE_KERNEL_CMDLINE
 
 # compile the media codecs for the device.
+ifeq ($(HW_HVD_REDUX),y)
+LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_with_pip__no_legacy_enc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+else
 LOCAL_DEVICE_MEDIA               := device/broadcom/common/media/media_codecs_no_legacy_enc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+endif
 LOCAL_DEVICE_MEDIA               += device/broadcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 LOCAL_DEVICE_MEDIA               += device/broadcom/elfin/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 export LOCAL_DEVICE_MEDIA
@@ -94,8 +105,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.main=96m \
    ro.nx.dolby.ms=10
 else
+ifeq ($(HW_HVD_REDUX),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.heap.main=96m \
+   ro.nx.trim.pip=0
+else
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.main=96m
+endif
 endif
 endif
 endif
