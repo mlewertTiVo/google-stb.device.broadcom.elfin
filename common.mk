@@ -76,6 +76,3 @@ export LOCAL_DEVICE_PAK_BINARY_PROD  := pak.72604.zb.bin
 export HW_HVD_REVISION           := S
 # v3d mmu available.
 export HW_GPU_MMU_SUPPORT        := y
-
-# Netflix support
-export LOCAL_DEVICE_NRDP_MODEL_GROUP := ELFIN
