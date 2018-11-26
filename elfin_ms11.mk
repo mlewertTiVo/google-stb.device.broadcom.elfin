@@ -1,5 +1,6 @@
 # elfin variant with dolby ms11 support.
 export BDSP_MS11_SUPPORT       := y
+export LOCAL_CFG_PROFILE       := ms11
 include device/broadcom/elfin/elfin.mk
 
 PRODUCT_NAME                   := elfin_ms11
