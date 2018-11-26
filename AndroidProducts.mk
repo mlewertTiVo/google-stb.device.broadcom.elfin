@@ -13,3 +13,4 @@ PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_gmscore_next.mk
 PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_l10n.mk
 PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_msd.mk
 PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_dd.mk
+PRODUCT_MAKEFILES += $(LOCAL_DIR)/elfin_dd_ms12d.mk
