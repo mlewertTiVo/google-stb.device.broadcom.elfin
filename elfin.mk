@@ -1,6 +1,7 @@
 ifndef LOCAL_PRODUCT_OUT
 export LOCAL_PRODUCT_OUT         := elfin
 endif
+export LOCAL_CFG_PROFILE         ?= default
 
 ifeq ($(LOCAL_DEVICE_FORCED_NAB),y)
 export LOCAL_DEVICE_GPT          := device/broadcom/common/gpts/nab.o.conf
@@ -21,29 +22,6 @@ LOCAL_DEVICE_RCS                 += device/broadcom/elfin/rcs/init.block.rc:$(TA
 
 LOCAL_DEVICE_RECOVERY_RCS        := device/broadcom/common/rcs/init.recovery.rc:root/init.recovery.elfin.rc
 LOCAL_DEVICE_RECOVERY_RCS        += device/broadcom/elfin/rcs/init.block.rc:root/init.recovery.block.rc # block devices
-
-# kernel command line.
-LOCAL_DEVICE_KERNEL_CMDLINE      := mem=2000m@0m mem=40m@2008m
-ifeq ($(BDSP_MS12_SUPPORT),D)
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=548m@398m
-else
-ifeq ($(BDSP_MS11_SUPPORT),y)
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=548m@398m
-else
-ifeq ($(HW_HVD_REDUX),y)
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=640m@410m
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=512m@1050m
-else
-LOCAL_DEVICE_KERNEL_CMDLINE      += bmem=532m@414m
-endif
-endif
-endif
-ifneq ($(HW_HVD_REDUX),y)
-LOCAL_DEVICE_KERNEL_CMDLINE      += brcm_cma=574m@948m
-endif
-LOCAL_DEVICE_KERNEL_CMDLINE      += ramoops.mem_address=0x7D000000 ramoops.mem_size=0x800000 ramoops.console_size=0x400000
-LOCAL_DEVICE_KERNEL_CMDLINE      += rootwait init=/init ro
-export LOCAL_DEVICE_KERNEL_CMDLINE
 
 # compile the media codecs for the device.
 ifeq ($(HW_HVD_REDUX),y)
@@ -89,32 +67,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.com.google.clientidbase=android-elfin-tv
 
-ifeq ($(BDSP_MS12_SUPPORT),D)
-PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.heap.main=112m \
-   ro.nx.dolby.ms=12
-else
-ifeq ($(BDSP_MS11_SUPPORT),y)
-PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.heap.main=112m \
-   ro.nx.dolby.ms=11 \
-   ro.nx.audio_loudness=ebu
-else
-ifeq ($(BDSP_MS10_SUPPORT),y)
-PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.heap.main=96m \
-   ro.nx.dolby.ms=10
-else
-ifeq ($(HW_HVD_REDUX),y)
-PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.heap.main=96m \
-   ro.nx.trim.pip=0
-else
-PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.heap.main=96m
-endif
-endif
-endif
-endif
+# last but not least, include device flavor profile.
+include device/broadcom/elfin/profiles/${LOCAL_CFG_PROFILE}.mk
 
 TARGET_BOOTLOADER_BOARD_NAME  := elfin

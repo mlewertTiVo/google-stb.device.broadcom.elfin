@@ -1,5 +1,6 @@
 # elfin variant with dual decoder (main + pip)
-export HW_HVD_REDUX := y
+export LOCAL_CFG_PROFILE := dd
+export HW_HVD_REDUX      := y
 include device/broadcom/elfin/elfin.mk
 
 PRODUCT_NAME                   := elfin_dd
