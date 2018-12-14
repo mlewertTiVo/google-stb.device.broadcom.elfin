@@ -79,7 +79,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.heap.shrink=2m \
    ro.nx.heap.gfx=64m \
    \
-   ro.nx.hwc2.tweak.fbcomp=1 \
+   ro.nx.hwc2.tweak.fbcomp=0 \
    ro.nx.capable.cb=1 \
    ro.sf.lcd_density=320 \
    \

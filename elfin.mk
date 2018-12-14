@@ -60,7 +60,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.nx.capable.cb=1 \
    ro.nx.capable.bg=1 \
-   ro.nx.hwc2.tweak.fbcomp=1 \
+   ro.nx.hwc2.tweak.fbcomp=0 \
    ro.sf.lcd_density=320 \
    \
    ro.nx.eth.irq_mode_mask=3:2 \
