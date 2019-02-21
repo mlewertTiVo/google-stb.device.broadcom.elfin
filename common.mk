@@ -8,11 +8,12 @@ export BOLT_BOARD_VB             := BCM972604USFF
 
 # binary distribution
 export BCM_DIST_FORCED_BINDIST   := y
-export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
 ifeq ($(BDSP_MS12_SUPPORT),D)
-export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.9/elfin-ms12d
-export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.9-ms12d
+export BCM_BINDIST_BL_ROOT       := vendor/broadcom/dolby/bootloaders/elfin_ms12d
+export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/dolby/nximg/4.9/elfin_ms12d
+export BCM_BINDIST_KNL_ROOT      := vendor/broadcom/dolby/kernel/4.9/elfin_ms12d
 else
+export BCM_BINDIST_BL_ROOT       := vendor/broadcom/prebuilts/bootloaders/elfin
 export BCM_BINDIST_LIBS_ROOT     := vendor/broadcom/prebuilts/nximg/4.9/elfin
 export BCM_BINDIST_KNL_ROOT      := device/broadcom/elfin-kernel/4.9
 endif
